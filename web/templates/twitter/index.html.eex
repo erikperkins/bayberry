@@ -1,0 +1,120 @@
+<div class='jumbotron'>
+  <div class='container'>
+    <div class='row justify-content-center'>
+      <div class='col-xs-8 text-center'>
+        <h4 class='display-4'>
+          <a href='http://www.twitter.com' class='link-icon'>
+            <i id='twitter-bird' class='fa fa-twitter text-danger'></i>
+            <i id='twitter-no'></i>
+          </a>
+          Twitter Live Stream
+        </h4>
+      </div>
+    </div>
+    <div class='row justify-content-center'>
+      <p class='lead text-center'>
+        This is a live stream of tweets containing <strong>'taylor'</strong>.<br/>
+      </p>
+    </div>
+    <div class='row justify-content-center'>
+      <p class='text-center'>
+        <strong class='text-danger'><i class='fa fa-warning'></i> WARNING:</strong>
+        These tweets are <strong>NOT</strong> filtered.<br/>
+        Sometimes Twitter isn't nice <i class='fa fa-meh-o'></i>
+      </p>
+    </div>
+
+    <hr/>
+
+    <div class='row justify-content-center'>
+      <div class='col-xs-8 col-sm-6'>
+        <div class="card">
+          <div class="card-block">
+            <p class='card-text tweet'>
+              <span id='tweet-0' class='lead'>...</span>
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-block">
+            <p class='card-text tweet'>
+              <span id='tweet-1' class='lead'>...</span>
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-block">
+            <p class='card-text tweet'>
+              <span id='tweet-2' class='lead'>...</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='container'>
+  <div class='col-xs-8 offset-xs-2'>
+    <h4 class='display-4'>What am I looking at?</h4>
+    <p>
+      This is a live stream from <a href='http://www.twitter.com'>Twitter</a>.
+      It is a small sample of the total number of tweets. About 5,000
+      tweets are posted every second, which adds up to nearly 200 billion each
+      year. The stream here is further filtered by keyword - these tweets must
+      contain 'taylor'. This filter was chosen to ensure a steady tweet stream,
+      since people frequently like to tweet about Taylor Swift.
+    </p>
+
+    <h4 class='display-4'>What is it good for?</h4>
+    <p>
+      The Web is entering its third major paradigm.
+      <a href='https://www.techopedia.com/definition/27960/web-10'>Web 1.0</a>
+      consisted of static
+      pages distributed via a simple request-response protocol.
+      <a href='https://en.wikipedia.org/wiki/Web_2.0'>Web 2.0</a> technology,
+      exemplified by Ruby on Rails, is focused on dynamic content, though still
+      distributed primarily by round-trip calls from a browser to a server.
+      The nascent version
+      <a href='http://www.uxbooth.com/articles/web-2-0-web-3-0-and-the-internet-of-things/'>3.0</a>
+      of the Web is characterized by real-time streaming dynamic data. In this
+      streaming paradigm, data is not periodically requested by the user,
+      but <em>pushed</em> to the user, via technologies like websockets. This
+      paradigm is well-suited for the
+      <a href='https://en.wikipedia.org/wiki/Internet_of_things'>Internet of Things</a>,
+      where data must be transferred rapidly between many connected devices,
+      not just a server and browser.
+    </p>
+
+    <h4 class='display-4'>What is it made with?</h4>
+    <p>
+      This component of the site has been split off from the main Rails
+      application, and is instead supported by a Phoenix application, written
+      in Elixir. This is a new language which runs on the BEAM virtual machine.
+      BEAM was originally developed in order to run telephone network switches,
+      and is famous for its extremely high reliability.
+      Elixir is distinct from Ruby in that processes, not objects, are first-class
+      citizens, which makes concurrency much easier to implement. Indeed, there
+      are no objects at all in Elixir, since it is a functional language. The
+      Phoenix framework itself takes a connection-oriented approach, which
+      enables easy streaming two-way communication between devices. Phoenix has
+      <em>very</em> rapid response times to web requests - on the order of
+      microseconds - and can handle an enormous number of connections at once.
+    </p>
+
+    <h4 class='display-4'>How does it work?</h4>
+    <p>
+      The data displayed here is consumed from the Twitter streaming
+      <a href='https://dev.twitter.com/streaming/overview'>API</a>
+      by an Elixir worker process. The stream is partitioned into individual
+      tweets, which are encoded as JSON and passed into RabbitMQ. Another
+      Elixir process retrieves the tweets from the message queue and broadcasts
+      them over a websocket channel. On the client side, a bit of JavaScript
+      connects to the websocket, subscribes to the channel, and updates the
+      page as the tweets are streamed to the browser. Similar to the handwritten
+      digit recognition page, the Twitter bird icon turns red if the websocket
+      is not connected.
+    </p>
+
+  </div>
+</div>

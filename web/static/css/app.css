@@ -1,1 +1,9 @@
 /* This file is for your main application css. */
+.tweet {
+  height: 10em;
+  overflow: hidden;
+}
+
+.link-icon:hover {
+  text-decoration: none;
+}

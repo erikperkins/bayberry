@@ -14,6 +14,9 @@ defmodule PhoenixApp do
       supervisor(PhoenixApp.Endpoint, []),
       # Start your own worker by calling: PhoenixApp.Worker.start_link(arg1, arg2, arg3)
       # worker(PhoenixApp.Worker, [arg1, arg2, arg3]),
+      worker(Redix, [[host: "redis", port: 6379, database: 3], [name: :redix]]),
+      worker(PhoenixApp.TwitterPipe, []),
+      worker(PhoenixApp.RedisRabbitPipe, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
