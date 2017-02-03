@@ -54,9 +54,32 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("room:lobby", {})
+
+channel.on("tweet", payload => {
+  let id = Math.floor(Math.random() * 3)
+
+  let newline = /\n|\r/g
+  let url = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/ig
+  let hashtag = /(#[A-Za-z0-9]+)/g
+  let atmention = /(@[A-Za-z0-9]+)/g
+
+  let tweet = payload.body
+    .replace(newline, "\n")
+    .replace(url, "<a href='$1' target='_blank'>$1</a>")
+    .replace(hashtag, "<strong class='text-primary'>$1</strong>")
+    .replace(atmention, "<strong class='text-secondary'>$1</strong>")
+
+  $('#tweet-' + id).fadeOut(100, function() {
+    $(this).html(tweet).fadeIn(100)
+  })
+})
+
 channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+  .receive("ok", resp => {
+    $('#twitter-bird').attr('class', 'fa fa-twitter text-primary')
+  }).receive("error", resp => {
+    $('#twitter-bird').attr('class', 'fa fa-twitter text-danger')
+  })
 
 export default socket

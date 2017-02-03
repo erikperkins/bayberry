@@ -19,7 +19,7 @@ defmodule PhoenixApp.Mixfile do
   def application do
     [mod: {PhoenixApp, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :extwitter, :amqp, :redix, :redix_pubsub]]
   end
 
   # Specifies which paths to compile per environment.
@@ -30,14 +30,24 @@ defmodule PhoenixApp.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.2.1"},
-     {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.6"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"}]
+    [
+      {:phoenix, "~> 1.2.1"},
+      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix_ecto, "~> 3.0"},
+      {:postgrex, ">= 0.0.0"},
+      {:phoenix_html, "~> 2.6"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:gettext, "~> 0.11"},
+      {:cowboy, "~> 1.0"},
+      {:extwitter, "~> 0.8"},
+      {:amqp_client, github: "jbrisbin/amqp_client", override: true},
+      {:rabbit_common, github: "jbrisbin/rabbit_common", override: true},
+      {:amqp, "~> 0.1.5"},
+      {:redix, "~> 0.5.1"},
+      {:redix_pubsub, "~> 0.2.0"},
+      {:poison, "~> 3.1.0", override: true},
+      {:timex, "~> 3.0"}
+   ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
