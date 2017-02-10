@@ -1,0 +1,40 @@
+# Uploaded by Ansible
+
+version: '2'
+
+services:
+
+  phoenix:
+    image: erikperkins/phoenix_app
+    entrypoint: /phoenix_app/docker-entrypoint.sh
+    environment:
+      MIX_ENV: prod
+      PORT: 80
+      TWITTER_CONSUMER_KEY: ${TWITTER_CONSUMER_KEY}
+      TWITTER_CONSUMER_SECRET: ${TWITTER_CONSUMER_SECRET}
+      TWITTER_ACCESS_TOKEN: ${TWITTER_ACCESS_TOKEN}
+      TWITTER_ACCESS_SECRET: ${TWITTER_ACCESS_SECRET}
+      REDIS_HOST: 52.37.63.163
+      RABBITMQ_HOST: 52.37.63.163
+    command: mix phoenix.server
+    expose:
+      - 80
+    ports:
+      - 80:80
+    links:
+      - postgres
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:9.5.5
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+      - ./fixtures.sql:/docker-entrypoint-initdb.d/fixtures.sql
+    expose:
+      - 5432
+
+volumes:
+
+  postgres:
+    driver: local
