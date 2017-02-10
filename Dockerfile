@@ -22,6 +22,6 @@ RUN mix local.hex --force
 RUN mix local.rebar --force
 RUN mix deps.get
 
-#RUN mix deps.compile
-#RUN mix compile
+RUN mix deps.compile
+RUN mix compile
 #RUN mix phoenix.digest
