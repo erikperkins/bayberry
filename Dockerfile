@@ -20,8 +20,8 @@ RUN $PHOENIX_HOME/node_modules/brunch/bin/brunch build --production
 
 RUN mix local.hex --force
 RUN mix local.rebar --force
-RUN mix deps.get --only prod
+RUN mix deps.get
 
-#RUN mix deps.compile
-#RUN mix compile
+RUN mix deps.compile
+RUN mix compile
 #RUN mix phoenix.digest

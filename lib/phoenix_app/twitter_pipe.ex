@@ -11,7 +11,8 @@ defmodule PhoenixApp.TwitterPipe do
   end
 
   def handle_info(:work, state) do
-    { :ok, connection } = AMQP.Connection.open "amqp://guest:guest@rabbitmq"
+    rabbitmq = System.get_env("RABBITMQ_HOST")
+    { :ok, connection } = AMQP.Connection.open "amqp://guest:guest@#{rabbitmq}"
     { :ok, channel } = AMQP.Channel.open connection
 
     AMQP.Queue.declare channel, "data"

@@ -1,6 +1,6 @@
 #!/bin/bash
-mix deps.compile
-mix compile
+#mix deps.compile
+#mix compile
 mix phoenix.digest
 
 mix ecto.create
