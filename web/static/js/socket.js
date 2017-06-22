@@ -4,6 +4,7 @@
 // To use Phoenix channels, the first step is to import Socket
 // and connect at the socket path in "lib/my_app/endpoint.ex":
 import {Socket} from "phoenix"
+import {timeSeries} from "./timeseries"
 
 let socket = new Socket("/socket", {params: {token: window.userToken}})
 
@@ -55,9 +56,12 @@ socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
 let channel = socket.channel("room:lobby", {})
+let id = 0
+
+if (window.location.pathname == '/twitter') timeSeries();
 
 channel.on("tweet", payload => {
-  let id = Math.floor(Math.random() * 3)
+  if (id == 0) timeSeries();
 
   let newline = /\n|\r/g
   let url = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/ig
@@ -73,6 +77,7 @@ channel.on("tweet", payload => {
   $('#tweet-' + id).fadeOut(100, function() {
     $(this).html(tweet).fadeIn(100)
   })
+  id = (id + 1) % 4
 })
 
 channel.join()

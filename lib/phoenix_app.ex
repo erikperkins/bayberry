@@ -21,7 +21,7 @@ defmodule PhoenixApp do
           [name: :redix]
         ]
       ),
-      worker(PhoenixApp.TwitterPipe, []),
+      worker(PhoenixApp.TwitterPipe, [], restart: :permanent),
       worker(PhoenixApp.RedisRabbitPipe, [])
     ]
 

@@ -7,3 +7,22 @@
 .link-icon:hover {
   text-decoration: none;
 }
+
+.proviso {
+  background-color: #2D3237;
+  color: white;
+  border-radius: 4px;
+}
+
+.timeseries {
+  stroke-width: 2;
+  fill: none;
+}
+
+.observed {
+  stroke: steelblue;
+}
+
+.predicted {
+  stroke: firebrick;
+}

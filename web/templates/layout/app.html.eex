@@ -13,8 +13,14 @@
 
   <body>
     <nav class='navbar navbar-light bg-faded'>
-      <div class='container'>
+      <div class='container d-flex justify-content-between align-items-center'>
         <a href='http://whirlwh.im' class='navbar-brand'>whirlwh.im</a>
+        <span class='navbar-text'>
+          <a href='http://github.com/erikperkins/phoenix_app'
+            class='lead text-default navbar-brand' target='_blank'>
+            <i class='fa fa-github fa-2x'></i>
+          </a>
+        </span>
       </div>
     </nav>
     <p class="alert alert-info" role="alert" hidden><%= get_flash(@conn, :info) %></p>

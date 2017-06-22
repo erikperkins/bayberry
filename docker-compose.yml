@@ -30,7 +30,7 @@ services:
     image: postgres:9.5.5
     volumes:
       - postgres:/var/lib/postgresql/data/
-      - ./fixtures.sql:/docker-entrypoint-initdb.d/fixtures.sql
+      - ../postgres/fixtures.sql:/docker-entrypoint-initdb.d/fixtures.sql
     expose:
       - 5432
 

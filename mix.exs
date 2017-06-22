@@ -46,8 +46,9 @@ defmodule PhoenixApp.Mixfile do
       {:redix, "~> 0.5.1"},
       {:redix_pubsub, "~> 0.2.0"},
       {:poison, "~> 3.1.0", override: true},
-      {:timex, "~> 3.0"}
-   ]
+      {:timex, "~> 3.0"},
+      {:cors_plug, "~> 1.2"}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

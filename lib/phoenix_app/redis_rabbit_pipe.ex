@@ -1,5 +1,8 @@
 defmodule PhoenixApp.RedisRabbitPipe do
   use GenServer
+  use Timex
+
+  @twitter_format "%a %b %d %H:%M:%S %z %Y"
 
   def start_link do
     GenServer.start_link(__MODULE__, %{})
@@ -24,8 +27,8 @@ defmodule PhoenixApp.RedisRabbitPipe do
     rabbitmq = System.get_env("RABBITMQ_HOST")
     { :ok, connection } = AMQP.Connection.open "amqp://guest:guest@#{rabbitmq}"
     { :ok, channel } = AMQP.Channel.open connection
-    AMQP.Queue.declare channel, "data"
-    AMQP.Basic.consume channel, "data", nil, no_ack: true
+    AMQP.Queue.declare channel, "tweets"
+    AMQP.Basic.consume channel, "tweets", nil, no_ack: true
 
     # { :ok, connection } = Redix.start_link "redis://redis:6379/3", :pipe
     # Redis.stop connection
@@ -35,24 +38,31 @@ defmodule PhoenixApp.RedisRabbitPipe do
   def wait_for_messages do
     receive do
       { :basic_deliver, payload, _meta } ->
-        { :ok, message } = Poison.decode payload
-        { :ok, minute } = nearest_minute message["created_at"]
-        { :ok, _ } = Redix.command :redix, ~w(hincrby #{minute} #{message["lang"]} 1)
-        { :ok, _ } = Redix.command :redix, ~w(expire #{minute} 86400)
+        { :ok, tweet } = Poison.decode payload
+
+        count_tweet tweet
 
         PhoenixApp.Endpoint.broadcast! "room:lobby", "tweet",
-          %{ body: message["text"] }
+          %{ body: tweet["text"] }
 
         wait_for_messages()
     end
   end
 
-  def nearest_minute timestamp do
-    twitter_format = "%a %b %d %H:%M:%S %z %Y"
-    { :ok, time } = Timex.parse timestamp, twitter_format, :strftime
-    time = %{ time | second: 0 }
-    redis_format = "%Y-%m-%dT%H:%M:%S%z"
-    Timex.format time, redis_format, :strftime
-  end
+  def count_tweet tweet do
+    { :ok, time } = Timex.parse tweet["created_at"], @twitter_format, :strftime
 
+    day = %{ time | hour: 0, minute: 0, second: 0 }
+    minute = %{ time | second: 0 }
+
+    hash = "#{tweet["lang"]}:#{Timex.to_unix day}"
+    key = Timex.to_unix minute
+
+    { :ok, reply } = Redix.command :redix, ~w(hincrby #{hash} #{key} 1)
+
+    if reply == 1 do
+      expiry = Timex.to_unix(day) + (30 * 24 * 60 * 60)
+      { :ok, _ } = Redix.command :redix, ~w(expireat #{hash} #{expiry})
+    end
+  end
 end
