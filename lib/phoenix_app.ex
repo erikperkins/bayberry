@@ -9,7 +9,7 @@ defmodule PhoenixApp do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
-      supervisor(PhoenixApp.Repo, []),
+      # supervisor(PhoenixApp.Repo, []),
       # Start the endpoint when the application starts
       supervisor(PhoenixApp.Endpoint, []),
       # Start your own worker by calling: PhoenixApp.Worker.start_link(arg1, arg2, arg3)

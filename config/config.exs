@@ -7,7 +7,9 @@ use Mix.Config
 
 # General application configuration
 config :phoenix_app,
-  ecto_repos: [PhoenixApp.Repo]
+  ecto_repos: []
+# ecto_repos: [PhoenixApp.Repo]
+
 
 # Configures the endpoint
 config :phoenix_app, PhoenixApp.Endpoint,
