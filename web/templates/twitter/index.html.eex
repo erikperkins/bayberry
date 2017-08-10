@@ -13,13 +13,35 @@
     </div>
     <div class='row justify-content-center'>
       <p class='lead text-center'>
-        This is a live stream of tweets containing <strong>'taylor'</strong>.<br/>
+        This is a live stream of tweets related to
+        <strong>@cnn</strong>, <br/>
+        which generates a lot of Twitter activity.
+      </p>
+    </div>
+
+    <hr/>
+
+    <div class='row justify-content-center'>
+      <svg id='tweets' width="480" height="270"></svg>
+    </div>
+
+    <hr/>
+
+    <div class='row justify-content-center'>
+      <p class='text-center col-sm-6 proviso'>
+        <strong class='text-warning'>
+          <i class='fa fa-balance-scale'></i>
+          DISCLAIMER:
+        </strong>
+        Opinions expressed in any tweets shown here
+        belong solely to their authors.
+        They do not represent mine. I don't even tweet.
       </p>
     </div>
     <div class='row justify-content-center'>
-      <p class='text-center'>
+      <p class='text-center col-sm-6 proviso'>
         <strong class='text-danger'><i class='fa fa-warning'></i> WARNING:</strong>
-        These tweets are <strong>NOT</strong> filtered.<br/>
+        These tweets are <strong>NOT</strong> filtered.
         Sometimes Twitter isn't nice <i class='fa fa-meh-o'></i>
       </p>
     </div>
@@ -27,6 +49,7 @@
     <hr/>
 
     <div class='row justify-content-center'>
+
       <div class='col-xs-8 col-sm-6'>
         <div class="card">
           <div class="card-block">
@@ -42,6 +65,9 @@
             </p>
           </div>
         </div>
+      </div>
+
+      <div class='col-xs-8 col-sm-6'>
         <div class="card">
           <div class="card-block">
             <p class='card-text tweet'>
@@ -49,10 +75,19 @@
             </p>
           </div>
         </div>
+        <div class="card">
+          <div class="card-block">
+            <p class='card-text tweet'>
+              <span id='tweet-3' class='lead'>...</span>
+            </p>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>
+
 
 <div class='container'>
   <div class='col-xs-8 offset-xs-2'>
@@ -61,9 +96,13 @@
       This is a live stream from <a href='http://www.twitter.com'>Twitter</a>.
       It is a small sample of the total number of tweets. About 5,000
       tweets are posted every second, which adds up to nearly 200 billion each
-      year. The stream here is further filtered by keyword - these tweets must
-      contain 'taylor'. This filter was chosen to ensure a steady tweet stream,
-      since people frequently like to tweet about Taylor Swift.
+      year. The stream here is further filtered by user, containing all tweets
+      from, in reply to, or retweeting a particular collection of users.
+      This particular filter was chosen solely to ensure a steady tweet stream.
+      A live forecast of the minutewise stream volume is shown above the tweets;
+      the dotted portions of the observed and forecast values indicate the
+      current minute. As more tweets come in, the current observed tweet volume
+      is updated.
     </p>
 
     <h4 class='display-4'>What is it good for?</h4>
@@ -89,17 +128,12 @@
     <h4 class='display-4'>What is it made with?</h4>
     <p>
       This component of the site has been split off from the main Rails
-      application, and is instead supported by a Phoenix application, written
-      in Elixir. This is a new language which runs on the BEAM virtual machine.
-      BEAM was originally developed in order to run telephone network switches,
-      and is famous for its extremely high reliability.
-      Elixir is distinct from Ruby in that processes, not objects, are first-class
-      citizens, which makes concurrency much easier to implement. Indeed, there
-      are no objects at all in Elixir, since it is a functional language. The
-      Phoenix framework itself takes a connection-oriented approach, which
-      enables easy streaming two-way communication between devices. Phoenix has
-      <em>very</em> rapid response times to web requests - on the order of
-      microseconds - and can handle an enormous number of connections at once.
+      application, and is instead supported by an application written in Elixir
+      using the Phoenix framework. The Elixir application consumes a stream
+      of tweets from Twitter, and shunts them into a RabbitMQ message queue for
+      distribution to other applications. A small application written in the
+      modern computational language Julia runs a forecast of the tweet volume
+      for the next upcoming minute.
     </p>
 
     <h4 class='display-4'>How does it work?</h4>
@@ -113,7 +147,12 @@
       connects to the websocket, subscribes to the channel, and updates the
       page as the tweets are streamed to the browser. Similar to the handwritten
       digit recognition page, the Twitter bird icon turns red if the websocket
-      is not connected.
+      is not connected. The Elixir worker also notifies a Redis transient data
+      store of each incoming tweet; Redis keeps a minute-by-minute tally of
+      recent tweets. As tweets are received over the websocket, an Ajax call is
+      made to the Julia application, which runs a time series forecast based
+      on exponential smoothing, and returns the forecast in JSON form, to be
+      plotted on the forecast chart by D3.js.
     </p>
 
   </div>

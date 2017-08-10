@@ -34,10 +34,10 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :phoenix_app, PhoenixApp.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "phoenix_app",
-  password: "phoenix_app",
-  database: "phoenix_app_dev",
-  hostname: "postgres",
-  pool_size: 10
+#config :phoenix_app, PhoenixApp.Repo,
+#  adapter: Ecto.Adapters.Postgres,
+#  username: "phoenix_app",
+#  password: "phoenix_app",
+#  database: "phoenix_app_dev",
+#  hostname: "postgres",
+#  pool_size: 10

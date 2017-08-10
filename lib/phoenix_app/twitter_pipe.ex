@@ -15,14 +15,17 @@ defmodule PhoenixApp.TwitterPipe do
     { :ok, connection } = AMQP.Connection.open "amqp://guest:guest@#{rabbitmq}"
     { :ok, channel } = AMQP.Channel.open connection
 
-    AMQP.Queue.declare channel, "data"
+    AMQP.Queue.declare channel, "tweets"
 
     pid = spawn(fn ->
-      stream = ExTwitter.stream_filter track: "taylor"
+      realDonaldTrump = "25073877"
+      nytimes = "807095"
+      cnn = "759251"
+      stream = ExTwitter.stream_filter [follow: cnn], :infinity
       for tweet <- stream do
         point = Poison.encode! Map.take(tweet, [:created_at, :text, :lang])
 
-        AMQP.Basic.publish channel, "", "data", point
+        AMQP.Basic.publish channel, "", "tweets", point
       end
     end)
 

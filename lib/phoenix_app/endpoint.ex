@@ -38,5 +38,8 @@ defmodule PhoenixApp.Endpoint do
     key: "_phoenix_app_key",
     signing_salt: "6mYPM5pS"
 
+  # Allow cross-origin resource sharing
+  plug CORSPlug
+
   plug PhoenixApp.Router
 end
