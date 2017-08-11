@@ -1,6 +1,11 @@
 #!/bin/bash
-# mix deps.compile
-# mix compile
+mix deps.get
+mix deps.compile
+mix compile
+
+npm install
+brunch build --production
+
 mix phoenix.digest
 
 mix ecto.create

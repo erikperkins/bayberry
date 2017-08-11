@@ -30,8 +30,6 @@ defmodule PhoenixApp.RedisRabbitPipe do
     AMQP.Queue.declare channel, "tweets"
     AMQP.Basic.consume channel, "tweets", nil, no_ack: true
 
-    # { :ok, connection } = Redix.start_link "redis://redis:6379/3", :pipe
-    # Redis.stop connection
     wait_for_messages()
   end
 

@@ -1,4 +1,4 @@
-FROM elixir:1.4.4
+FROM elixir:1.5.0
 
 RUN apt-get update -qq && apt-get install -y \
   build-essential libssl-dev curl
@@ -18,13 +18,3 @@ ADD . $PHOENIX_HOME
 
 RUN mix local.hex --force
 RUN mix local.rebar --force
-
-RUN $PHOENIX_HOME/node_modules/brunch/bin/brunch build --production
-
-# RUN npm install
-# RUN $PHOENIX_HOME/node_modules/brunch/bin/brunch build --production
-
-RUN mix deps.get
-RUN mix compile
-
-#RUN mix phoenix.digest
