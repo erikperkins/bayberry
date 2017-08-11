@@ -29,10 +29,6 @@ defmodule PhoenixApp.TwitterPipe do
       end
     end)
 
-    #:timer.sleep 5000
-    #ExTwitter.stream_control pid, :stop
-    #schedule_work()
-
     { :noreply, state }
   end
 

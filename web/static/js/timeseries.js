@@ -18,7 +18,10 @@ beginTime.setMinutes(endTime.getMinutes() - 30);
 time.domain([beginTime, endTime]);
 tweets.domain([0, 50]);
 
-var parse = d3.utcParse("%Y-%m-%dT%H:%M:%S");
+var parse = function(d) {
+  var date = new Date(parseInt(d) * 1000);
+  return date;
+};
 
 var predictedPath = svg.append("path")
   .attr("class", "timeseries predicted static")
@@ -96,21 +99,24 @@ svg.append("circle")
   .style("dominant-baseline", "middle")
 
 function timeSeries() {
-  d3.json('http://whirlwh.im/iron/tweets', function (error, json) {
+  //var url = 'http://localhost:3006/tweets'
+  var url = 'http://datapun.net/iron/';
+  d3.json(url, function (error, json) {
     if (!error) updateTimeSeries(json);
   });
 }
 
 function updateTimeSeries(json) {
+  let offset = 30;
   let
     [p1, p0, ...p] = d3.entries(json["predicted"])
-      .sort((a, b) => parse(a.key) - parse(b.key)).reverse(),
+      .sort((a, b) => parse(a.key) - parse(b.key)).reverse().slice(0, offset),
     predicted = [...p.reverse(), p0],
     predictedNow = [p0, p1];
 
   let
     [o1, o0, ...o] = d3.entries(json["observed"])
-      .sort((a, b) => parse(a.key) - parse(b.key)).reverse(),
+      .sort((a, b) => parse(a.key) - parse(b.key)).reverse().slice(0, offset),
     observed = [...o.reverse(), o0],
     observedNow = [o0, o1];
 
