@@ -100,7 +100,7 @@ svg.append("circle")
 
 function timeSeries() {
   //var url = 'http://localhost:3006/tweets'
-  var url = 'http://datapun.net/iron/';
+  var url = 'http://datapun.net/iron/tweets';
   d3.json(url, function (error, json) {
     if (!error) updateTimeSeries(json);
   });
