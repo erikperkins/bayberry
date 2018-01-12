@@ -19,14 +19,6 @@
       </p>
     </div>
 
-    <hr/>
-
-    <div class='row justify-content-center'>
-      <svg id='tweets' width="480" height="270"></svg>
-    </div>
-
-    <hr/>
-
     <div class='row justify-content-center'>
       <p class='text-center col-sm-6 proviso'>
         <strong class='text-warning'>
@@ -38,6 +30,15 @@
         They do not represent mine. I don't even tweet.
       </p>
     </div>
+
+    <hr/>
+
+    <div class='row justify-content-center'>
+      <svg id='tweets' width="480" height="270"></svg>
+    </div>
+
+    <hr/>
+
     <div class='row justify-content-center'>
       <p class='text-center col-sm-6 proviso'>
         <strong class='text-danger'><i class='fa fa-warning'></i> WARNING:</strong>
