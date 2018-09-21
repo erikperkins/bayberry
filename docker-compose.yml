@@ -2,7 +2,7 @@ version: '2'
 
 services:
   phoenix:
-    image: phoenix_test
+    image: erikperkins/phoenix_app
     environment:
       MIX_ENV: prod
       PHOENIX_SECRET_KEY_BASE: ${PHOENIX_SECRET_KEY_BASE}

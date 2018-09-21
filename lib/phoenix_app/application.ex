@@ -14,6 +14,15 @@ defmodule PhoenixApp.Application do
       supervisor(PhoenixAppWeb.Endpoint, []),
       # Start your own worker by calling: PhoenixApp.Worker.start_link(arg1, arg2, arg3)
       # worker(PhoenixApp.Worker, [arg1, arg2, arg3]),
+      worker(
+        Redix,
+        [
+          [host: System.get_env("REDIS_HOST"), port: 6379, database: 3],
+          [name: :redix]
+        ]
+      ),
+      worker(PhoenixApp.TwitterConsumer, [], restart: :permanent),
+      worker(PhoenixApp.TimeseriesProducer, [])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

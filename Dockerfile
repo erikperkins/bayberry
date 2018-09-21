@@ -21,12 +21,10 @@ RUN mix deps.compile
 
 WORKDIR $PHOENIX_HOME/assets
 RUN npm install
-RUN node node_modules/brunch/bin/brunch build --production
 
 WORKDIR $PHOENIX_HOME
 RUN mix compile
-RUN mix phx.digest
 
-RUN chmod 755 docker-entrypoint.sh
-ENTRYPOINT ["/phoenix_app/docker-entrypoint.sh"]
+RUN chmod 755 assets.sh
+ENTRYPOINT ["/phoenix_app/assets.sh"]
 CMD ["mix", "phx.server"]

@@ -38,6 +38,8 @@ defmodule PhoenixAppWeb.Endpoint do
     key: "_phoenix_app_key",
     signing_salt: "Zv1fe0gD"
 
+  plug CORSPlug
+
   plug PhoenixAppWeb.Router
 
   @doc """

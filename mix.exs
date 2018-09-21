@@ -41,13 +41,14 @@ defmodule Test.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      {:extwitter, "~> 0.9"},
       {:ranch_proxy_protocol, "~> 2.0", override: true},
       {:amqp, github: "pma/amqp", override: true},
       {:amqp_client, github: "jbrisbin/amqp_client", override: true},
       {:rabbit_common, github: "jbrisbin/rabbit_common", override: true},
       {:redix, "~> 0.6"},
       {:redix_pubsub, "~> 0.4"},
-      {:poison, "~> 3.0"}, # , override: true
+      {:poison, "~> 3.0"},
       {:timex, "~> 3.4"},
       {:cors_plug, "~> 1.5"}
     ]
