@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  phoenix:
+    image: erikperkins/phoenix_app
+    environment:
+      MIX_ENV: prod
+      PHOENIX_SECRET_KEY_BASE: ${PHOENIX_SECRET_KEY_BASE}
+      PHOENIX_USERNAME: ${PHOENIX_USERNAME}
+      PHOENIX_PASSWORD: ${PHOENIX_PASSWORD}
+      PHOENIX_DATABASE: ${PHOENIX_DATABASE}
+      TWITTER_CONSUMER_KEY: ${TWITTER_CONSUMER_KEY}
+      TWITTER_CONSUMER_SECRET: ${TWITTER_CONSUMER_SECRET}
+      TWITTER_ACCESS_TOKEN: ${TWITTER_ACCESS_TOKEN}
+      TWITTER_ACCESS_SECRET: ${TWITTER_ACCESS_SECRET}
+      REDIS_HOST: storage.datapun.net
+      RABBITMQ_HOST: storage.datapun.net
+    ports:
+      - 8080:80

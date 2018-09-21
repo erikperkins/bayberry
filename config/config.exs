@@ -7,15 +7,13 @@ use Mix.Config
 
 # General application configuration
 config :phoenix_app,
-  ecto_repos: []
-# ecto_repos: [PhoenixApp.Repo]
-
+  ecto_repos: [PhoenixApp.Repo]
 
 # Configures the endpoint
-config :phoenix_app, PhoenixApp.Endpoint,
+config :phoenix_app, PhoenixAppWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "zHIYXLKUG4u73qduQjpdz/ZXvEFu0lR3KmvbOQbJIY6+HWNG77uP0/XREVtjfHEA",
-  render_errors: [view: PhoenixApp.ErrorView, accepts: ~w(html json)],
+  secret_key_base: "848jxxJwuXulhXM078YPNoxL1QVyz2KrRI5sdByOkiEm5o8x05UEdqTWy9wHUqhT",
+  render_errors: [view: PhoenixAppWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: PhoenixApp.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
