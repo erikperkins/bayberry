@@ -18,8 +18,8 @@ defmodule PhoenixApp.TwitterConsumer do
     AMQP.Queue.declare channel, "tweets"
 
     pid = spawn(fn ->
-      cnn = "759251"
-      stream = ExTwitter.stream_filter [follow: cnn], :infinity
+      id = "25073877"
+      stream = ExTwitter.stream_filter [follow: id], :infinity
       for tweet <- stream do
         point = Poison.encode! Map.take(tweet, [:created_at, :text, :lang])
 
