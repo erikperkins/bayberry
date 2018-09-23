@@ -61,7 +61,7 @@ let id = 0
 if (window.location.pathname == '/twitter') timeSeries();
 
 channel.on("tweet", payload => {
-  if (id == 0) timeSeries();
+  timeSeries();
 
   let newline = /\n|\r/g
   let url = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/ig
