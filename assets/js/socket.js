@@ -60,6 +60,8 @@ let id = 0
 
 if (window.location.pathname == '/twitter') timeSeries();
 
+setInterval(function(){timeSeries()}, 500);
+
 channel.on("tweet", payload => {
   timeSeries();
 
