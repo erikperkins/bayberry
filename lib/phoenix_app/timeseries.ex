@@ -1,11 +1,11 @@
-defmodule PhoenixApp.TimeseriesProducer do
+defmodule PhoenixApp.Timeseries do
   use GenServer
   use Timex
 
   @twitter_format "%a %b %d %H:%M:%S %z %Y"
 
   def start_link do
-    GenServer.start_link(__MODULE__, %{})
+    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
   def init(state) do
@@ -34,6 +34,9 @@ defmodule PhoenixApp.TimeseriesProducer do
   end
 
   def wait_for_messages do
+    # This receive block should be refactored into the handle_info method.
+    # In the GenServer docs, it explains that the point of GenServer is to
+    # abstract away the need for explicit receive statements.
     receive do
       { :basic_deliver, payload, _meta } ->
         { :ok, tweet } = Poison.decode payload

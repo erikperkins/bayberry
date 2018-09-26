@@ -3,6 +3,7 @@ version: '2'
 services:
   phoenix:
     image: erikperkins/phoenix_app
+    restart: on-failure
     environment:
       MIX_ENV: prod
       PHOENIX_SECRET_KEY_BASE: ${PHOENIX_SECRET_KEY_BASE}
@@ -16,4 +17,4 @@ services:
       REDIS_HOST: storage.datapun.net
       RABBITMQ_HOST: storage.datapun.net
     ports:
-      - 8080:80
+      - 80:80

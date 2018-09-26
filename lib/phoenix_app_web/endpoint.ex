@@ -8,7 +8,7 @@ defmodule PhoenixAppWeb.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :phoenix_app, gzip: false,
+    at: "/", from: :phoenix_app, gzip: true,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -38,6 +38,7 @@ defmodule PhoenixAppWeb.Endpoint do
     key: "_phoenix_app_key",
     signing_salt: "Zv1fe0gD"
 
+  # Allow cross-origin resource sharing
   plug CORSPlug
 
   plug PhoenixAppWeb.Router
