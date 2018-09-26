@@ -18,6 +18,7 @@ defmodule PhoenixAppWeb.Router do
 
     get "/", PageController, :index
     get "/twitter", TwitterController, :index
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.
