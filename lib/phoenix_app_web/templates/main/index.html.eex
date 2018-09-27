@@ -2,4 +2,8 @@
   <div class='row justify-content-center'>
     <h2>Hello, Phoenix!</h2>
   </div>
+
+  <div>
+    <%= link "Twitter Stream", to: main_path(@conn, :twitter) %>
+  </div>
 </div>

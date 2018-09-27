@@ -17,7 +17,7 @@ defmodule PhoenixAppWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", MainController, :index
-    get "/twitter", TwitterController, :index
+    get "/twitter", MainController, :twitter
     resources "/users", UserController
     resources "/sessions", SessionController, only: [:new, :create, :delete],
       singleton: true
