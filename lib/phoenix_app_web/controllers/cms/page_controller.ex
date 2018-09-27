@@ -18,7 +18,7 @@ defmodule PhoenixAppWeb.CMS.PageController do
   end
 
   def create(conn, %{"page" => page_params}) do
-    case CMS.create_page(page_params) do
+    case CMS.create_page(conn.assigns.current_author, page_params) do
       {:ok, page} ->
         conn
         |> put_flash(:info, "Page created successfully.")
@@ -33,28 +33,24 @@ defmodule PhoenixAppWeb.CMS.PageController do
     render(conn, "show.html", page: page)
   end
 
-  def edit(conn, %{"id" => id}) do
-    page = CMS.get_page!(id)
-    changeset = CMS.change_page(page)
-    render(conn, "edit.html", page: page, changeset: changeset)
+  def edit(conn, _) do
+    changeset = CMS.change_page(conn.assigns.page)
+    render(conn, "edit.html", changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "page" => page_params}) do
-    page = CMS.get_page!(id)
-
-    case CMS.update_page(page, page_params) do
+  def update(conn, %{"page" => page_params}) do
+    case CMS.update_page(conn.assigns.page, page_params) do
       {:ok, page} ->
         conn
         |> put_flash(:info, "Page updated successfully.")
         |> redirect(to: cms_page_path(conn, :show, page))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", page: page, changeset: changeset)
+        render(conn, "edit.html", changeset: changeset)
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    page = CMS.get_page!(id)
-    {:ok, _page} = CMS.delete_page(page)
+  def delete(conn, _) do
+    {:ok, _page} = CMS.delete_page(conn.assigns.page)
 
     conn
     |> put_flash(:info, "Page deleted successfully.")
