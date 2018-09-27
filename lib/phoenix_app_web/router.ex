@@ -16,7 +16,7 @@ defmodule PhoenixAppWeb.Router do
   scope "/", PhoenixAppWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", MainController, :index
     get "/twitter", TwitterController, :index
     resources "/users", UserController
     resources "/sessions", SessionController, only: [:new, :create, :delete],

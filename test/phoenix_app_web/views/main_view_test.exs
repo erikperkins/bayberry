@@ -1,3 +1,3 @@
-defmodule PhoenixAppWeb.PageViewTest do
+defmodule PhoenixAppWeb.MainViewTest do
   use PhoenixAppWeb.ConnCase, async: true
 end

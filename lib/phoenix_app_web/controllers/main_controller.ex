@@ -1,4 +1,4 @@
-defmodule PhoenixAppWeb.PageController do
+defmodule PhoenixAppWeb.MainController do
   use PhoenixAppWeb, :controller
 
   def index(conn, _params) do

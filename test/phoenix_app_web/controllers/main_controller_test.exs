@@ -1,4 +1,4 @@
-defmodule PhoenixAppWeb.PageControllerTest do
+defmodule PhoenixAppWeb.MainControllerTest do
   use PhoenixAppWeb.ConnCase
 
   test "GET /", %{conn: conn} do
