@@ -23,6 +23,12 @@ defmodule PhoenixAppWeb.Router do
       singleton: true
   end
 
+  scope "/cms", PhoenixAppWeb.CMS, as: :cms do
+    pipe_through [:browser, :authenticate_user]
+
+    resources "/pages", PageController
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", PhoenixAppWeb do
   #   pipe_through :api
@@ -32,7 +38,7 @@ defmodule PhoenixAppWeb.Router do
       nil ->
         conn
         |> Phoenix.Controller.put_flash(:error, "Login required")
-        |> Phoenix.Controller.redirect(to: "/")
+        |> Phoenix.Controller.redirect(to: "/sessions/new")
         |> halt()
       user_id ->
         assign(conn, :current_user, PhoenixApp.Accounts.get_user!(user_id))
