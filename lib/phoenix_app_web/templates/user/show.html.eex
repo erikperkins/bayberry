@@ -1,4 +1,11 @@
-<h2>Show User</h2>
+<h3>
+  User
+  <span class="pull-right">
+    <%= link to: user_path(@conn, :edit, @user) do %>
+      <i class="fa fa-edit btn btn-default"></i>
+    <% end %>
+  </span>
+</h3>
 
 <ul>
 
@@ -12,7 +19,9 @@
     <%= @user.username %>
   </li>
 
-</ul>
+  <li>
+    <strong>Email:</strong>
+    <%= @user.credential.email %>
+  <li>
 
-<span><%= link "Edit", to: user_path(@conn, :edit, @user) %></span>
-<span><%= link "Back", to: user_path(@conn, :index) %></span>
+</ul>

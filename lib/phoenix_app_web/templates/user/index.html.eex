@@ -1,4 +1,11 @@
-<h2>Listing Users</h2>
+<h3>
+  Users
+  <span class="pull-right">
+    <%= link to: user_path(@conn, :new) do %>
+      <i class="fa fa-plus btn text-default"></i>
+    <% end %>
+  </span>
+</h3>
 
 <table class="table">
   <thead>
@@ -12,17 +19,23 @@
   <tbody>
 <%= for user <- @users do %>
     <tr>
-      <td><%= user.name %></td>
+      <td><%= link user.name, to: user_path(@conn, :show, user) %></td>
       <td><%= user.username %></td>
 
       <td class="text-right">
-        <span><%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span>
+          <%= link to: user_path(@conn, :edit, user) do %>
+            <i class="fa fa-edit btn text-default"></i>
+          <% end %>
+        </span>
+        <span>
+          <%= link to: user_path(@conn, :delete, user), method: :delete,
+            data: [confirm: "Are you sure?"] do %>
+            <i class="fa fa-trash btn text-danger"></i>
+          <% end %>
+        </span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
-
-<span><%= link "New User", to: user_path(@conn, :new) %></span>
