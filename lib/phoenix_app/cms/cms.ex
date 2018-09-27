@@ -111,6 +111,17 @@ defmodule PhoenixApp.CMS do
   end
 
   @doc """
+  Increments page views.
+  """
+  def increment_page_views(%Page{} = page) do
+    {1, [%Page{views: views}]} =
+      Repo.update_all from(p in Page, where: p.id == ^page.id),
+        [inc: [views: 1]], returning: [:views]
+
+    put_in(page.views, views)
+  end
+
+  @doc """
   Returns the list of authors.
 
   ## Examples
