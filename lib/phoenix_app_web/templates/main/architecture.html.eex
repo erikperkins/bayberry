@@ -15,7 +15,7 @@
     <hr/>
 
     <div class='text-center'>
-      <img src="<%= static_path(@conn, "/images/application.png") %>" width=480>
+      <img src="<%= static_path(@conn, "/images/application.png") %>" width=640>
     </div>
 
     <hr/>
@@ -64,7 +64,7 @@
           Postgres is a powerful open-source relational database management system.
           Adhering closest to the SQL standard of any of the database systems, it
           offers a wealth of data types and strong security measures. It is the
-          backend database for the main Ruby on Rails component of this site.
+          backend database for the main component of this site.
         </div>
       </div>
       <div class='media mt-3'>
@@ -132,10 +132,7 @@
         <div class='media-body'>
           <h5 class='lead'><%= link 'Redis', to: 'http://redis.io' %></h5>
           Redis is an in-memory key-value storage system, useful for rapidly
-          serving frequently-accessed data. The Rails application employs it in
-          three ways - caching transient data, session management, and as a
-          background job queue manager via
-          <%= link 'Resque', to: 'https://github.com/resque/resque' %>.
+          serving frequently-accessed data.
         </div>
       </div>
       <div class='media mt-3'>
