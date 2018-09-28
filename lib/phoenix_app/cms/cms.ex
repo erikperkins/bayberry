@@ -20,6 +20,7 @@ defmodule PhoenixApp.CMS do
   """
   def list_pages do
     Page
+    |> order_by(desc: :inserted_at)
     |> Repo.all()
     |> Repo.preload(author: [user: :credential])
   end

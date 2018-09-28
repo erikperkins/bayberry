@@ -25,6 +25,11 @@ defmodule PhoenixAppWeb.Router do
       singleton: true
   end
 
+  scope "/blog", PhoenixAppWeb, as: :blog do
+    pipe_through :browser
+    resources "/posts", PostController, only: [:index, :show]
+  end
+
   scope "/cms", PhoenixAppWeb.CMS, as: :cms do
     pipe_through [:browser, :authenticate_user]
 

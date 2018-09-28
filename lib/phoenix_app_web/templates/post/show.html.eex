@@ -1,0 +1,19 @@
+<p>
+  <h4 class='display-4'>
+    <%= @post.title %>
+  </h4>
+  <div class='blockquote-footer text-muted'>
+    <%= @post.author.user.name %>,
+    <%= Timex.format!(@post.inserted_at, "%A, %e %B %Y", :strftime) %>
+  </div>
+</p>
+
+<div class='row'>
+  <p class='lead col-md-10'>
+    <%= @post.body %>
+  </p>
+</div>
+
+<hr/>
+
+<%= link "Blog", to: blog_post_path(@conn, :index) %>

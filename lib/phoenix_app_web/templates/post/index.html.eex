@@ -1,0 +1,24 @@
+<%= for post <- @posts do %>
+  <div class='row'>
+    <div class='col-md-10'>
+      <p>
+        <h4 class='display-4'>
+          <%= post.title %>
+        </h4>
+        <div class='blockquote-footer text-muted'>
+          <%= post.author.user.name %>,
+          <%= Timex.format!(post.inserted_at, "%A, %e %B %Y", :strftime) %>
+        </div>
+      </p>
+      <p class='lead'>
+        <%= post.body %>
+      </p>
+      <%= link 'Read more...',
+        to: blog_post_path(@conn, :show, post),
+        class: "btn btn-default btn-xs" %>
+    </div>
+  </div>
+  <hr/>
+<% end %>
+
+<%= link "Admin", to: cms_page_path(@conn, :index) %>
