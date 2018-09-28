@@ -1,4 +1,11 @@
-<h2>Show Author</h2>
+<h3>
+  Author
+  <span class="pull-right">
+    <%= link to: cms_author_path(@conn, :edit, @author) do %>
+      <i class="fa fa-edit btn btn-default"></i>
+    <% end %>
+  </span>
+</h3>
 
 <ul>
   <li>
@@ -21,6 +28,3 @@
     <%= @author.genre %>
   </li>
 </ul>
-
-<span><%= link "Edit", to: cms_author_path(@conn, :edit, @author) %></span>
-<span><%= link "Back", to: cms_author_path(@conn, :index) %></span>

@@ -14,19 +14,20 @@ defmodule PhoenixAppWeb.Router do
   end
 
   scope "/", PhoenixAppWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", MainController, :index
     get "/twitter", MainController, :twitter
     get "/architecture", MainController, :architecture
 
     resources "/users", UserController
-    resources "/sessions", SessionController, only: [:new, :create, :delete],
-      singleton: true
+    resources "/sessions", SessionController,
+      only: [:new, :create, :update, :delete], singleton: true
   end
 
   scope "/blog", PhoenixAppWeb, as: :blog do
     pipe_through :browser
+
     resources "/posts", PostController, only: [:index, :show]
   end
 
@@ -37,10 +38,6 @@ defmodule PhoenixAppWeb.Router do
     resources "/authors", AuthorController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", PhoenixAppWeb do
-  #   pipe_through :api
-  # end
   defp authenticate_user(conn, _) do
     case get_session(conn, :user_id) do
       nil ->

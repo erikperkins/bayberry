@@ -15,5 +15,3 @@
 </div>
 
 <hr/>
-
-<%= link "Blog", to: blog_post_path(@conn, :index) %>

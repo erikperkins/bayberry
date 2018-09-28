@@ -1,4 +1,11 @@
-<h2>Show Page</h2>
+<h3>
+  Show Page
+  <span class="pull-right">
+    <%= link to: cms_page_path(@conn, :edit, @page) do %>
+      <i class="fa fa-edit btn btn-default"></i>
+    <% end %>
+  </span>
+</h3>
 
 <ul>
 
@@ -22,6 +29,3 @@
   </li>
 
 </ul>
-
-<span><%= link "Edit", to: cms_page_path(@conn, :edit, @page) %></span>
-<span><%= link "Back", to: cms_page_path(@conn, :index) %></span>

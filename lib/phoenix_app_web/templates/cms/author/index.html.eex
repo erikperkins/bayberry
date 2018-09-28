@@ -1,4 +1,11 @@
-<h2>Listing Authors</h2>
+<h2>
+  Authors
+  <span class="pull-right">
+    <%= link to: cms_author_path(@conn, :new) do %>
+      <i class="fa fa-plus btn btn-default"></i>
+    <% end %>
+  </span>
+</h2>
 
 <table class="table">
   <thead>
@@ -14,25 +21,25 @@
   <tbody>
 <%= for author <- @authors do %>
     <tr>
-      <td><%= author.user.name %></td>
+      <td><%= link author.user.name, to: cms_author_path(@conn, :show, author) %></td>
       <td><%= author.bio %></td>
       <td><%= author.role %></td>
       <td><%= author.genre %></td>
 
       <td class="text-right">
-        <span><%= link "Show", to: cms_author_path(@conn, :show, author), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: cms_author_path(@conn, :edit, author), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: cms_author_path(@conn, :delete, author), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span>
+          <%= link to: cms_author_path(@conn, :edit, author) do %>
+            <i class="fa fa-edit btn btn-info"></i>
+          <% end %>
+        </span>
+        <span>
+          <%= link to: cms_author_path(@conn, :delete, author), method: :delete,
+            data: [confirm: "Are you sure?"] do %>
+            <i class="fa fa-trash btn btn-danger"></i>
+          <% end %>
+        </span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
-
-<span><%= link "New Author", to: cms_author_path(@conn, :new) %></span>
-
-<%= form_for @conn, session_path(@conn, :delete), [method: :delete, as: :user], fn _ -> %>
-  <div class="form-group">
-    <%= submit "Logout" %>
-  </div>
-<% end %>

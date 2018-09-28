@@ -22,10 +22,17 @@ defmodule PhoenixAppWeb.SessionController do
     end
   end
 
+  def update(conn, params) do
+    case get_session(conn, :user_id) do
+      nil -> new(conn, params)
+      user_id -> delete(conn, params)
+    end
+  end
+
   def delete(conn, _) do
     conn
     |> put_flash(:info, "You have signed out")
     |> configure_session(drop: true)
-    |> redirect(to: session_path(conn, :new))
+    |> redirect(to: "/")
   end
 end

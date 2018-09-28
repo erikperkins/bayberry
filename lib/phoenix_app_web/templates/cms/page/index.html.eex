@@ -1,4 +1,11 @@
-<h2>Listing Pages</h2>
+<h3>
+  Pages
+  <span class="pull-right">
+    <%= link to: cms_page_path(@conn, :new) do %>
+      <i class="fa fa-plus btn text-default"></i>
+    <% end %>
+  </span>
+</h3>
 
 <table class="table">
   <thead>
@@ -14,19 +21,27 @@
   <tbody>
 <%= for page <- @pages do %>
     <tr>
-      <td><%= page.title %></td>
+      <td><%= link page.title, to: cms_page_path(@conn, :show, page) %></td>
       <td><%= page.body %></td>
-      <td><%= author_name(page) %></td>
+      <td><%= link author_name(page), to: cms_author_path(@conn, :show, page.author) %></td>
       <td><%= page.views %></td>
 
       <td class="text-right">
-        <span><%= link "Show", to: cms_page_path(@conn, :show, page), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: cms_page_path(@conn, :edit, page), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: cms_page_path(@conn, :delete, page), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span>
+          <%= link to: cms_page_path(@conn, :edit, page) do %>
+            <i class="fa fa-edit btn text-default"></i>
+          <% end %>
+        </span>
+        <span>
+          <%= link to: cms_page_path(@conn, :delete, page), method: :delete,
+            data: [confirm: "Are you sure?"] do %>
+            <i class="fa fa-trash btn text-danger"></i>
+          <% end %>
+        </span>
       </td>
     </tr>
 <% end %>
+  <tr>
+  </tr>
   </tbody>
 </table>
-
-<span><%= link "New Page", to: cms_page_path(@conn, :new) %></span>
