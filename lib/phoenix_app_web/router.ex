@@ -44,6 +44,7 @@ defmodule PhoenixAppWeb.Router do
     case get_session(conn, :user_id) do
       nil ->
         conn
+        |> put_session(:redirect_url, conn.request_path)
         |> Phoenix.Controller.put_flash(:error, "Login required")
         |> Phoenix.Controller.redirect(to: "/sessions/new")
         |> halt()

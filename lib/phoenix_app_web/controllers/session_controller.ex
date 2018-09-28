@@ -14,17 +14,18 @@ defmodule PhoenixAppWeb.SessionController do
         |> put_flash(:info, "Welcome back!")
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> redirect(to: "/")
+        |> redirect(to: get_session(conn, :redirect_url) || "/")
       {:error, :unauthorized} ->
         conn
-        |> put_flash(:error, "Bad email/password combination")
+        |> put_flash(:error, "Invalid email or password")
         |> redirect(to: session_path(conn, :new))
     end
   end
 
   def delete(conn, _) do
     conn
+    |> put_flash(:info, "You have signed out")
     |> configure_session(drop: true)
-    |> redirect(to: "/")
+    |> redirect(to: session_path(conn, :new))
   end
 end
