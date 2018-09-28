@@ -34,6 +34,7 @@ defmodule PhoenixAppWeb.Router do
     pipe_through [:browser, :authenticate_user]
 
     resources "/pages", PageController
+    resources "/authors", AuthorController
   end
 
   # Other scopes may use custom stacks.

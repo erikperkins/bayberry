@@ -1,0 +1,26 @@
+<h2>Show Author</h2>
+
+<ul>
+  <li>
+    <strong>Name:</strong>
+    <%= @author.user.name %>
+  </li>
+
+  <li>
+    <strong>Bio:</strong>
+    <%= @author.bio %>
+  </li>
+
+  <li>
+    <strong>Role:</strong>
+    <%= @author.role %>
+  </li>
+
+  <li>
+    <strong>Genre:</strong>
+    <%= @author.genre %>
+  </li>
+</ul>
+
+<span><%= link "Edit", to: cms_author_path(@conn, :edit, @author) %></span>
+<span><%= link "Back", to: cms_author_path(@conn, :index) %></span>

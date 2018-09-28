@@ -132,7 +132,9 @@ defmodule PhoenixApp.CMS do
 
   """
   def list_authors do
-    Repo.all(Author)
+    Author
+    |> Repo.all()
+    |> Repo.preload(user: :credential)
   end
 
   @doc """
@@ -171,6 +173,7 @@ defmodule PhoenixApp.CMS do
   def create_author(attrs \\ %{}) do
     %Author{}
     |> Author.changeset(attrs)
+    |> Ecto.Changeset.cast_assoc(:user, with: &Accounts.User.changeset/2)
     |> Repo.insert()
   end
 
