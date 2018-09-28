@@ -4,6 +4,7 @@
   </div>
 
   <div>
+    <%= link "Site Architecture", to: main_path(@conn, :architecture) %>
     <%= link "Twitter Stream", to: main_path(@conn, :twitter) %>
   </div>
 </div>

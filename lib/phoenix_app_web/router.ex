@@ -18,6 +18,8 @@ defmodule PhoenixAppWeb.Router do
 
     get "/", MainController, :index
     get "/twitter", MainController, :twitter
+    get "/architecture", MainController, :architecture
+
     resources "/users", UserController
     resources "/sessions", SessionController, only: [:new, :create, :delete],
       singleton: true

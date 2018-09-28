@@ -1,0 +1,233 @@
+<div class='container'>
+  <div class='col-xs-12 col-lg-10 offset-lg-1'>
+    <h4 class='display-3'>Site Architecture</h4>
+
+    <p>
+      The structure of this website can be divided into three conceptual parts -
+      data science implementations, web applications, and a development
+      operations toolchain. Each part is effectively independent of the other,
+      but the site as a whole cannot exist without all of them. The site's
+      functionality is organized into a service-oriented architecture, with
+      component applications written in several different languages,
+      communicating via REST APIs and message queues.
+    </p>
+
+    <hr/>
+
+    <div class='text-center'>
+      <img src="<%= static_path(@conn, "/images/application.png") %>" width=480>
+    </div>
+
+    <hr/>
+
+    <section>
+      <h4 class='display-4'>Data Science</h4>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/tensorflow-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'TensorFlow', to: 'http://www.tensorflow.org' %></h5>
+          Google's TensorFlow library provides a convenient way of coordinating
+          numerical computations across many different GPUs and CPUs. It abstracts
+          away the specifics of each architecture, while providing an expressive
+          Python wrapper for underlying close-to-the-metal C code. This site uses
+          it to construct, train, and evaluate neural networks.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/python-library-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Python', to: 'http://www.python.org' %></h5>
+          Python is a practical, approachable language which has in recent years
+          gained massive popularity in academia and industry, spawning a wealth
+          of useful and powerful computational libraries. In this site,
+          <%= link 'NumPy', to: 'http://www.numpy.org' %> and
+          <%= link 'Pillow', to: 'http://python-pillow.org' %>
+          are used to process images into a form consumable by the neural network
+          constructed in TensorFlow.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/rust-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Rust', to: 'http://www.rust-lang.org' %></h5>
+            Rust is a general-purpose systems language built for speed and
+            concurrency. Its syntax is designed to ensure memory safety.
+            Though it is fairly close to the metal, it allows many higher-level
+            abstractions. The real-time Twitter volume forecast on this
+            site is implemented in Rust.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/postgresql-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'PostgreSQL', to: 'http://www.postgresql.org' %></h5>
+          Postgres is a powerful open-source relational database management system.
+          Adhering closest to the SQL standard of any of the database systems, it
+          offers a wealth of data types and strong security measures. It is the
+          backend database for the main Ruby on Rails component of this site.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/d3-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'D3', to: 'http://www.d3js.org' %></h5>
+          Of the recent Cambrian explosion of JavaScript libraries, D3 stands out
+          as the most versatile and expressive tool for data visualization. All
+          visualizations on this site are constructed with it, notably the word
+          cloud on the home page, which uses the site's own content as a source
+          corpus of text.
+        </div>
+      </div>
+    </section>
+
+    <hr/>
+
+    <section>
+      <h4 class='display-4'>Web Applications</h4>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/phoenix-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class=lead><%= link 'Phoenix', to: 'http://phoenixframework.org' %></h5>
+          Built for the modern web, Phoenix is a Rails-like framework intented
+          for real-time streaming data and massive concurrency. It is written in
+          <%= link 'Elixir', to: 'http://www.elixir-lang.org' %>, which is a
+          functional language derived from
+          <%= link 'Erlang', to: 'http://www.erlang.org' %>
+          and which bears a syntactic resemblance to Ruby. Some see Elixir and
+          Phoenix as the natural successor to Ruby on Rails in the era of
+          Web 3.0 and the Internet of Things. Phoenix uses
+          <%= link 'Cowboy', to: 'https://github.com/ninenines/cowboy' %> as an
+          application server
+        </div>
+      </div>
+
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/flask-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class=lead><%= link 'Flask', to: 'http://flask.pocoo.org' %></h5>
+          Originally an April Fool's joke, Flask is a fast, lightweight
+          <%= link 'Python', to: 'http://www.python.org' %>
+          web framework. It is ideally suited for constructing RESTful APIs.
+          Here it acts as a host for data science implementations written in
+          Python, including the TensorFlow neural network. The application
+          server is <%= link 'uWSGI', to: 'https://github.com/unbit/uwsgi' %>.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/finch-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class=lead>
+            <%= link 'Finch', to: 'http://finagle.github.io/finch/' %>
+          </h5>
+          Finch is a micro-framework for web applications written in
+          <%= link 'Scala', to: 'http://www.scala-lang.org' %>.
+          It provides a thin wrapper for Twitter's
+          <%= link 'Finagle', to: 'https://twitter.github.io/finagle/' %>
+          remote procedure call system. Like Flask, Finch is lightweight, fast,
+          and excellent for writing REST APIs.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/redis-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Redis', to: 'http://redis.io' %></h5>
+          Redis is an in-memory key-value storage system, useful for rapidly
+          serving frequently-accessed data. The Rails application employs it in
+          three ways - caching transient data, session management, and as a
+          background job queue manager via
+          <%= link 'Resque', to: 'https://github.com/resque/resque' %>.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/rabbitmq-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'RabbitMQ', to: 'http://www.rabbitmq.com' %></h5>
+          RabbitMQ is a message broker application designed for high availability
+          and scalability. It is employed here to provide a dispatch for
+          distributing data from live streaming sources, such as
+          <%= link 'Twitter', to: 'http://www.twitter.com' %>, among the
+          component applications.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/nginx-logo.jpg") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class=lead><%= link 'Nginx', to: 'http://www.nginx.com' %></h5>
+          The popular and performant Nginx webserver forms a coordinating layer
+          over all of the component applications. It handles serving static content
+          and load balancing.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/bootstrap-logo.jpg") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class=lead><%= link 'Bootstrap', to: 'http://v4-alpha.getbootstrap.com' %></h5>
+          The front-end content is styled in Bootstrap, a CSS and JavaScript
+          library. Its component-based approach relieves some of the burden of
+          composing aesthetically passable web pages, while providing a firm
+          foundation for advanced stylistic touches. It coordinates well with
+          the <%= link 'Font Awesome', to: 'http://fontawesome.io' %> icon library,
+          also used here.
+        </div>
+      </div>
+    </section>
+
+    <hr/>
+
+    <section>
+      <h4 class='display-4'>Development Operations</h4>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/ec2-logo.jpg") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Amazon EC2', to: 'http://aws.amazon.com/ec2' %></h5>
+          Amazon Web Services offers many infrastructural services, among the most
+          important of which is the Elastic Compute Cloud. This service provides
+          an affordable and painless way to deploy web-connected servers. Data
+          Punnet is distributed across several servers, but uses minimal
+          resources, requiring only t2.nano and t2.micro instances.
+          It connects to the outside world through
+          <%= link 'Elastic IP', to: 'http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html' %>
+          and <%= link 'Route 53', to: 'http://aws.amazon.com/route53' %>.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/ansible-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Ansible', to: 'https://www.ansible.com' %></h5>
+          Orchestration of the application components is handled with Ansible.
+          Managing the system across several servers requires SSHing into
+          <%= link 'all the things', to: 'http://hyperboleandahalf.blogspot.com/2010/06/this-is-why-ill-never-be-adult.html' %>
+          in order to set configurations, update Docker containers, etc. Ansible
+          is a Python-based tool which makes it easy to automate such tasks.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/docker-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Docker', to: 'http://www.docker.com' %></h5>
+          Docker is a container system for encapsulating code dependencies. It is
+          like a minimal Linux without the kernel, stored in a unique, layered
+          filesystem. Each component of the site is held in its own Docker
+          container. The Nginx and Postgres containers also have access to Docker
+          volumes for persistent shared storage of static assets and database
+          files. The containers are coordinated via
+          <%= link 'Docker Compose', to: 'http://docs.docker.com/compose/' %>.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/github-logo.jpg") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'GitHub', to: 'http://github.com' %></h5>
+          The codebase is version-controlled with
+          <%= link 'git', to: 'http://git-scm.com' %>, Linus Torvalds' second
+          <%= link 'gift', to: 'http://github.com/torvalds/linux' %> to the world.
+          The component applications are included as git submodules.
+          GitHub is used for maintaining remote
+          <%= link 'repositories', to: 'http://github.com/erikperkins/datapunnet' %>
+          and lightweight Kanban-style
+          <%= link 'project management', to: 'http://github.com/erikperkins/datapunnet/projects/1' %>.
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
