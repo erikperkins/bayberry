@@ -11,7 +11,7 @@ defmodule PhoenixAppWeb.SessionController do
     case Accounts.authenticate_by_email_password(email, password) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "Welcome back!")
+        |> put_flash(:success, "Signed in")
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
         |> redirect(to: get_session(conn, :redirect_url) || "/")
@@ -25,14 +25,14 @@ defmodule PhoenixAppWeb.SessionController do
   def update(conn, params) do
     case get_session(conn, :user_id) do
       nil -> new(conn, params)
-      user_id -> delete(conn, params)
+      _ -> delete(conn, params)
     end
   end
 
   def delete(conn, _) do
     conn
-    |> put_flash(:info, "You have signed out")
-    |> configure_session(drop: true)
+    |> clear_session
+    |> put_flash(:warning, "Signed out")
     |> redirect(to: "/")
   end
 end
