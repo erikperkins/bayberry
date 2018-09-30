@@ -22,6 +22,6 @@
   <li>
     <strong>Email:</strong>
     <%= @user.credential.email %>
-  <li>
+  </li>
 
 </ul>

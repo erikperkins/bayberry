@@ -29,13 +29,13 @@
       <td class="text-right">
         <span>
           <%= link to: cms_author_path(@conn, :edit, author) do %>
-            <i class="fa fa-edit btn btn-info"></i>
+            <i class="fa fa-edit btn text-default"></i>
           <% end %>
         </span>
         <span>
           <%= link to: cms_author_path(@conn, :delete, author), method: :delete,
             data: [confirm: "Are you sure?"] do %>
-            <i class="fa fa-trash btn btn-danger"></i>
+            <i class="fa fa-trash btn text-danger"></i>
           <% end %>
         </span>
       </td>

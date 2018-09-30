@@ -1,10 +1,12 @@
 defmodule PhoenixAppWeb.LayoutView do
   use PhoenixAppWeb, :view
 
+  alias Phoenix.HTML
+
   def session_icon(conn) do
     case Plug.Conn.get_session(conn, :user_id) do
-      nil -> Phoenix.HTML.raw("<i class='fa fa-sign-in'></i>")
-      _ -> Phoenix.HTML.raw("<i class='fa fa-sign-out'></i>")
+      nil -> HTML.raw("<i class='fa fa-sign-in text-success'></i>")
+      _ -> HTML.raw("<i class='fa fa-sign-out text-warning'></i>")
     end
   end
 
@@ -29,6 +31,7 @@ defmodule PhoenixAppWeb.LayoutView do
   end
 
   defp path_leaf(path) do
-    Regex.run(~r/[\w\d]+$/, path)
+    [leaf] = Regex.run(~r/[\w\d]+$/, path)
+    Regex.replace(~r/[\d]+/, leaf, "id")
   end
 end

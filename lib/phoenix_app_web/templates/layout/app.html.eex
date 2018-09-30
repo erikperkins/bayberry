@@ -22,11 +22,22 @@
           <% end %>
         </span>
 
-        <span class='navbar-text'>
+        <span class="navbar-text">
           <%= link to: "http://github.com/erikperkins/datapunnet",
               class: "lead text-default navbar-brand", target: "_blank" do %>
             <i class='fa fa-github'></i>
           <% end %>
+
+          <%=
+            case Plug.Conn.get_session(@conn, :user_id) do
+              nil -> nil
+              user_id ->
+                link to: user_path(@conn, :show, user_id),
+                  class: "lead text-default navbar-brand" do
+                HTML.raw("<i class='fa fa-user-circle-o text-info'></i>")
+              end
+            end
+          %>
 
           <%= link to: session_path(@conn, :update), method: :patch,
               class: "lead text-default navbar-brand" do %>
@@ -36,8 +47,10 @@
       </div>
     </nav>
 
-    <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <p class="alert alert-info text-center" role="alert"><%= get_flash(@conn, :info) %></p>
+    <p class="alert alert-success text-center" role="alert"><%= get_flash(@conn, :success) %></p>
+    <p class="alert alert-warning text-center" role="alert"><%= get_flash(@conn, :warning) %></p>
+    <p class="alert alert-danger text-center" role="alert"><%= get_flash(@conn, :error) %></p>
 
     <%= render @view_module, @view_template, assigns %>
 
