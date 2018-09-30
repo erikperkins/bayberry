@@ -170,10 +170,10 @@ defmodule PhoenixApp.CMS do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_author(attrs \\ %{}) do
+  def create_author(%Accounts.User{} = user, attrs \\ %{}) do
     %Author{}
     |> Author.changeset(attrs)
-    |> Ecto.Changeset.cast_assoc(:user, with: &Accounts.User.changeset/2)
+    |> Ecto.Changeset.put_change(:user_id, user.id)
     |> Repo.insert()
   end
 

@@ -6,22 +6,6 @@
   <% end %>
 
   <div class="form-group">
-    <%= inputs_for f, :user, fn cf -> %>
-      <%= label cf, :name, class: "control-label" %>
-      <%= text_input cf, :name, class: "form-control" %>
-      <%= error_tag cf, :name %>
-    <% end %>
-  </div>
-
-  <div class="form-group">
-    <%= inputs_for f, :user, fn cf -> %>
-      <%= label cf, :username, class: "control-label" %>
-      <%= text_input cf, :username, class: "form-control" %>
-      <%= error_tag cf, :username %>
-    <% end %>
-  </div>
-
-  <div class="form-group">
     <%= label f, :bio, class: "control-label" %>
     <%= text_input f, :bio, class: "form-control" %>
     <%= error_tag f, :bio %>

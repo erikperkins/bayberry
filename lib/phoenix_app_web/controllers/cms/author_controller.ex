@@ -17,7 +17,7 @@ defmodule PhoenixAppWeb.CMS.AuthorController do
   end
 
   def create(conn, %{"author" => author_params}) do
-    case CMS.create_author(author_params) do
+    case CMS.create_author(conn.assigns.current_user, author_params) do
       {:ok, author} ->
         conn
         |> put_flash(:info, "Author created successfully.")
@@ -64,7 +64,7 @@ defmodule PhoenixAppWeb.CMS.AuthorController do
       assign(conn, :author, author)
     else
       conn
-      |> put_flash(:error, "You cannot modify that page")
+      |> put_flash(:error, "You cannot modify that author")
       |> redirect(to: cms_author_path(conn, :index))
       |> halt()
     end
