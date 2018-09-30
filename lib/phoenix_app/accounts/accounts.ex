@@ -5,7 +5,7 @@ defmodule PhoenixApp.Accounts do
 
   import Ecto.Query, warn: false
   alias PhoenixApp.Repo
-  alias PhoenixApp.Accounts.{User, Credential}
+  alias PhoenixApp.Accounts.{User, Credential, Crypto}
 
   @doc """
   Returns the list of users.
@@ -207,14 +207,34 @@ defmodule PhoenixApp.Accounts do
   @doc """
   Authenticates User with Credential
   """
-  def authenticate_by_email_password(email, _password) do
-    query = from u in User,
-      inner_join: c in assoc(u, :credential),
-      where: c.email == ^email
+  def authenticate_by_email_password(email, password) do
+    query = from user in User,
+      inner_join: credential in assoc(user, :credential),
+      where: credential.email == ^email
 
-    case Repo.one(query) do
-      %User{} = user -> {:ok, user}
-      nil -> {:error, :unauthorized}
+    with %User{} = user <- Repo.one(query) |> Repo.preload(:credential),
+         true <- verify_password(user.credential, password)
+    do {:ok, user}
+    else
+      _ -> {:error, :unauthorized}
     end
   end
+
+  defp verify_password(credential, password) do
+    credential.password == Crypto.hash(credential.salt, password)
+  end
+
+#  defp secure_credential(attrs) do
+#    attrs
+#    |> add_salt()
+#    |> hash_password()
+#  end
+
+#  defp add_salt(attrs = %{"credential" => credential = %{"password" => _p}}) do
+#    %{attrs | "credential" => Map.put(credential, "salt", Crypto.salt)}
+#  end
+
+#  defp hash_password(attrs = %{"credential" => c = %{"salt" => s, "password" => p}}) do
+#    %{attrs | "credential" => Map.put(c, "password", Crypto.hash(s, p))}
+#  end
 end
