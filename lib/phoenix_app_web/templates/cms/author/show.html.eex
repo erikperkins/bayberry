@@ -10,7 +10,7 @@
 <ul>
   <li>
     <strong>Name:</strong>
-    <%= @author.user.name %>
+    <%= link @author.user.name, to: user_path(@conn, :show, @author.user) %>
   </li>
 
   <li>

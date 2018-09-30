@@ -25,7 +25,7 @@
   </li>
 
   <li>
-    <%= author_name(@page) %>
+    <%= link author_name(@page), to: cms_author_path(@conn, :show, @page.author) %>
   </li>
 
 </ul>
