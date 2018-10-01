@@ -23,7 +23,10 @@ exports.config = {
           "vendor/js/jquery-3.1.1.min.js",
           "vendor/js/tether.min.js",
           "/vendor/js/bootstrap.min.js",
-          "vendor/js/d3.min.js"
+          "vendor/js/d3.min.js",
+          "vendor/js/d3/d3.layout.cloud.js",
+          "vendor/js/d3/d3.geoprojection.min.js",
+          "vendor/js/d3/topojson.min.js"
         ]
       }
     },
