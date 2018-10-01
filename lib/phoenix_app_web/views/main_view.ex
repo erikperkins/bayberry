@@ -9,6 +9,11 @@ defmodule PhoenixAppWeb.MainView do
         <script>require("js/wordcloud").WordCloud.run()</script>
         """
         |> raw
+      "/nlp" ->
+        ~S"""
+        <script>require("js/nlpsocket").NlpSocket.run()</script>
+        """
+        |> raw
       "/twitter" ->
         ~S"""
         <script>require("js/twitter").TwitterStream.run()</script>

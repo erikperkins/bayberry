@@ -1,0 +1,100 @@
+<div class='jumbotron'>
+  <div class='container'>
+    <div class='row justify-content-center'>
+      <div class='col-xs-8 text-center'>
+        <h4 class='display-4'>Word Association</h4>
+      </div>
+    </div>
+    <div class='row justify-content-center padded'>
+      <p class='lead text-center'>
+        Search for a word below.<br/>
+        The site will look for related terms.
+      </p>
+    </div>
+    <div class='row justify-content-center padded'>
+      <div class='col-xs-6 text-center'>
+        <input id="lda-search" type=text></input>
+      </div>
+    </div>
+    <div class='row justify-content-center padded'>
+      <div class='col-xs-4 text-center'>
+        <p class='lead'>Terms associated with
+          <em><strong id='lda-search-term'>...</strong></em>
+        </p>
+        <p id='lda-search-results' class='lead'></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='container'>
+  <div class='col-xs-8 offset-xs-2'>
+    <h4 class='display-4'>What am I looking at?</h4>
+    <p>
+      This page shows the output of a small semantic search engine based on
+      <%= link 'latent Dirichlet allocation',
+        to: 'https://www.cs.princeton.edu/~blei/papers/BleiNgJordan2003.pdf'
+      %>.
+      The search engine has been trained to
+      recognize recurring topics in a collection of documents, based on which
+      words tend to appear together. Upon searching for a word in the search
+      box above, the engine returns words which most closely relate to the
+      search term, in the context of the body of text the engine has been
+      trained on. This semantic search engine has been trained on a 12,000
+      email subset of the
+      <%=  link '20 Newsgroups', to: 'http://qwone.com/~jason/20Newsgroups/' %>
+      data set, which includes discussion threads about computer graphics,
+      operating systems, hardware, cars, motorcycles, hockey, science,
+      electronics, medicine, and space.
+    </p>
+
+    <h4 class='display-4'>What is it good for?</h4>
+    <p>
+      Latent Dirichlet allocation is a method for extracting thematic
+      information from collections of texts, in a process known as
+      <%= link 'topic modeling',
+        to: 'http://https://en.wikipedia.org/wiki/Topic_model'
+      %>. The output of this process can be used for such things as
+      <%= link 'recommending newspaper articles',
+        to: 'http://open.blogs.nytimes.com/2015/08/11/building-the-next-new-york-times-recommendation-engine/'
+      %>, though there have been wide applications outside natural language
+      processing, including classifying images and music, and determining gene
+      functions.
+    </p>
+
+    <h4 class='display-4'>What is it made with?</h4>
+    <p>
+      Custom Scala code is used to train and evaluate the latent Dirichlet
+      allocation model on a collection of documents.
+      <%= link 'Stanford CoreNLP',
+        to: 'http://http://stanfordnlp.github.io/CoreNLP/'
+      %> handles text preprocessing - breaking up the documents into individual
+      words, and standardizing each piece to a basic part of speech. CoreNLP
+      provides powerful methods for annotating the grammatical and semantic
+      content of entities in bodies of text.
+    </p>
+
+    <h4 class='display-4'>How does it work?</h4>
+    <p>
+      The model is trained offline, and the output saved.
+      The saved model keeps a record of the relationships between individual
+      terms and topics. When a term is searched for, the term is sent to the
+      main Phoenix application over a websocket, and then forwarded to a
+      Finch application, which performs the semantic word-to-word associations
+      by comparing the probability distributions of each word over the latent
+      topics. It uses the
+      <%= link 'Jensen-Shannon divergence',
+        to: 'https://en.wikipedia.org/wiki/Jensen%E2%80%93Shannon_divergence'
+      %> to measure the 'distance' between the distributions, and sends
+      the dozen or so most closely associated words back to Phoenix as JSON.
+      On the <%= link 'main page', to: main_path(@conn, :index) %>
+      there is also an interactive visualization of the top 10
+      topics. The topics are named by the term which occurs in that topic with
+      the highest probability - latent Dirichlet allocation will not,
+      unfortunately, name the topics for you. Clicking on a topic shows the
+      8 most frequently occuring words associated with that topic, attached
+      to circles sized proportionally to the frequency of each term.
+    </p>
+
+  </div>
+</div>

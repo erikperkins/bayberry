@@ -10,6 +10,10 @@ defmodule PhoenixAppWeb.MainController do
     render(conn, "architecture.html")
   end
 
+  def nlp(conn, _params) do
+    render(conn, "nlp.html")
+  end
+
   def twitter(conn, _params) do
     render(conn, "twitter.html")
   end

@@ -57,7 +57,7 @@
           <svg id='pack'
             class='card-image-top wordcloud rounded-circle'></svg>
           <h2 class='card-title'>
-            <%= link "Word Association", to: "http://datapun.net/nlp/index" %>
+            <%= link "Word Association", to: main_path(@conn, :nlp) %>
           </h2>
           <p class='card-text lead'>
             Semantic word search with latent Dirichlet allocation
