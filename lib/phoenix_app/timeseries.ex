@@ -34,7 +34,7 @@ defmodule PhoenixApp.Timeseries do
   end
 
   def wait_for_messages do
-    # This receive block should be refactored into the handle_info method.
+    # NOTE: This receive block should be refactored into the handle_info method.
     # In the GenServer docs, it explains that the point of GenServer is to
     # abstract away the need for explicit receive statements.
     receive do
@@ -43,7 +43,7 @@ defmodule PhoenixApp.Timeseries do
 
         count_tweet tweet
 
-        PhoenixAppWeb.Endpoint.broadcast! "room:lobby", "tweet",
+        PhoenixAppWeb.Endpoint.broadcast! "twitter:stream", "tweet",
           %{ body: tweet["text"] }
 
         wait_for_messages()

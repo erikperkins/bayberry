@@ -16,7 +16,7 @@ defmodule PhoenixAppWeb.MainView do
         |> raw
       "/twitter" ->
         ~S"""
-        <script>require("js/twitter").TwitterStream.run()</script>
+        <script>require("js/twittersocket").TwitterSocket.run()</script>
         """
         |> raw
       _ -> nil

@@ -12,7 +12,6 @@ defmodule PhoenixApp.Twitter do
   def init(%{}) do
     Logger.warn "Starting worker..."
     state = start_channel()
-    # send self(), :work
 
     send self(), :work
     { :ok, state }
@@ -20,24 +19,8 @@ defmodule PhoenixApp.Twitter do
 
   def handle_info(:work, state) do
     Logger.warn "Starting stream..."
-    # spawn(fn -> publish_tweets(state) end)
     publish_tweets(state)
     { :noreply, state }
-  end
-
-  def handle_info(:nap, state) do
-    Logger.warn "Napping..."
-    # spawn(fn -> nap(state) end)
-    nap(state)
-    { :noreply, state }
-  end
-
-  defp nap(_) do
-    Process.sleep(5_000)
-    Logger.warn "Waking..."
-
-    Process.send_after(self(), :nap, 10)
-    #send self(), :nap
   end
 
   defp start_channel() do
@@ -54,12 +37,10 @@ defmodule PhoenixApp.Twitter do
     for tweet <- ExTwitter.stream_filter([follow: @potus], :infinity) do
       payload = Poison.encode! Map.take(tweet, [:created_at, :text, :lang])
       AMQP.Basic.publish state[:channel], "", "tweets", payload
-      # Logger.info "Received tweet"
     end
 
     Logger.warn("Twitter stream stopped. Restarting stream...")
 
-    # Stop the process instead?
     send self(), :work
   end
 end

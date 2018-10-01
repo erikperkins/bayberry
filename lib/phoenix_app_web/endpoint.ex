@@ -1,7 +1,7 @@
 defmodule PhoenixAppWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :phoenix_app
 
-  socket "/socket", PhoenixAppWeb.UserSocket
+  socket "/twittersocket", PhoenixAppWeb.TwitterSocket
   socket "/nlpsocket", PhoenixAppWeb.NlpSocket
 
   # Serve at "/" the static files from "priv/static" directory.

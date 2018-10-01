@@ -1,8 +1,8 @@
-defmodule PhoenixAppWeb.UserSocket do
+defmodule PhoenixAppWeb.TwitterSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "room:*", PhoenixAppWeb.RoomChannel
+  channel "twitter:*", PhoenixAppWeb.TwitterChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
