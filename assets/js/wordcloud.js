@@ -1,10 +1,10 @@
-$(document).on('turbolinks:load', function() {
-  if (window.location.pathname == '/') {
-    d3.json('/main/word_cloud', function (error, json) {
+export var WordCloud = {
+  run: function() {
+    d3.json('/word_cloud', function (error, json) {
       if (!error) renderCloud(json);
     });
   }
-});
+}
 
 function renderCloud(json) {
   d3.select("#wordcloud").selectAll("text").data([]).exit().remove();
