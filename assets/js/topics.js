@@ -1,21 +1,21 @@
-$(document).on('turbolinks:load', function() {
-  if (window.location.pathname == '/') {
+export var LdaTopics = {
+  run: function() {
+    if (window.location.pathname == '/') {
+      d3.select('#pack')
+        .append('foreignObject')
+        .attr('width', '5em')
+        .attr('height', '5em')
+        .attr('transform', 'translate(60,60)')
+        .html("<i id='wait' class='fa fa-cog fa-spin fa-5x'></i>");
 
-    d3.select('#pack')
-      .append('foreignObject')
-      .attr('width', '5em')
-      .attr('height', '5em')
-      .attr('transform', 'translate(60,60)')
-      .html("<i id='wait' class='fa fa-cog fa-spin fa-5x'></i>");
-
-    d3.json('/main/topics', function(errors, json) {
-      if (!errors) { renderLdaPack(json); }
-    });
+      d3.json('http://main.datapun.net:1025/lda', function(errors, json) {
+        if (!errors) { renderLdaPack(json); }
+      });
+    }
   }
-})
+}
 
 function renderLdaPack(root) {
-
   d3.select('#wait').remove();
 
   var svg = d3.select("#pack"),

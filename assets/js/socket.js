@@ -1,10 +1,9 @@
 // NOTE: The contents of this file will only be executed if
-// you uncomment its entry in "web/static/js/app.js".
+// you uncomment its entry in "assets/js/app.js".
 
 // To use Phoenix channels, the first step is to import Socket
-// and connect at the socket path in "lib/my_app/endpoint.ex":
+// and connect at the socket path in "lib/web/endpoint.ex":
 import {Socket} from "phoenix"
-import {timeSeries} from "./timeseries"
 
 let socket = new Socket("/socket", {params: {token: window.userToken}})
 
@@ -14,7 +13,7 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 // If the current user exists you can assign the user's token in
 // the connection for use in the layout.
 //
-// In your "web/router.ex":
+// In your "lib/web/router.ex":
 //
 //     pipeline :browser do
 //       ...
@@ -32,12 +31,12 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 //     end
 //
 // Now you need to pass this token to JavaScript. You can do so
-// inside a script tag in "web/templates/layout/app.html.eex":
+// inside a script tag in "lib/web/templates/layout/app.html.eex":
 //
 //     <script>window.userToken = "<%= assigns[:user_token] %>";</script>
 //
 // You will need to verify the user token in the "connect/2" function
-// in "web/channels/user_socket.ex":
+// in "lib/web/channels/user_socket.ex":
 //
 //     def connect(%{"token" => token}, socket) do
 //       # max_age: 1209600 is equivalent to two weeks in seconds
@@ -55,38 +54,9 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("room:lobby", {})
-let id = 0
-
-if (window.location.pathname == '/twitter') timeSeries();
-
-setInterval(function(){timeSeries()}, 500);
-
-channel.on("tweet", payload => {
-  timeSeries();
-
-  let newline = /\n|\r/g
-  let url = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/ig
-  let hashtag = /(#[A-Za-z0-9]+)/g
-  let atmention = /(@[A-Za-z0-9]+)/g
-
-  let tweet = payload.body
-    .replace(newline, "\n")
-    .replace(url, "<a href='$1' target='_blank'>$1</a>")
-    .replace(hashtag, "<strong class='text-primary'>$1</strong>")
-    .replace(atmention, "<strong class='text-secondary'>$1</strong>")
-
-  $('#tweet-' + id).fadeOut(100, function() {
-    $(this).html(tweet).fadeIn(100)
-  })
-  id = (id + 1) % 4
-})
-
+let channel = socket.channel("topic:subtopic", {})
 channel.join()
-  .receive("ok", resp => {
-    $('#twitter-bird').attr('class', 'fa fa-twitter text-primary')
-  }).receive("error", resp => {
-    $('#twitter-bird').attr('class', 'fa fa-twitter text-danger')
-  })
+  .receive("ok", resp => { console.log("Joined successfully", resp) })
+  .receive("error", resp => { console.log("Unable to join", resp) })
 
 export default socket
