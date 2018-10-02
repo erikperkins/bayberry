@@ -1,5 +1,7 @@
-defmodule PhoenixApp.DigitStream do
+defmodule PhoenixApp.MnistStream do
   use GenServer
+  alias PhoenixApp.Mnist
+  alias PhoenixAppWeb.Endpoint
 
   def start_link do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -17,7 +19,7 @@ defmodule PhoenixApp.DigitStream do
 
   def stream_digits() do
     id = Enum.random(0..10000)
-    PhoenixAppWeb.Endpoint.broadcast! "mnist:digit", "digit-stream", PhoenixApp.Mnist.digit(id)
+    Endpoint.broadcast! "mnist:digit", "digit-stream", Mnist.digit(id)
 
     Process.send_after self(), :digit, 2000
   end

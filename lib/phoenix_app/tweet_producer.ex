@@ -1,9 +1,10 @@
-defmodule PhoenixApp.Twitter do
+defmodule PhoenixApp.TweetProducer do
   use GenServer
-
   require Logger
+  alias PhoenixAppWeb.Endpoint
 
-  @potus "25073877"
+  @follow "25073877"
+  @rabbitmq "amqp://guest:guest@#{Application.get_env(:phoenix_app, Endpoint)[:rabbitmq]}"
 
   def start_link do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -22,20 +23,25 @@ defmodule PhoenixApp.Twitter do
   end
 
   defp start_channel() do
-    url = "amqp://guest:guest@#{System.get_env("RABBITMQ_HOST")}"
-    { :ok, connection } = AMQP.Connection.open url
-    { :ok, channel } = AMQP.Channel.open connection
-    AMQP.Queue.declare channel, "tweets"
+    { :ok, connection } = AMQP.Connection.open(@rabbitmq)
+    { :ok, channel } = AMQP.Channel.open(connection)
+    AMQP.Queue.declare(channel, "tweets")
     [connection: connection, channel: channel]
   end
 
   defp publish_tweets(state) do
-    for tweet <- ExTwitter.stream_filter([follow: @potus], :infinity) do
+    for tweet <- ExTwitter.stream_filter([follow: @follow], :infinity) do
       payload = Poison.encode! Map.take(tweet, [:created_at, :text, :lang])
-      AMQP.Basic.publish state[:channel], "", "tweets", payload
+
+      AMQP.Basic.publish(state[:channel], "", "tweets", payload)
+      broadcast(tweet)
     end
 
     Logger.warn("Twitter stream stopped. Restarting stream...")
     send self(), :work
+  end
+
+  defp broadcast(%{text: text}) do
+    Endpoint.broadcast! "twitter:stream", "tweet", %{body: text}
   end
 end

@@ -23,7 +23,10 @@ export var NlpSocket = {
     })
 
     channel.join()
-      .receive("ok", resp => { console.log("Joined  nlp:lda successfully", resp) })
-      .receive("error", resp => { console.log("Unable to join nlp:lda", resp) })
+      .receive("ok", payload => {
+        console.log("Joined  nlp:lda successfully")
+      }).receive("error", payload => {
+        console.log("Unable to join nlp:lda")
+      })
   }
 }

@@ -1,5 +1,6 @@
 defmodule PhoenixAppWeb.MnistChannel do
   use Phoenix.Channel
+  alias PhoenixApp.Mnist
 
   def join("mnist:digit", _message, socket) do
     {:ok, socket}
@@ -12,6 +13,6 @@ defmodule PhoenixAppWeb.MnistChannel do
   intercept ["digit-classify"]
 
   def handle_in("digit-classify", image, socket) do
-    {:reply, {:ok, PhoenixApp.Mnist.classify(image)}, socket}
+    {:reply, {:ok, Mnist.classify(image)}, socket}
   end
 end

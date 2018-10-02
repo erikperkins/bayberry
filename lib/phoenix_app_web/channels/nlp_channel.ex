@@ -1,5 +1,6 @@
 defmodule PhoenixAppWeb.NlpChannel do
   use Phoenix.Channel
+  alias PhoenixApp.Nlp
 
   def join("nlp:lda", _message, socket) do
     {:ok, socket}
@@ -12,6 +13,6 @@ defmodule PhoenixAppWeb.NlpChannel do
   intercept ["lda-search"]
 
   def handle_in("lda-search", %{"body" => term}, socket) do
-    {:reply, {:ok, %{body: PhoenixApp.Nlp.search(term)}}, socket}
+    {:reply, {:ok, %{body: Nlp.search(term)}}, socket}
   end
 end
