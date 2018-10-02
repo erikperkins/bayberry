@@ -55,14 +55,14 @@
         <div class="card">
           <div class="card-block">
             <p class='card-text tweet'>
-              <span id='tweet-0' class='lead'>...</span>
+              <span id='tweet-0'>...</span>
             </p>
           </div>
         </div>
         <div class="card">
           <div class="card-block">
             <p class='card-text tweet'>
-              <span id='tweet-1' class='lead'>...</span>
+              <span id='tweet-1'>...</span>
             </p>
           </div>
         </div>
@@ -72,14 +72,14 @@
         <div class="card">
           <div class="card-block">
             <p class='card-text tweet'>
-              <span id='tweet-2' class='lead'>...</span>
+              <span id='tweet-2'>...</span>
             </p>
           </div>
         </div>
         <div class="card">
           <div class="card-block">
             <p class='card-text tweet'>
-              <span id='tweet-3' class='lead'>...</span>
+              <span id='tweet-3'>...</span>
             </p>
           </div>
         </div>
