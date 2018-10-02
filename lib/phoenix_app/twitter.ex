@@ -10,7 +10,6 @@ defmodule PhoenixApp.Twitter do
   end
 
   def init(%{}) do
-    Logger.warn "Starting worker..."
     state = start_channel()
 
     send self(), :work
@@ -18,13 +17,11 @@ defmodule PhoenixApp.Twitter do
   end
 
   def handle_info(:work, state) do
-    Logger.warn "Starting stream..."
     publish_tweets(state)
     { :noreply, state }
   end
 
   defp start_channel() do
-    Logger.warn "Starting channel..."
     url = "amqp://guest:guest@#{System.get_env("RABBITMQ_HOST")}"
     { :ok, connection } = AMQP.Connection.open url
     { :ok, channel } = AMQP.Channel.open connection
@@ -33,14 +30,12 @@ defmodule PhoenixApp.Twitter do
   end
 
   defp publish_tweets(state) do
-    Logger.warn "Receiving tweets..."
     for tweet <- ExTwitter.stream_filter([follow: @potus], :infinity) do
       payload = Poison.encode! Map.take(tweet, [:created_at, :text, :lang])
       AMQP.Basic.publish state[:channel], "", "tweets", payload
     end
 
     Logger.warn("Twitter stream stopped. Restarting stream...")
-
     send self(), :work
   end
 end

@@ -1,26 +1,25 @@
 import {Socket} from "phoenix"
-import {timeSeries} from "./timeseries"
+import {updateTimeSeries} from "./timeseries"
 
 export var TwitterSocket = {
   run: function() {
     let socket = new Socket("/twittersocket", {params: {token: window.userToken}})
     socket.connect()
 
-    let channel = socket.channel("twitter:stream", {})
     let id = 0
+    let channel = socket.channel("twitter:stream", {})
 
-    if (window.location.pathname == '/twitter') timeSeries();
-
-    setInterval(function(){timeSeries()}, 500);
+    channel.on("timeseries", payload => {
+      updateTimeSeries(payload)
+    })
 
     channel.on("tweet", payload => {
-      timeSeries();
-
       let newline = /\n|\r/g
       let url = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/ig
       let hashtag = /(#[A-Za-z0-9]+)/g
       let atmention = /(@[A-Za-z0-9]+)/g
 
+      // NOTE: This text processing should be handled on the server
       let tweet = payload.body
         .replace(newline, "\n")
         .replace(url, "<a href='$1' target='_blank'>$1</a>")

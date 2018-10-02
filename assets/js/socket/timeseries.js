@@ -98,13 +98,6 @@ svg.append("circle")
   ).text("forecast")
   .style("dominant-baseline", "middle")
 
-function timeSeries() {
-  var url = 'http://datapun.net/iron/tweets';
-  d3.json(url, function (error, json) {
-    if (!error) updateTimeSeries(json);
-  });
-}
-
 function updateTimeSeries(json) {
   let offset = 30;
   let
@@ -145,4 +138,4 @@ function updateTimeSeries(json) {
   observedNowPath.transition(1000).attr("d", line(observedNow));
 }
 
-export {timeSeries};
+export {updateTimeSeries};
