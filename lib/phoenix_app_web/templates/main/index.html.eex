@@ -42,7 +42,7 @@
               class="card-image-top rounded-circle img-thumbnail">
 
           <h2 class='card-title'>
-            <%= link "Digit Recognition", to: "http://datapun.net/mnist/index" %>
+            <%= link "Digit Recognition", to: main_path(@conn, :mnist) %>
           </h2>
           <p class='card-text lead'>
             Neural network classification of handwritten numbers

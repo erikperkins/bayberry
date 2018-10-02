@@ -1,10 +1,4 @@
-$(document).on('turbolinks:load', function() {
-  if (window.location.pathname == '/mnist/index') {
-    digitCanvas();
-  }
-})
-
-function digitCanvas() {
+function mnistDraw() {
   var ctx = d3.select('#mnist-canvas').node().getContext('2d');
   var x0, y0;
 
@@ -63,6 +57,7 @@ function digitCanvas() {
       x0 = x;
       y0 = y;
     }
+
   });
 
   function clearDigit() {
@@ -70,7 +65,8 @@ function digitCanvas() {
     y0 = undefined;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    $('#mnist-classification-new').text('?')
+    $('#mnist-classification').text('?')
   }
-
 }
+
+export {mnistDraw};

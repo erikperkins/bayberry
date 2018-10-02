@@ -19,6 +19,7 @@ defmodule PhoenixAppWeb.Router do
     get "/", MainController, :index
     get "/twitter", MainController, :twitter
     get "/architecture", MainController, :architecture
+    get "/mnist", MainController, :mnist 
     get "/nlp", MainController, :nlp
     get "/word_cloud", MainController, :word_cloud
 

@@ -9,14 +9,19 @@ defmodule PhoenixAppWeb.MainView do
         <script>require("js/wordcloud").WordCloud.run()</script>
         """
         |> raw
+      "/mnist" ->
+        ~S"""
+        <script>require("js/socket/mnistsocket").MnistSocket.run()</script>
+        """
+        |> raw
       "/nlp" ->
         ~S"""
-        <script>require("js/nlpsocket").NlpSocket.run()</script>
+        <script>require("js/socket/nlpsocket").NlpSocket.run()</script>
         """
         |> raw
       "/twitter" ->
         ~S"""
-        <script>require("js/twittersocket").TwitterSocket.run()</script>
+        <script>require("js/socket/twittersocket").TwitterSocket.run()</script>
         """
         |> raw
       _ -> nil

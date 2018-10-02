@@ -9,16 +9,15 @@ defmodule PhoenixAppWeb.TwitterChannel do
     { :error, %{ reason: "unauthorized" } }
   end
 
-  intercept ["new_msg"]
+  intercept ["transmission"]
 
-  def handle_in("new_msg", %{"body" => body}, socket) do
-    broadcast! socket, "new_msg", %{body: body}
+  def handle_in("transmission", %{"body" => body}, socket) do
+    broadcast! socket, "transmission", %{body: body}
     {:noreply, socket}
   end
 
-  def handle_out("new_msg", payload, socket) do
-    push socket, "new_msg", payload
+  def handle_out("transmission", payload, socket) do
+    push socket, "transmission", payload
     {:noreply, socket}
   end
-
 end

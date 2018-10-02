@@ -10,6 +10,10 @@ defmodule PhoenixAppWeb.MainController do
     render(conn, "architecture.html")
   end
 
+  def mnist(conn, _params) do
+    render(conn, "mnist.html")
+  end
+
   def nlp(conn, _params) do
     render(conn, "nlp.html")
   end

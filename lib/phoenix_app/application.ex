@@ -22,7 +22,8 @@ defmodule PhoenixApp.Application do
         ]
       ),
       worker(PhoenixApp.Twitter, [], restart: :permanent),
-      worker(PhoenixApp.Timeseries, [])
+      worker(PhoenixApp.Timeseries, []),
+      worker(PhoenixApp.DigitStream, [], restart: :permanent)
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

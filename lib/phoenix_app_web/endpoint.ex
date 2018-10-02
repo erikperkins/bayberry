@@ -1,8 +1,9 @@
 defmodule PhoenixAppWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :phoenix_app
 
-  socket "/twittersocket", PhoenixAppWeb.TwitterSocket
+  socket "/mnistsocket", PhoenixAppWeb.MnistSocket
   socket "/nlpsocket", PhoenixAppWeb.NlpSocket
+  socket "/twittersocket", PhoenixAppWeb.TwitterSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -16,6 +17,10 @@ defmodule PhoenixAppWeb.Endpoint do
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
+    socket "/phoenix/live_reload/mnistsocket", Phoenix.LiveReloader.Socket
+    socket "/phoenix/live_reload/nlpsocket", Phoenix.LiveReloader.Socket
+    socket "/phoenix/live_reload/twittersocket", Phoenix.LiveReloader.Socket
+
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
   end
