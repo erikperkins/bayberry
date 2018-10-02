@@ -20,8 +20,11 @@ defmodule PhoenixApp.TimeSeries do
   def timeseries() do
     case HTTPoison.get("http://timeseries.datapun.net:8003") do
       {:ok, %HTTPoison.Response{ body: body }} ->
-        response = Poison.decode!(body)
-        PhoenixAppWeb.Endpoint.broadcast!("twitter:stream", "timeseries", response)
+        case Poison.decode(body) do
+          {:ok, response} ->
+            PhoenixAppWeb.Endpoint.broadcast!("twitter:stream", "timeseries", response)
+          _ -> Logger.warn "Poison decode error"
+        end
       {:error, %HTTPoison.Error{reason: reason}} -> Logger.warn reason
     end
 
