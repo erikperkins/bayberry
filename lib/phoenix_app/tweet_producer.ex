@@ -50,6 +50,6 @@ defmodule PhoenixApp.TweetProducer do
     text
     |> (&Regex.replace(~r/\n|\r/, &1, "\n")).()
     |> (&Regex.replace(~r/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/, &1, "<a href='\\1' target='_blank'>\\1</a>")).()
-    |> (&Endpoint.broadcast("twitter:stream", "tweet", %{body: &1})).()
+    |> (&Endpoint.broadcast("twitter:stream", "tweet", %{body: &1} || %{})).()
   end
 end

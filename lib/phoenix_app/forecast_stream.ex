@@ -35,7 +35,7 @@ defmodule PhoenixApp.ForecastStream do
   defp broadcast(body) do
     case Poison.decode(body) do
       {:ok, response} ->
-        Endpoint.broadcast("twitter:stream", "timeseries", response)
+        Endpoint.broadcast("twitter:stream", "timeseries", response || %{})
       _ -> Logger.error "Poison decode error"
     end
   end

@@ -19,7 +19,7 @@ defmodule PhoenixApp.MnistStream do
 
   def stream_digits() do
     id = Enum.random(0..10000)
-    Endpoint.broadcast! "mnist:digit", "digit-stream", Mnist.digit(id)
+    Endpoint.broadcast("mnist:digit", "digit-stream", Mnist.digit(id) || %{})
 
     Process.send_after self(), :digit, 2000
   end
