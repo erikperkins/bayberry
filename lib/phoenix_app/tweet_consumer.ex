@@ -2,6 +2,7 @@ defmodule PhoenixApp.TweetConsumer do
   use GenServer
   use Timex
   use AMQP
+  require Logger
   alias PhoenixAppWeb.Endpoint
 
   @rabbitmq "amqp://guest:guest@#{Application.get_env(:phoenix_app, Endpoint)[:rabbitmq]}"
@@ -34,11 +35,13 @@ defmodule PhoenixApp.TweetConsumer do
   end
 
   defp consume(payload, _channel) do
-    {:ok, tweet} = Poison.decode(payload)
-    count_tweet(tweet)
+    case Poison.decode(payload) do
+      {:ok, tweet} -> count(tweet)
+      _ -> Logger.error("Could not decode outgoing tweet")
+    end
   end
 
-  defp count_tweet(tweet) do
+  defp count(tweet) do
     {:ok, time} = Timex.parse(tweet["created_at"], @timestamp, :strftime)
 
     day = %{time | hour: 0, minute: 0, second: 0}

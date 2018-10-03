@@ -20,13 +20,14 @@ defmodule PhoenixApp.ForecastStream do
   end
 
   def timeseries() do
-    forecast()
+    spawn fn -> forecast() end
     Process.send_after self(), :timeseries, 500
   end
 
   defp forecast() do
     case HTTPoison.get("#{@api}") do
-      {:ok, %HTTPoison.Response{ body: body }} -> broadcast(body)
+      {:ok, %HTTPoison.Response{ body: body }} ->
+        spawn fn -> broadcast(body) end
       {:error, %HTTPoison.Error{reason: reason}} -> Logger.error reason
     end
   end
@@ -34,7 +35,7 @@ defmodule PhoenixApp.ForecastStream do
   defp broadcast(body) do
     case Poison.decode(body) do
       {:ok, response} ->
-        Endpoint.broadcast!("twitter:stream", "timeseries", response)
+        Endpoint.broadcast("twitter:stream", "timeseries", response)
       _ -> Logger.error "Poison decode error"
     end
   end

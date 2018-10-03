@@ -30,11 +30,16 @@ defmodule PhoenixApp.TweetProducer do
   end
 
   defp publish_tweets(state) do
-    for tweet <- ExTwitter.stream_filter([follow: @follow], :infinity) do
-      payload = Poison.encode! Map.take(tweet, [:created_at, :text, :lang])
+    Logger.warn("Receiving tweets...")
+    for tweet <- ExTwitter.stream_filter([follow: @follow], 10000) do
+      fields = Map.take(tweet, [:created_at, :text, :lang])
 
-      AMQP.Basic.publish(state[:channel], "", "tweets", payload)
-      broadcast(tweet)
+      case Poison.encode(fields) do
+        {:ok, payload} ->
+          AMQP.Basic.publish(state[:channel], "", "tweets", payload)
+          spawn fn -> broadcast(tweet) end
+        _ -> Logger.error("Could not encode incoming tweet")
+      end
     end
 
     Logger.warn("Twitter stream stopped. Restarting stream...")
