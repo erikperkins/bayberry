@@ -1,12 +1,12 @@
 var
   svg = d3.select("svg").style("background-color", "white"),
-  margin = { top: 20, right: 20, bottom: 50, left: 50 },
+  margin = { top: 20, right: 85, bottom: 50, left: 85 },
   width = svg.attr("width") - margin.left - margin.right,
   height = svg.attr("height") - margin.top - margin.bottom,
-  g = svg.append("g").attr(
+  group = svg.append("g").attr(
     "transform",
     `translate(${margin.left},${margin.top})`
-  );
+  )
 
 var
   time = d3.scaleTime().range([0, width]),
@@ -14,7 +14,7 @@ var
 
 let endTime = new Date();
 let beginTime = new Date();
-beginTime.setMinutes(endTime.getMinutes() - 30);
+beginTime.setMinutes(endTime.getMinutes() - 60);
 time.domain([beginTime, endTime]);
 tweets.domain([0, 50]);
 
@@ -65,37 +65,39 @@ var tAxisLabel = svg.append("text").attr("class", "axis axis-label")
 var yAxisLabel = svg.append("text").attr("class", "axis axis-label")
   .attr(
     "transform",
-    `translate(${margin.left / 2},
+    `translate(${margin.left / 2 - 10},
       ${margin.top + height / 2}) rotate(270)`
   ).style("text-anchor", "middle")
-  .text("Tweets");
+  .text("Tweets per Minute");
 
-svg.append("circle")
+var observedLabel = group.append("g")
+  .attr(
+    "transform",
+    `translate(0,${height - 5})`
+  )
+
+observedLabel.append("circle")
   .attr("r", 3)
-  .attr(
-    "transform",
-    `translate(${margin.left + width / 2},${margin.top + height - 30})`
-  ).style("fill", "steelblue");
+  .style("fill", "steelblue");
 
-  svg.append("text")
-  .attr(
-    "transform",
-    `translate(${margin.left + width / 2 + 5},${margin.top + height - 30})`
-  ).text("observed")
+observedLabel.append("text")
+  .text("observed")
+  .attr("transform", "translate(6,0)")
   .style("dominant-baseline", "middle");
 
-  svg.append("circle")
-    .attr("r", 3)
-    .attr(
-      "transform",
-      `translate(${margin.left + width / 2},${margin.top + height - 10})`
-    ).style("fill", "firebrick");
+var predictedLabel = group.append("g")
+.attr(
+  "transform",
+  `translate(0,${height - 15})`
+)
 
-  svg.append("text")
-  .attr(
-    "transform",
-    `translate(${margin.left + width / 2 + 5},${margin.top + height - 10})`
-  ).text("forecast")
+predictedLabel.append("circle")
+  .attr("r", 3)
+  .style("fill", "firebrick");
+
+predictedLabel.append("text")
+  .text("forecast")
+  .attr("transform", "translate(6,0)")
   .style("dominant-baseline", "middle")
 
 function updateTimeSeries(json) {
@@ -123,19 +125,24 @@ function updateTimeSeries(json) {
 
   let line = d3.line()
     .x(d => time(parse(d.key)))
-    .y(d => tweets(d.value));
+    .y(d => tweets(d.value))
 
-  predictedPath.attr("d", line(predicted));
+  predictedPath.attr("d", line(predicted))
   observedPath.attr("d", line(observed))
-  predictedNowPath.attr("d", line(predictedNow));
 
-  let tAxis = d3.axisBottom(time).ticks(5);
-  tAxisLine.call(tAxis).transition(1000);
+  predictedNowPath.attr("d", line(predictedNow))
 
-  let yAxis = d3.axisLeft(tweets).ticks(5);
-  yAxisLine.call(yAxis).transition(1000);
+  let tAxis = d3.axisBottom(time).ticks(5)
+  tAxisLine.call(tAxis).transition(80)
 
-  observedNowPath.transition(1000).attr("d", line(observedNow));
+  let yAxis = d3.axisLeft(tweets).ticks(5)
+  yAxisLine.call(yAxis).transition(80)
+
+  observedNowPath.transition(80).attr("d", line(observedNow))
+
+  predictedLabel.attr("transform", `translate(${time(parse(p1.key))},${tweets(p1.value)})`)
+  observedLabel.transition(80)
+    .attr("transform", `translate(${time(parse(o1.key))},${tweets(o1.value)})`)
 }
 
 export {updateTimeSeries};

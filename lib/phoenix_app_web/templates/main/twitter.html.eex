@@ -34,7 +34,7 @@
     <hr/>
 
     <div class='row justify-content-center'>
-      <svg id='tweets' width="480" height="270"></svg>
+      <svg id='tweets' width="640" height="320"></svg>
     </div>
 
     <hr/>
