@@ -1,0 +1,61 @@
+// Place all the styles related to the Mnist controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.mnist-canvas {
+  background-color: white;
+  border: solid 1px lightgray;
+  border-radius: 4px;
+  margin: auto;
+  display: block;
+}
+
+.mnist-classification {
+  background-color: white;
+  border: solid 1px lightgray;
+  border-radius: 4px;
+  padding: 0.1em 0.25em 0.1em 0.25em;
+}
+
+.digit-feed {
+  width: 200px;
+  height: 100px;
+  background-color: white;
+  border: solid 1px lightgray;
+  border-radius: 4px;
+}
+
+.btn-tertiary {
+  color: black;
+  background-color: white;
+  border: solid 1px lightgray;
+}
+
+.mnist-equals-nosocket {
+  font-size: 48px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+  fill: grey;
+}
+
+.mnist-equals {
+  font-size: 48px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.mnist-digit {
+  font-size: 48px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.mnist-result {
+  margin: 2em 0 2em 0;
+}
+
+.plug {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

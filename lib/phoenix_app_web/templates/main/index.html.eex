@@ -1,0 +1,105 @@
+<div class='row justify-content-center padded'>
+  <div class='col-lg-4'>
+    <p class='text-center punnet'>
+
+    <img src="<%= static_path(@conn, "/images/punnet.png") %>">
+
+    <p class='text-center'>
+      <span class='lead'><strong >punnet</strong> (<em>noun</em>):</span>
+      a small basket for berries
+    </p>
+
+    <p class='lead text-center'>
+      This website is a small basket of data science applications.
+      It is a hand-picked collection of methods and technologies,
+      intended to approach the state of the art.
+    </p>
+  </div>
+</div>
+
+<div class='row justify-content-center'>
+  <div class='placard-container'>
+    <div class='card placard'>
+      <div class='text-center'>
+        <div class='card-block'>
+          <img src="<%= static_path(@conn, "/images/architecture.png") %>"
+              class="card-image-top rounded-circle img-thumbnail">
+
+          <h2 class='card-title'>
+            <%= link "Site Architecture", to: main_path(@conn, :architecture) %>
+          </h2>
+          <p class='card-text lead'>
+            Brief technical overview of this website
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class='card placard'>
+      <div class='text-center'>
+        <div class='card-block'>
+          <img src="<%= static_path(@conn, "/images/mnist.png") %>"
+              class="card-image-top rounded-circle img-thumbnail">
+
+          <h2 class='card-title'>
+            <%= link "Digit Recognition", to: main_path(@conn, :mnist) %>
+          </h2>
+          <p class='card-text lead'>
+            Neural network classification of handwritten numbers
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class='card placard'>
+      <div class='text-center'>
+        <div class='card-block'>
+          <svg id='pack'
+            class='card-image-top wordcloud rounded-circle'></svg>
+          <h2 class='card-title'>
+            <%= link "Word Association", to: main_path(@conn, :nlp) %>
+          </h2>
+          <p class='card-text lead'>
+            Semantic word search with latent Dirichlet allocation
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class='card placard'>
+      <div class='text-center'>
+        <div class='card-block'>
+          <div class='card-image-top placard-image'>
+            <div class='placard-icon rounded-circle'>
+              <h4 class='display-4'>
+                <i class='fa fa-twitter fa-3x text-primary'></i>
+              </h4>
+            </div>
+          </div>
+          <h2 class='card-title placard-padded'>
+            <%= link "Twitter Stream", to: main_path(@conn, :twitter) %>
+          </h2>
+          <p class='card-text lead'>
+            Live time series forecast of streaming Twitter data
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class='card placard'>
+      <div class='text-center'>
+        <div class='card-block'>
+          <svg id='wordcloud'
+            class='card-image-top wordcloud rounded-circle'></svg>
+          <h2 class='card-title'>
+            <%= link "Blog", to: blog_post_path(@conn, :index) %>
+          </h2>
+          <p class='card-text lead'>
+            Notes on things
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="d-flex justify-content-center">
+  <%= form_for @conn, session_path(@conn, :create),
+    [method: :post, as: :user], fn f -> %>
+    <div class="form-group">
+      <%= text_input f, :email, placeholder: "Email" %>
+    </div>
+
+    <div "form-group">
+      <%= password_input f, :password, placeholder: "Password" %>
+    </div>
+
+    <div "form-group">
+      <%= submit "Login" %>
+    </div>
+  <% end %>
+</div>

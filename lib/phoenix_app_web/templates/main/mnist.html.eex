@@ -1,0 +1,135 @@
+<div class=''>
+  <div class='jumbotron'>
+    <div class='container'>
+
+      <div class='row justify-content-center'>
+        <div class='text-center'>
+          <h4 class='display-4'>
+            Handwritten Digit Recognition
+          </h4>
+        </div>
+      </div>
+
+      <div class='row justify-content-center padded'>
+        <div class='text-center'>
+          <svg id='digit-feed' class='digit-feed'>
+            <image id='mnist-image' width=56 height=56 x=22 y=18
+              xlink:href="http://mnist.datapun.net/mnist/image/1.png"></image>
+            <text x=100 y=50 id="mnist-equals" class='mnist-equals-nosocket'>=</text>
+            <text id='mnist-digit' x=150 y=50 class='mnist-digit'>2</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class='row justify-content-center padded'>
+        <p class='lead text-center'>
+          Draw a single digit number in the box below.<br/>
+          A neural network will try to read your handwriting.
+        </p>
+      </div>
+
+      <div class='row justify-content-center padded'>
+        <div class='col-xs-4'>
+          <canvas id='mnist-canvas' width=224 height=224 class='mnist-canvas'>
+          </canvas>
+        </div>
+      </div>
+
+      <div class='row justify-content-center padded'>
+        <div class='col-xs-6 text-center'>
+          <span class='btn-group'>
+            <button id='mnist-clear' class='btn btn-lg btn-tertiary'>
+              <i class='fa fa-refresh'></i> Reset
+            </button>
+            <button id='mnist-submit' class='btn btn-lg btn-tertiary'>
+              <i id='mnist-submit-icon' class='fa fa-gear'></i> Submit
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <div class='row justify-content-center padded'>
+        <div class='col-xs-2 text-center'>
+          <h1 class='display-1 mnist-classification'>
+            <span id='mnist-classification'>?</span>
+          </h1>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class='container'>
+  <div class='col-xs-8 offset-xs-2'>
+
+    <h4 class='display-4'>What am I looking at?</h4>
+    <p>
+      This page shows the output of a convolutional neural network. This neural
+      network has been trained to classify images of handwritten single-digit
+      numbers. At the top of the page is a live feed of images of digits being
+      read in real time by the neural network, along with what digit it thinks
+      each image is. Below that is a palette where you can scribble in your own
+      handwritten digit and submit it to the neural network for classification.
+    </p>
+
+    <h4 class='display-4'>What is it good for?</h4>
+    <p>
+      Neural networks recognize patterns - from images of faces, to styles of
+      music, to equivalent turns of phrase in different languages. Neural
+      networks are not new, but only recently have computers become powerful
+      enough to perform the necessary underlying calculations efficiently and
+      cost-effectively. This particular neural network has been trained to
+      recognize images of handwritten digits in the
+      <%= link 'Mixed National Institute of Standards and  Technology',
+      to: 'http://yann.lecun.com/exdb/mnist/' %>
+      database, originally compiled in the 1980s. The network's performance on
+      this collection is a respectable 99% accuracy rate. Here it is applied to
+      also classify user-written digits, on which the performance is somewhat
+      less robust. In particular, it currently has some trouble distinguishing
+      '9' from '4'.
+    </p>
+
+    <h4 class='display-4'>What is it made with?</h4>
+    <p>
+      The neural network which powers this page is constructed with TensorFlow,
+      a machine-learning library which was developed at Google and released as
+      open-source software in late 2015. At its core, TensorFlow acts as a
+      general templating language for deferred calculations which can be
+      distributed across many computational devices, including GPUs. In practice
+      it is primarily used to construct neural networks. Some example
+      applications are Google's <%= link 'RankBrain', to: 'https://en.wikipedia.org/wiki/RankBrain' %>,
+      which helps refine Google's search results, and
+      <%= link 'DeepDream', to: 'https://research.googleblog.com/2015/06/inceptionism-going-deeper-into-neural.html' %>,
+      which generates artificial images.
+    </p>
+
+    <h4 class='display-4'>How does it work?</h4>
+    <p>
+      The interface here is simple, but there is a lot of technology underlying
+      this page. The live feed of classified digits is sent to the browser over
+      a websocket connection as pure JSON, with the images base-64 encoded. The
+      green plug icon in the lower right indicates that the websocket connection
+      is active, and turns red if the connection is lost. On the server side, a
+      Redis-backed job queue periodically runs a background job in a Phoenix
+      application to broadcast the digit classifications over the
+      websocket. The job requests random images from the MNIST database
+      to be classified by communicating with a Python Flask application via a
+      JSON API. The Flask application hosts the TensorFlow code which actually
+      classifies each image.
+    </p>
+
+    <p>
+      Similarly, the user-input digit classification works via exchanging JSON
+      data. The user draws the digit on an HTML5 canvas, which is base-64
+      encoded and sent to Phoenix through a websocket. Phoenix then forwards this
+      data to Flask, where the image is cropped, resized, and fed to the neural
+      network, which returns the result in JSON form to Phoenix. Since this series
+      of operations, including the actual digit classification, takes only a
+      second or two, it is performed synchronously rather than by a background
+      job. Indeed, most of the wait time is from network latency - a trained
+      neural network is actually quite fast and lightweight.
+    </p>
+
+  </div>
+</div>

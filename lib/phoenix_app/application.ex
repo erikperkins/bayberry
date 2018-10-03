@@ -1,6 +1,8 @@
 defmodule PhoenixApp.Application do
   use Application
 
+  @redis Application.get_env(:phoenix_app, PhoenixAppWeb.Endpoint)[:redis]
+
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
@@ -17,12 +19,14 @@ defmodule PhoenixApp.Application do
       worker(
         Redix,
         [
-          [host: System.get_env("REDIS_HOST"), port: 6379, database: 3],
+          [host: @redis, port: 6379, database: 3],
           [name: :redix]
         ]
       ),
-      worker(PhoenixApp.Twitter, [], restart: :permanent),
-      worker(PhoenixApp.Timeseries, [])
+      worker(PhoenixApp.MnistStream, [], restart: :permanent),
+      worker(PhoenixApp.TweetConsumer, [], restart: :permanent),
+      worker(PhoenixApp.TweetProducer, [], restart: :permanent),
+      worker(PhoenixApp.ForecastStream, [], restart: :permanent)
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

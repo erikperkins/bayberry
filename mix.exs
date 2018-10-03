@@ -48,6 +48,7 @@ defmodule Test.Mixfile do
       {:rabbit_common, github: "jbrisbin/rabbit_common", override: true},
       {:redix, "~> 0.6"},
       {:redix_pubsub, "~> 0.4"},
+      {:httpoison, "~> 1.0"},
       {:poison, "~> 3.0"},
       {:timex, "~> 3.4"},
       {:cors_plug, "~> 1.5"}

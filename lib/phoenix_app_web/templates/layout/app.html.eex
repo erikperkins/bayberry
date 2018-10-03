@@ -14,19 +14,47 @@
   <body>
     <nav class='navbar navbar-light bg-faded'>
       <div class='container d-flex justify-content-between align-items-center'>
-        <a href='http://datapun.net' class='navbar-brand'>Data Punnet</a>
-        <span class='navbar-text'>
-          <a href='http://github.com/erikperkins/phoenix_app'
-            class='lead text-default navbar-brand' target='_blank'>
-            <i class='fa fa-github fa-2x'></i>
-          </a>
-        </span>
+
+        <big class="text-muted">
+          <%= link "Data Punnet", to: main_path(@conn, :index) %>
+          <%= for path <- path_tree(@conn) do %>
+            / <%= path_link(path) %>
+          <% end %>
+        </big>
+
+        <big class="navbar-text">
+          <%= link to: "http://github.com/erikperkins/datapunnet",
+              class: "lead text-default navbar-brand", target: "_blank" do %>
+            <i class='fa fa-github'></i>
+          <% end %>
+
+          <%=
+            case Plug.Conn.get_session(@conn, :user_id) do
+              nil -> nil
+              user_id ->
+                link to: user_path(@conn, :show, user_id),
+                  class: "lead text-default navbar-brand" do
+                HTML.raw("<i class='fa fa-user-circle-o text-info'></i>")
+              end
+            end
+          %>
+
+          <%= link to: session_path(@conn, :update), method: :patch,
+              class: "lead text-default navbar-brand" do %>
+            <%= session_icon(@conn) %>
+          <% end %>
+        </big>
       </div>
     </nav>
-    <p class="alert alert-info" role="alert" hidden><%= get_flash(@conn, :info) %></p>
-    <p class="alert alert-danger" role="alert" hidden><%= get_flash(@conn, :error) %></p>
+
+    <p class="alert alert-info text-center" role="alert"><%= get_flash(@conn, :info) %></p>
+    <p class="alert alert-success text-center" role="alert"><%= get_flash(@conn, :success) %></p>
+    <p class="alert alert-warning text-center" role="alert"><%= get_flash(@conn, :warning) %></p>
+    <p class="alert alert-danger text-center" role="alert"><%= get_flash(@conn, :error) %></p>
 
     <%= render @view_module, @view_template, assigns %>
+
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <%= render_existing @view_module, "scripts.html", Map.put(assigns, :script_path, @conn.request_path) %>
   </body>
 </html>

@@ -1,0 +1,27 @@
+<h3>
+  User
+  <span class="pull-right">
+    <%= link to: user_path(@conn, :edit, @user) do %>
+      <i class="fa fa-edit btn btn-default"></i>
+    <% end %>
+  </span>
+</h3>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= link @user.name, to: cms_page_path(@conn, :index) %>
+  </li>
+
+  <li>
+    <strong>Username:</strong>
+    <%= @user.username %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @user.credential.email %>
+  </li>
+
+</ul>

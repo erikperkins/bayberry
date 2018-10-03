@@ -1,0 +1,15 @@
+<div class="container d-flex justify-content-between">
+<h3>
+  Edit User
+</h3>
+<span>
+  <%=
+    unless @conn.query_params["change_credentials"] do
+      link "Change credentials",
+        to: user_path(@conn, :edit, @user, change_credentials: true)
+    end
+  %>
+</span>
+</div>
+
+<%= render "form.html", Map.put(assigns, :action, user_path(@conn, :update, @user)) %>

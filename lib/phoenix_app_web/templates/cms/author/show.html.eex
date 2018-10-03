@@ -1,0 +1,30 @@
+<h3>
+  Author
+  <span class="pull-right">
+    <%= link to: cms_author_path(@conn, :edit, @author) do %>
+      <i class="fa fa-edit btn btn-default"></i>
+    <% end %>
+  </span>
+</h3>
+
+<ul>
+  <li>
+    <strong>Name:</strong>
+    <%= link @author.user.name, to: user_path(@conn, :show, @author.user) %>
+  </li>
+
+  <li>
+    <strong>Bio:</strong>
+    <%= @author.bio %>
+  </li>
+
+  <li>
+    <strong>Role:</strong>
+    <%= @author.role %>
+  </li>
+
+  <li>
+    <strong>Genre:</strong>
+    <%= @author.genre %>
+  </li>
+</ul>

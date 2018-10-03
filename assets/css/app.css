@@ -1,4 +1,6 @@
 /* This file is for your main application css. */
+.alert:empty { display: none; }
+
 .tweet {
   height: 10em;
   overflow: hidden;
