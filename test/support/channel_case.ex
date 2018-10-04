@@ -1,4 +1,4 @@
-defmodule PhoenixAppWeb.ChannelCase do
+defmodule BayberryWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule PhoenixAppWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint PhoenixAppWeb.Endpoint
+      @endpoint BayberryWeb.Endpoint
     end
   end
 
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PhoenixApp.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bayberry.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(PhoenixApp.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Bayberry.Repo, {:shared, self()})
     end
     :ok
   end

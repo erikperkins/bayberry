@@ -1,4 +1,4 @@
-defmodule PhoenixApp.Repo.Migrations.AddAuthorIdToPages do
+defmodule Bayberry.Repo.Migrations.AddAuthorIdToPages do
   use Ecto.Migration
 
   def change do

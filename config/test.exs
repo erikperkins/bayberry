@@ -2,7 +2,7 @@ use Mix.Config
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :phoenix_app, PhoenixAppWeb.Endpoint,
+config :bayberry, BayberryWeb.Endpoint,
   http: [port: 4001],
   server: false
 
@@ -10,10 +10,10 @@ config :phoenix_app, PhoenixAppWeb.Endpoint,
 config :logger, level: :warn
 
 # Configure your database
-config :phoenix_app, PhoenixApp.Repo,
+config :bayberry, Bayberry.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "phoenix_app_test",
+  database: "bayberry_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

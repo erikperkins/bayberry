@@ -1,4 +1,4 @@
-defmodule PhoenixApp.DataCase do
+defmodule Bayberry.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule PhoenixApp.DataCase do
 
   using do
     quote do
-      alias PhoenixApp.Repo
+      alias Bayberry.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import PhoenixApp.DataCase
+      import Bayberry.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PhoenixApp.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bayberry.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(PhoenixApp.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Bayberry.Repo, {:shared, self()})
     end
 
     :ok

@@ -6,18 +6,18 @@
 use Mix.Config
 
 # General application configuration
-config :phoenix_app,
-  ecto_repos: [PhoenixApp.Repo]
+config :bayberry,
+  ecto_repos: [Bayberry.Repo]
 
 # Configures the endpoint
-config :phoenix_app, PhoenixAppWeb.Endpoint,
+config :bayberry, BayberryWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "848jxxJwuXulhXM078YPNoxL1QVyz2KrRI5sdByOkiEm5o8x05UEdqTWy9wHUqhT",
-  render_errors: [view: PhoenixAppWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: PhoenixApp.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: BayberryWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Bayberry.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configure external API endpoints
-config :phoenix_app, PhoenixAppWeb.Endpoint,
+config :bayberry, BayberryWeb.Endpoint,
   mnist: "http://mnist.datapun.net/mnist",
   nlp: "http://main.datapun.net:1025/lda",
   rabbitmq: "storage.datapun.net",

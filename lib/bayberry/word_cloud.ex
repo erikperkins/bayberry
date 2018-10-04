@@ -1,0 +1,20 @@
+defmodule Bayberry.WordCloud do
+  alias Bayberry.CMS
+
+  def word_count do
+    CMS.list_pages
+    |> Enum.map(fn page -> page.body end)
+    |> Enum.join(" ")
+    |> String.replace(~r/[\s]+[^\w]+/, " ")
+    |> String.replace(~r/[^\w]+[\s]+/, " ")
+    |> String.split(" ")
+    |> Enum.reduce(%{}, &tally(&1, &2))
+    |> Enum.map(fn {k, v} -> %{"text" => k, "size" => v} end)
+    |> Enum.sort_by(fn count -> count["size"] end, &>=/2)
+    |> Enum.take(25)
+  end
+
+  defp tally(x, %{} = count) do
+    Map.merge(count, %{x => 1}, fn _k, p, q -> p + q end)
+  end
+end
