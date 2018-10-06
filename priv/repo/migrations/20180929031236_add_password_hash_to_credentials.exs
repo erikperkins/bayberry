@@ -1,7 +1,7 @@
-defmodule PhoenixApp.Repo.Migrations.AddPasswordHashToCredentials do
+defmodule Bayberry.Repo.Migrations.AddPasswordHashToCredentials do
   use Ecto.Migration
 
-  alias PhoenixApp.Accounts.Crypto
+  alias Bayberry.Accounts.Crypto
 
   def change do
     alter table(:credentials) do

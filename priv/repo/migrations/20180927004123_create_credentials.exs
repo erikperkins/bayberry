@@ -1,4 +1,4 @@
-defmodule PhoenixApp.Repo.Migrations.CreateCredentials do
+defmodule Bayberry.Repo.Migrations.CreateCredentials do
   use Ecto.Migration
 
   def change do

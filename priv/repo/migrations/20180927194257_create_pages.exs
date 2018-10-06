@@ -1,4 +1,4 @@
-defmodule PhoenixApp.Repo.Migrations.CreatePages do
+defmodule Bayberry.Repo.Migrations.CreatePages do
   use Ecto.Migration
 
   def change do

@@ -1,4 +1,4 @@
-defmodule PhoenixApp.Repo.Migrations.CreateUsers do
+defmodule Bayberry.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
   def change do
