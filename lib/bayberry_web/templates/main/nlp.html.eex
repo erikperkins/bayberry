@@ -33,15 +33,14 @@
     <p>
       This page shows the output of a small semantic search engine based on
       <%= link 'latent Dirichlet allocation',
-        to: 'https://www.cs.princeton.edu/~blei/papers/BleiNgJordan2003.pdf'
+        to: 'http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf'
       %>.
       The search engine has been trained to
-      recognize recurring topics in a collection of documents, based on which
+      recognize common topics in a collection of documents, based on which
       words tend to appear together. Upon searching for a word in the search
       box above, the engine returns words which most closely relate to the
       search term, in the context of the body of text the engine has been
-      trained on. This semantic search engine has been trained on a 12,000
-      email subset of the
+      trained on. This semantic search engine has been trained on the
       <%=  link '20 Newsgroups', to: 'http://qwone.com/~jason/20Newsgroups/' %>
       data set, which includes discussion threads about computer graphics,
       operating systems, hardware, cars, motorcycles, hockey, science,
@@ -53,7 +52,7 @@
       Latent Dirichlet allocation is a method for extracting thematic
       information from collections of texts, in a process known as
       <%= link 'topic modeling',
-        to: 'http://https://en.wikipedia.org/wiki/Topic_model'
+        to: 'https://en.wikipedia.org/wiki/Topic_model'
       %>. The output of this process can be used for such things as
       <%= link 'recommending newspaper articles',
         to: 'http://open.blogs.nytimes.com/2015/08/11/building-the-next-new-york-times-recommendation-engine/'
@@ -65,7 +64,7 @@
     <h4 class='display-4'>What is it made with?</h4>
     <p>
       Custom Scala code is used to train and evaluate the latent Dirichlet
-      allocation model on a collection of documents.
+      allocation model on the text corpus.
       <%= link 'Stanford CoreNLP',
         to: 'http://http://stanfordnlp.github.io/CoreNLP/'
       %> handles text preprocessing - breaking up the documents into individual
@@ -92,8 +91,8 @@
       topics. The topics are named by the term which occurs in that topic with
       the highest probability - latent Dirichlet allocation will not,
       unfortunately, name the topics for you. Clicking on a topic shows the
-      8 most frequently occuring words associated with that topic, attached
-      to circles sized proportionally to the frequency of each term.
+      eight most frequently occuring words associated with that topic, attached
+      to circles sized in proportion to to the frequency of each term.
     </p>
 
   </div>

@@ -3,13 +3,13 @@
     <h4 class='display-3'>Site Architecture</h4>
 
     <p>
-      The structure of this website can be divided into three conceptual parts -
-      data science implementations, web applications, and a development
-      operations toolchain. Each part is effectively independent of the other,
-      but the site as a whole cannot exist without all of them. The site's
-      functionality is organized into a service-oriented architecture, with
-      component applications written in several different languages,
-      communicating via REST APIs and message queues.
+      The structure of this website can be divided into four conceptual parts -
+      data science, data engineering, web applications, and development operations.
+      Each part is effectively independent of the other, but the site
+      as a whole cannot exist without all of them. The site's functionality is
+      organized into a service-oriented architecture, with component applications
+      written in several different languages, communicating via REST APIs and
+      message queues.
     </p>
 
     <hr/>
@@ -30,7 +30,7 @@
           numerical computations across many different GPUs and CPUs. It abstracts
           away the specifics of each architecture, while providing an expressive
           Python wrapper for underlying close-to-the-metal C code. This site uses
-          it to construct, train, and evaluate neural networks.
+          TensorFlow to construct, train, and run neural networks.
         </div>
       </div>
       <div class='media mt-3'>
@@ -72,17 +72,35 @@
         <div class='media-body'>
           <h5 class='lead'><%= link 'Elixir', to: 'https://www.elixir-lang.org/' %></h5>
             Elixir is a functional concurrent language built on the reliable
-            <%= link 'Erlang', to: 'http://www.erlang.ong' %> virtual machine.
-            Its lightweight approach to concurrency is useful for robustly
-            handling unstructured streaming data. Here, it consumes and distributes
-            streaming Twitter data, and is the foundation for the main website.
+            <%= link 'Erlang', to: 'http://www.erlang.ong' %> virtual machine,
+            with clean and  aesthetic syntax inspired by Ruby. Its lightweight
+            approach to concurrency is useful for robustly handling unstructured
+            streaming data. Here, it consumes and distributes streaming Twitter
+            data, and is the foundation for the main website.
         </div>
       </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/d3-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'D3', to: 'http://www.d3js.org' %></h5>
+          Of the recent Cambrian explosion of JavaScript libraries, D3 stands out
+          as the most versatile and expressive tool for data visualization. All
+          visualizations on this site are constructed with it, notably the word
+          cloud on the home page, which uses the site's own content as a source
+          corpus of text.
+        </div>
+      </div>
+    </section>
+
+    <hr/>
+
+    <section>
+      <h4 class='display-4'>Data Engineering</h4>
       <div class='media mt-3'>
         <img src="<%= static_path(@conn, "/images/postgresql-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
           <h5 class='lead'><%= link 'PostgreSQL', to: 'http://www.postgresql.org' %></h5>
-          Postgres is a powerful open-source relational database management system.
+          PostgreSQL is a powerful open-source relational database management system.
           Adhering closest to the SQL standard of any of the database systems, it
           offers a wealth of data types and strong security measures. It is the
           backend database for the main component of this site.
@@ -104,7 +122,7 @@
         <div class='media-body'>
           <h5 class='lead'><%= link 'Redis', to: 'http://redis.io' %></h5>
           Redis is an in-memory key-value storage system, useful for rapidly
-          serving frequently-accessed ephemeral data. It is used in this site
+          serving frequently accessed ephemeral data. It is used in this site
           to store time-series data.
         </div>
       </div>
@@ -119,18 +137,6 @@
           component applications.
         </div>
       </div>
-
-      <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/d3-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
-        <div class='media-body'>
-          <h5 class='lead'><%= link 'D3', to: 'http://www.d3js.org' %></h5>
-          Of the recent Cambrian explosion of JavaScript libraries, D3 stands out
-          as the most versatile and expressive tool for data visualization. All
-          visualizations on this site are constructed with it, notably the word
-          cloud on the home page, which uses the site's own content as a source
-          corpus of text.
-        </div>
-      </div>
     </section>
 
     <hr/>
@@ -143,12 +149,9 @@
           <h5 class=lead><%= link 'Phoenix', to: 'http://phoenixframework.org' %></h5>
           Built for the modern web, Phoenix is a Rails-like framework intented
           for real-time streaming data and massive concurrency. It is written in
-          <%= link 'Elixir', to: 'http://www.elixir-lang.org' %>, which is a
-          functional language derived from
-          <%= link 'Erlang', to: 'http://www.erlang.org' %>
-          and which bears a syntactic resemblance to Ruby. Some see Elixir and
-          Phoenix as the natural successor to Ruby on Rails in the era of
-          Web 3.0 and the Internet of Things. Phoenix uses
+          <%= link 'Elixir', to: 'http://www.elixir-lang.org' %>.
+          Some see Elixir and Phoenix as the natural successor to Ruby on Rails
+          in the era of Web 3.0 and the Internet of Things. Phoenix uses
           <%= link 'Cowboy', to: 'https://github.com/ninenines/cowboy' %> as an
           application server
         </div>
@@ -160,9 +163,9 @@
           Originally an April Fool's joke, Flask is a fast, lightweight
           <%= link 'Python', to: 'http://www.python.org' %>
           web framework. It is ideally suited for constructing RESTful APIs.
-          Here it acts as a host for data science implementations written in
-          Python, including the TensorFlow neural network. The application
-          server is <%= link 'uWSGI', to: 'https://github.com/unbit/uwsgi' %>.
+          Here it acts as a host for data science algorithms written in Python,
+          including the TensorFlow neural network. The application server is
+          <%= link 'uWSGI', to: 'https://github.com/unbit/uwsgi' %>.
         </div>
       </div>
       <div class='media mt-3'>
@@ -205,7 +208,7 @@
           <h5 class=lead><%= link 'Bootstrap', to: 'http://v4-alpha.getbootstrap.com' %></h5>
           The front-end content is styled in Bootstrap, a CSS and JavaScript
           library. Its component-based approach relieves some of the burden of
-          composing aesthetically passable web pages, while providing a firm
+          creating aesthetically pleasing web pages, while providing a firm
           foundation for advanced stylistic touches. It coordinates well with
           the <%= link 'Font Awesome', to: 'http://fontawesome.io' %> icon library,
           also used here.
@@ -223,10 +226,10 @@
           <h5 class='lead'><%= link 'Amazon EC2', to: 'http://aws.amazon.com/ec2' %></h5>
           Amazon Web Services offers many infrastructural services, among the most
           important of which is the Elastic Compute Cloud. This service provides
-          an affordable and painless way to deploy web-connected servers. Data
-          Punnet is distributed across several servers, but uses minimal
-          resources, requiring only t2.nano and t2.micro instances.
-          It connects to the outside world through
+          an affordable and painless way to deploy web-connected servers. This
+          website is distributed across several servers, but uses minimal
+          resources, requiring only t2.nano and t2.micro instances. It connects
+          to the outside world through
           <%= link 'Elastic IP', to: 'http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html' %>
           and <%= link 'Route 53', to: 'http://aws.amazon.com/route53' %>.
         </div>
@@ -249,21 +252,18 @@
           Docker is a container system for encapsulating code dependencies. It is
           like a minimal Linux without the kernel, stored in a unique, layered
           filesystem. Each component of the site is held in its own Docker
-          container. The Nginx and Postgres containers also have access to Docker
-          volumes for persistent shared storage of static assets and database
-          files. The containers are coordinated via
-          <%= link 'Docker Compose', to: 'http://docs.docker.com/compose/' %>.
+          container.
         </div>
       </div>
       <div class='media mt-3'>
         <img src="<%= static_path(@conn, "/images/github-logo.jpg") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
           <h5 class='lead'><%= link 'GitHub', to: 'http://github.com' %></h5>
-          The codebase is version-controlled with
+          The website codebase is version-controlled with
           <%= link 'git', to: 'http://git-scm.com' %>, Linus Torvalds' second
           <%= link 'gift', to: 'http://github.com/torvalds/linux' %> to the world.
-          The component applications are included as git submodules.
-          GitHub is used for maintaining remote
+          The component applications are included as git submodules. GitHub is
+          employed for maintaining remote
           <%= link 'repositories', to: 'http://github.com/erikperkins/datapunnet' %>
           and lightweight Kanban-style
           <%= link 'project management', to: 'http://github.com/erikperkins/datapunnet/projects/1' %>.
