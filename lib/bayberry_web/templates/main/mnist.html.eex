@@ -109,10 +109,10 @@
       The interface here is simple, but there is a lot of technology underlying
       this page. The live feed of classified digits is sent to the browser over
       a websocket connection as pure JSON, with the images base-64 encoded. The
-      green plug icon in the lower right indicates that the websocket connection
-      is active, and turns red if the connection is lost. On the server side, a
+      equals sign in the digit display indicates that the websocket connection
+      is active, and turns grey if the connection is lost. On the server side, a
       Redis-backed job queue periodically runs a background job in a Phoenix
-      application to broadcast the digit classifications over the
+      application to broadcast the digit classifications live over the
       websocket. The job requests random images from the MNIST database
       to be classified by communicating with a Python Flask application via a
       JSON API. The Flask application hosts the TensorFlow code which actually

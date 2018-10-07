@@ -15,7 +15,7 @@
     <hr/>
 
     <div class='text-center'>
-      <img src="<%= static_path(@conn, "/images/application.png") %>" width=640>
+      <img src="<%= static_path(@conn, "/images/datapunnet.png") %>">
     </div>
 
     <hr/>
@@ -47,14 +47,35 @@
         </div>
       </div>
       <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/rust-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <img src="<%= static_path(@conn, "/images/scala-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
-          <h5 class='lead'><%= link 'Rust', to: 'http://www.rust-lang.org' %></h5>
-            Rust is a general-purpose systems language built for speed and
-            concurrency. Its syntax is designed to ensure memory safety.
-            Though it is fairly close to the metal, it allows many higher-level
-            abstractions. The real-time Twitter volume forecast on this
-            site is implemented in Rust.
+          <h5 class='lead'><%= link 'Scala', to: 'https://www.scala-lang.org/' %></h5>
+            Scala is an object-functional language. Compiled to Java bytecode,
+            its ability to exploit the vast Java libary ecosystem sets it apart
+            from many other functional programming languages. The semantic word
+            search on this site is implemented in Scala.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/haskell-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Haskell', to: 'https://www.haskell.org/' %></h5>
+            Haskell is a pure functional language. Its strong type system and
+            rigorous design patterns drawn from category theory result in terse
+            but expressive code. The real-time Twitter volume forecast on this site
+            is implemented in Haskell, via a JSON REST API built on the high-performance
+            <%= link 'Snap framework', to: 'http://www.snapframework.com' %>.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/elixir-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Elixir', to: 'https://www.elixir-lang.org/' %></h5>
+            Elixir is a functional concurrent language built on the reliable
+            <%= link 'Erlang', to: 'http://www.erlang.ong' %> virtual machine.
+            Its lightweight approach to concurrency is useful for robustly
+            handling unstructured streaming data. Here, it consumes and distributes
+            streaming Twitter data, and is the foundation for the main website.
         </div>
       </div>
       <div class='media mt-3'>
@@ -67,6 +88,38 @@
           backend database for the main component of this site.
         </div>
       </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/mongodb-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'MongoDB', to: 'https://www.mongodb.com/' %></h5>
+            MongoDB is a document database, storing data as JSON-like
+            collections. Its NoSQL approach to data persistence is useful for
+            storing data where the schema is either unimportant or rapidly
+            changing. It is the backend data store for the semantic word search
+            component of this site.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/redis-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Redis', to: 'http://redis.io' %></h5>
+          Redis is an in-memory key-value storage system, useful for rapidly
+          serving frequently-accessed ephemeral data. It is used in this site
+          to store time-series data.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/rabbitmq-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'RabbitMQ', to: 'http://www.rabbitmq.com' %></h5>
+          RabbitMQ is a message broker application designed for high availability
+          and scalability. It is employed here to provide a dispatch for
+          distributing data from live streaming sources, such as
+          <%= link 'Twitter', to: 'http://www.twitter.com' %>, among the
+          component applications.
+        </div>
+      </div>
+
       <div class='media mt-3'>
         <img src="<%= static_path(@conn, "/images/d3-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
@@ -100,7 +153,6 @@
           application server
         </div>
       </div>
-
       <div class='media mt-3'>
         <img src="<%= static_path(@conn, "/images/flask-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
@@ -124,26 +176,18 @@
           It provides a thin wrapper for Twitter's
           <%= link 'Finagle', to: 'https://twitter.github.io/finagle/' %>
           remote procedure call system. Like Flask, Finch is lightweight, fast,
-          and excellent for writing REST APIs.
+          and excellent for writing REST APIs. Here it hosts natural language
+          processing machinery.
         </div>
       </div>
       <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/redis-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <img src="<%= static_path(@conn, "/images/snap-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
-          <h5 class='lead'><%= link 'Redis', to: 'http://redis.io' %></h5>
-          Redis is an in-memory key-value storage system, useful for rapidly
-          serving frequently-accessed data.
-        </div>
-      </div>
-      <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/rabbitmq-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
-        <div class='media-body'>
-          <h5 class='lead'><%= link 'RabbitMQ', to: 'http://www.rabbitmq.com' %></h5>
-          RabbitMQ is a message broker application designed for high availability
-          and scalability. It is employed here to provide a dispatch for
-          distributing data from live streaming sources, such as
-          <%= link 'Twitter', to: 'http://www.twitter.com' %>, among the
-          component applications.
+          <h5 class='lead'><%= link 'Snap', to: 'https://www.snapframework.com/' %></h5>
+            Snap is a high-performance web framework written in Haskell,
+            well-suited for writing REST APIs. It is organized around 'snaplets',
+            small composable components of functionality. On this site, Snap
+            manages time series forecasting.
         </div>
       </div>
       <div class='media mt-3'>

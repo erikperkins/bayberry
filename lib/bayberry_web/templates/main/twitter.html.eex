@@ -132,9 +132,8 @@
       application, and is instead supported by an application written in Elixir
       using the Phoenix framework. The Elixir application consumes a stream
       of tweets from Twitter, and shunts them into a RabbitMQ message queue for
-      distribution to other applications. A small application written in the
-      modern computational language Julia runs a forecast of the tweet volume
-      for the next upcoming minute.
+      distribution to other applications. A small application written in Haskell
+      runs a forecast of the tweet volume for the next upcoming minute.
     </p>
 
     <h4 class='display-4'>How does it work?</h4>
@@ -150,8 +149,8 @@
       digit recognition page, the Twitter bird icon turns red if the websocket
       is not connected. The Elixir worker also notifies a Redis transient data
       store of each incoming tweet; Redis keeps a minute-by-minute tally of
-      recent tweets. As tweets are received over the websocket, an Ajax call is
-      made to the Julia application, which runs a time series forecast based
+      recent tweets. As tweets are received over the websocket, an Elixir worker
+      calls the Haskell application, which runs a time series forecast based
       on exponential smoothing, and returns the forecast in JSON form, to be
       plotted on the forecast chart by D3.js.
     </p>

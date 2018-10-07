@@ -20,9 +20,9 @@ config :bayberry, BayberryWeb.Endpoint,
 config :bayberry, BayberryWeb.Endpoint,
   mnist: "http://mnist.datapun.net/mnist",
   nlp: "http://main.datapun.net:1025/lda",
+  timeseries: "http://timeseries.datapun.net/api/forecast",
   rabbitmq: "storage.datapun.net",
-  redis: "storage.datapun.net",
-  timeseries: "http://timeseries.datapun.net:8003"
+  redis: "storage.datapun.net"
 
 # Configure Elixir's Logger
 config :logger, :console,
