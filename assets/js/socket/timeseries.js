@@ -101,31 +101,30 @@ predictedLabel.append("text")
   .style("dominant-baseline", "middle")
 
 function updateTimeSeries(json) {
-  let offset = 30;
-  let
-    [p1, p0, ...p] = d3.entries(json["predicted"])
-      .sort((a, b) => parse(a.key) - parse(b.key)).reverse().slice(0, offset),
-    predicted = [...p.reverse(), p0],
-    predictedNow = [p0, p1];
+  let offset = 60;
 
   let
-    [o1, o0, ...o] = d3.entries(json["observed"])
-      .sort((a, b) => parse(a.key) - parse(b.key)).reverse().slice(0, offset),
+    [p1, p0, ...p] = json["predicted"].reverse().slice(0, offset),
+    predicted = [...p.reverse(), p0],
+    predictedNow = [p0, p1]
+
+  let
+    [o1, o0, ...o] = json["observed"].reverse().slice(0, offset),
     observed = [...o.reverse(), o0],
-    observedNow = [o0, o1];
+    observedNow = [o0, o1]
 
   let
     all = [...predicted, ...predictedNow, ...observed, ...observedNow],
-    max = d3.max(all, d => d.value),
-    domain = d3.extent(all, d => parse(d.key)),
+    max = d3.max(all, d => d.datum),
+    domain = d3.extent(all, d => parse(d.time)),
     codomain = [0, max];
 
   time.domain(domain);
   tweets.domain(codomain);
 
   let line = d3.line()
-    .x(d => time(parse(d.key)))
-    .y(d => tweets(d.value))
+    .x(d => time(parse(d.time)))
+    .y(d => tweets(d.datum))
 
   predictedPath.attr("d", line(predicted))
   observedPath.attr("d", line(observed))
@@ -140,9 +139,9 @@ function updateTimeSeries(json) {
 
   observedNowPath.transition(80).attr("d", line(observedNow))
 
-  predictedLabel.attr("transform", `translate(${time(parse(p1.key))},${tweets(p1.value)})`)
+  predictedLabel.attr("transform", `translate(${time(parse(p1.time))},${tweets(p1.datum)})`)
   observedLabel.transition(80)
-    .attr("transform", `translate(${time(parse(o1.key))},${tweets(o1.value)})`)
+    .attr("transform", `translate(${time(parse(o1.time))},${tweets(o1.datum)})`)
 }
 
 export {updateTimeSeries};

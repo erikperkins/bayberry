@@ -102,8 +102,8 @@
       This particular filter was chosen solely to ensure a steady tweet stream.
       A live forecast of the minutewise stream volume is shown above the tweets;
       the dotted portions of the observed and forecast values indicate the
-      current minute. As more tweets come in, the current observed tweet volume
-      is updated.
+      current minute. As more tweets come in, the observed tweet volume for the
+      current minute is updated.
     </p>
 
     <h4 class='display-4'>What is it good for?</h4>
@@ -128,12 +128,10 @@
 
     <h4 class='display-4'>What is it made with?</h4>
     <p>
-      This component of the site has been split off from the main Rails
-      application, and is instead supported by an application written in Elixir
-      using the Phoenix framework. The Elixir application consumes a stream
-      of tweets from Twitter, and shunts them into a RabbitMQ message queue for
-      distribution to other applications. A small application written in the
-      modern computational language Julia runs a forecast of the tweet volume
+      This component of the site uses the main Phoenix compontent application to
+      consume a stream of tweets from Twitter, and shunt them into a RabbitMQ
+      message queue for distribution to Redis for tallying. A small application
+      written in Haskell queries Redis and runs a forecast of the tweet volume
       for the next upcoming minute.
     </p>
 
@@ -150,8 +148,8 @@
       digit recognition page, the Twitter bird icon turns red if the websocket
       is not connected. The Elixir worker also notifies a Redis transient data
       store of each incoming tweet; Redis keeps a minute-by-minute tally of
-      recent tweets. As tweets are received over the websocket, an Ajax call is
-      made to the Julia application, which runs a time series forecast based
+      recent tweets. As tweets are received over the websocket, an Elixir worker
+      calls the Haskell application, which runs a time series forecast based
       on exponential smoothing, and returns the forecast in JSON form, to be
       plotted on the forecast chart by D3.js.
     </p>
