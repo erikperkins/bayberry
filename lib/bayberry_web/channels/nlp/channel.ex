@@ -1,6 +1,6 @@
-defmodule BayberryWeb.NlpChannel do
+defmodule BayberryWeb.NLP.Channel do
   use Phoenix.Channel
-  alias Bayberry.Nlp
+  alias Bayberry.NLP.Classifier
 
   def join("nlp:lda", _message, socket) do
     {:ok, socket}
@@ -13,6 +13,6 @@ defmodule BayberryWeb.NlpChannel do
   intercept ["lda-search"]
 
   def handle_in("lda-search", %{"body" => term}, socket) do
-    {:reply, {:ok, %{body: Nlp.search(term)}}, socket}
+    {:reply, {:ok, %{body: Classifier.search(term)}}, socket}
   end
 end

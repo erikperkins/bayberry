@@ -1,8 +1,8 @@
-defmodule BayberryWeb.TwitterSocket do
+defmodule BayberryWeb.Twitter.Socket do
   use Phoenix.Socket
 
   ## Channels
-  channel "twitter:*", BayberryWeb.TwitterChannel
+  channel "twitter:*", BayberryWeb.Twitter.Channel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket, check_origin: false

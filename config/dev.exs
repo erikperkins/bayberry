@@ -7,13 +7,20 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
 config :bayberry, BayberryWeb.Endpoint,
-  http: [port: 8080, acceptors: 50],
+  http: [port: 8000, acceptors: 50],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
                     cd: Path.expand("../assets", __DIR__)]]
 
+# Configure external API endpoints
+config :bayberry, BayberryWeb.Endpoint,
+  mnist: "http://mnist.datapun.net/mnist",
+  nlp: "http://main.datapun.net:1025/lda",
+  timeseries: "http://timeseries.datapun.net/api/forecast",
+  rabbitmq: "localhost",
+  redis: "localhost"
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

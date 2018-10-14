@@ -7,6 +7,7 @@ defmodule Bayberry.WordCloud do
     |> Enum.join(" ")
     |> String.replace(~r/[\s]+[^\w]+/, " ")
     |> String.replace(~r/[^\w]+[\s]+/, " ")
+    |> String.downcase()
     |> String.split(" ")
     |> Enum.reduce(%{}, &tally(&1, &2))
     |> Enum.map(fn {k, v} -> %{"text" => k, "size" => v} end)

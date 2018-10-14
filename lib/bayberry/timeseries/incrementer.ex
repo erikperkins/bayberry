@@ -1,4 +1,4 @@
-defmodule Bayberry.TweetConsumer do
+defmodule Bayberry.Timeseries.Incrementer do
   use GenServer
   use Timex
   use AMQP
@@ -13,12 +13,15 @@ defmodule Bayberry.TweetConsumer do
   end
 
   def init(%{}) do
-    {:ok, connection} = Connection.open(@rabbitmq)
-    {:ok, channel} = Channel.open(connection)
-    Queue.declare channel, "tweets"
-
-    {:ok, _} = Basic.consume(channel, "tweets", nil, no_ack: true)
-    {:ok, channel}
+    with {:ok, connection} <- Connection.open(@rabbitmq),
+         {:ok, channel} <- Channel.open(connection),
+         _ <- Queue.declare(channel, "tweets"),
+         {:ok, _} <- Basic.consume(channel, "tweets", nil, no_ack: true)
+    do
+      {:ok, channel}
+    else
+      {:error, error} -> {:error, error}
+    end
   end
 
   def handle_info({:basic_consume_ok, _meta}, channel) do
@@ -37,22 +40,22 @@ defmodule Bayberry.TweetConsumer do
   defp consume(payload, _channel) do
     case Poison.decode(payload) do
       {:ok, tweet} -> count(tweet)
-      _ -> Logger.error("Could not decode outgoing tweet")
+      _ -> Logger.error("Could not decode tweet")
     end
   end
 
-  defp count(tweet) do
-    {:ok, time} = Timex.parse(tweet["created_at"], @timestamp, :strftime)
+  defp count(%{"created_at" => created_at}) do
+    {:ok, time} = Timex.parse(created_at, @timestamp, :strftime)
 
     day = %{time | hour: 0, minute: 0, second: 0}
     minute = %{time | second: 0}
 
-    hash = "#{tweet["lang"]}:#{Timex.to_unix day}"
+    hash = "en:#{Timex.to_unix day}"
     key = Timex.to_unix(minute)
 
     case Redix.command(:redix, ~w(hincrby #{hash} #{key} 1)) do
       {:ok, 1} -> expire(hash, day)
-      {:ok, _} -> nil
+      _ -> nil
     end
   end
 

@@ -16,14 +16,6 @@ config :bayberry, BayberryWeb.Endpoint,
   render_errors: [view: BayberryWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Bayberry.PubSub, adapter: Phoenix.PubSub.PG2]
 
-# Configure external API endpoints
-config :bayberry, BayberryWeb.Endpoint,
-  mnist: "http://mnist.datapun.net/mnist",
-  nlp: "http://main.datapun.net:1025/lda",
-  timeseries: "http://timeseries.datapun.net/api/forecast",
-  rabbitmq: "storage.datapun.net",
-  redis: "storage.datapun.net"
-
 # Configure Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

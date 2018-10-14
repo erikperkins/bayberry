@@ -1,4 +1,4 @@
-defmodule Bayberry.Nlp do
+defmodule Bayberry.NLP.Classifier do
   alias BayberryWeb.Endpoint
 
   @api Application.get_env(:bayberry, Endpoint)[:nlp]

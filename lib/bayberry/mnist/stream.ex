@@ -1,6 +1,6 @@
-defmodule Bayberry.MnistStream do
+defmodule Bayberry.MNIST.Stream do
   use GenServer
-  alias Bayberry.Mnist
+  alias Bayberry.MNIST.Classifier
   alias BayberryWeb.Endpoint
 
   def start_link do
@@ -19,7 +19,7 @@ defmodule Bayberry.MnistStream do
 
   def stream_digits() do
     id = Enum.random(0..10000)
-    Endpoint.broadcast("mnist:digit", "digit-stream", Mnist.digit(id) || %{})
+    Endpoint.broadcast("mnist:digit", "digit-stream", Classifier.digit(id) || %{})
 
     Process.send_after self(), :digit, 2000
   end

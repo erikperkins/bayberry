@@ -1,9 +1,9 @@
 defmodule BayberryWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :bayberry
 
-  socket "/mnistsocket", BayberryWeb.MnistSocket
-  socket "/nlpsocket", BayberryWeb.NlpSocket
-  socket "/twittersocket", BayberryWeb.TwitterSocket
+  socket "/mnistsocket", BayberryWeb.MNIST.Socket
+  socket "/nlpsocket", BayberryWeb.NLP.Socket
+  socket "/twittersocket", BayberryWeb.Twitter.Socket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
