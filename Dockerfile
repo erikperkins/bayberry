@@ -21,6 +21,7 @@ RUN mix deps.compile
 
 WORKDIR $BAYBERRY_HOME/assets
 RUN npm install
+RUN npm rebuild node-sass
 
 WORKDIR $BAYBERRY_HOME
 RUN mix compile

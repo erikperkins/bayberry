@@ -68,6 +68,14 @@ config :logger, level: :info
 config :bayberry, BayberryWeb.Endpoint,
   secret_key_base: System.get_env("BAYBERRY_SECRET_KEY_BASE")
 
+# Configure external API endpoints
+config :bayberry, BayberryWeb.Endpoint,
+  mnist: "http://mnist.datapun.net/mnist",
+  nlp: "http://main.datapun.net:1025/lda",
+  timeseries: "http://timeseries.datapun.net/api/forecast",
+  rabbitmq: "storage.datapun.net",
+  redis: "storage.datapun.net"
+
 # Configure your database
 config :bayberry, Bayberry.Repo,
   adapter: Ecto.Adapters.Postgres,

@@ -1,4 +1,4 @@
-defmodule BayberryWeb.TwitterChannel do
+defmodule BayberryWeb.Twitter.Channel do
   use Phoenix.Channel
 
   def join("twitter:stream", _message, socket) do

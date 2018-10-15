@@ -1,4 +1,4 @@
-defmodule Bayberry.ForecastStream do
+defmodule Bayberry.Timeseries.Stream do
   use GenServer
   require Logger
   alias BayberryWeb.Endpoint

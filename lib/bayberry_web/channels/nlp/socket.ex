@@ -1,7 +1,7 @@
-defmodule BayberryWeb.MnistSocket do
+defmodule BayberryWeb.NLP.Socket do
   use Phoenix.Socket
 
-  channel "mnist:*", BayberryWeb.MnistChannel
+  channel "nlp:*", BayberryWeb.NLP.Channel
 
   transport :websocket, Phoenix.Transports.WebSocket, check_origin: false
 

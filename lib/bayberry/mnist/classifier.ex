@@ -1,4 +1,4 @@
-defmodule Bayberry.Mnist do
+defmodule Bayberry.MNIST.Classifier do
   alias BayberryWeb.Endpoint
 
   @api Application.get_env(:bayberry, Endpoint)[:mnist]

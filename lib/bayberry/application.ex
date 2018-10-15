@@ -1,8 +1,6 @@
 defmodule Bayberry.Application do
   use Application
 
-  @redis Application.get_env(:bayberry, BayberryWeb.Endpoint)[:redis]
-
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
@@ -14,19 +12,11 @@ defmodule Bayberry.Application do
       supervisor(Bayberry.Repo, []),
       # Start the endpoint when the application starts
       supervisor(BayberryWeb.Endpoint, []),
+      supervisor(Bayberry.MNIST.Supervisor, []),
+      supervisor(Bayberry.Twitter.Supervisor, []),
+      supervisor(Bayberry.Timeseries.Supervisor, [])
       # Start your own worker by calling: Bayberry.Worker.start_link(arg1, arg2, arg3)
       # worker(Bayberry.Worker, [arg1, arg2, arg3]),
-      worker(
-        Redix,
-        [
-          [host: @redis, port: 6379, database: 3],
-          [name: :redix]
-        ]
-      ),
-      worker(Bayberry.MnistStream, [], restart: :permanent),
-      worker(Bayberry.TweetConsumer, [], restart: :permanent),
-      worker(Bayberry.TweetProducer, [], restart: :permanent),
-      worker(Bayberry.ForecastStream, [], restart: :permanent)
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

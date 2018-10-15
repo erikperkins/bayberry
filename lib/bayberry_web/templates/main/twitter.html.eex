@@ -20,7 +20,7 @@
     </div>
 
     <div class='row justify-content-center'>
-      <p class='text-center col-sm-6 proviso'>
+      <p class='text-center col-sm-6 caution'>
         <strong class='text-warning'>
           <i class='fa fa-balance-scale'></i>
           DISCLAIMER:
@@ -40,7 +40,7 @@
     <hr/>
 
     <div class='row justify-content-center'>
-      <p class='text-center col-sm-6 proviso'>
+      <p class='text-center col-sm-6 caution'>
         <strong class='text-danger'><i class='fa fa-warning'></i> WARNING:</strong>
         These tweets are <strong>NOT</strong> filtered.
         Sometimes Twitter isn't nice <i class='fa fa-meh-o'></i>
