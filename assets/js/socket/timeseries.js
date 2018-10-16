@@ -104,12 +104,14 @@ function updateTimeSeries(json) {
   let offset = 60;
 
   let
-    [p1, p0, ...p] = json["predicted"].reverse().slice(0, offset),
+    [p1, p0, ...p] = json["predicted"].sort((a, b) => { return a.time - b.time })
+      .reverse().slice(0, offset),
     predicted = [...p.reverse(), p0],
     predictedNow = [p0, p1]
 
   let
-    [o1, o0, ...o] = json["observed"].reverse().slice(0, offset),
+    [o1, o0, ...o] = json["observed"].sort((a, b) => { return a.time - b.time })
+      .reverse().slice(0, offset),
     observed = [...o.reverse(), o0],
     observedNow = [o0, o1]
 
