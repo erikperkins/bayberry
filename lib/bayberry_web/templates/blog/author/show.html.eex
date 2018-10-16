@@ -1,7 +1,7 @@
 <h3>
   Author
   <span class="pull-right">
-    <%= link to: cms_author_path(@conn, :edit, @author) do %>
+    <%= link to: blog_author_path(@conn, :edit, @author) do %>
       <i class="fa fa-edit btn btn-default"></i>
     <% end %>
   </span>

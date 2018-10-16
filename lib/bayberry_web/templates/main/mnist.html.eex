@@ -65,9 +65,9 @@
 
     <h4 class='display-4'>What am I looking at?</h4>
     <p>
-      This page shows the output of a convolutional neural network. This neural
+      This article shows the output of a convolutional neural network. This neural
       network has been trained to classify images of handwritten single-digit
-      numbers. At the top of the page is a live feed of images of digits being
+      numbers. At the top of the article is a live feed of images of digits being
       read in real time by the neural network, along with what digit it thinks
       each image is. Below that is a palette where you can scribble in your own
       handwritten digit and submit it to the neural network for classification.
@@ -92,7 +92,7 @@
 
     <h4 class='display-4'>What is it made with?</h4>
     <p>
-      The neural network which powers this page is constructed with TensorFlow,
+      The neural network which powers this article is constructed with TensorFlow,
       a machine-learning library which was developed at Google and released as
       open-source software in late 2015. At its core, TensorFlow acts as a
       general templating language for deferred calculations which can be
@@ -107,7 +107,7 @@
     <h4 class='display-4'>How does it work?</h4>
     <p>
       The interface here is simple, but there is a lot of technology underlying
-      this page. The live feed of classified digits is sent to the browser over
+      this article. The live feed of classified digits is sent to the browser over
       a websocket connection as pure JSON, with the images base-64 encoded. The
       equals sign in the digit display indicates that the websocket connection
       is active, and turns grey if the connection is lost. On the server side, an

@@ -1,3 +1,0 @@
-<h2>Edit Author: <%= @author.user.name %></h2>
-
-<%= render "form.html", Map.put(assigns, :action, cms_author_path(@conn, :update, @author)) %>

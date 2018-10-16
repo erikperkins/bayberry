@@ -1,3 +1,0 @@
-<h2>Edit Page</h2>
-
-<%= render "form.html", Map.put(assigns, :action, cms_page_path(@conn, :update, @page)) %>

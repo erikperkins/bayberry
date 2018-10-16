@@ -1,10 +1,10 @@
-defmodule Bayberry.CMS.Page do
+defmodule Bayberry.Blog.Article do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Bayberry.CMS.Author
+  alias Bayberry.Blog.Author
 
 
-  schema "pages" do
+  schema "articles" do
     field :body, :string
     field :title, :string
     field :views, :integer
@@ -14,8 +14,8 @@ defmodule Bayberry.CMS.Page do
   end
 
   @doc false
-  def changeset(page, attrs) do
-    page
+  def changeset(article, attrs) do
+    article
     |> cast(attrs, [:title, :body])
     |> validate_required([:title, :body])
   end

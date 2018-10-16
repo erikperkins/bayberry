@@ -1,9 +1,9 @@
 defmodule Bayberry.WordCloud do
-  alias Bayberry.CMS
+  alias Bayberry.Blog
 
   def word_count do
-    CMS.list_pages
-    |> Enum.map(fn page -> page.body end)
+    Blog.list_articles
+    |> Enum.map(fn article -> article.body end)
     |> Enum.join(" ")
     |> String.replace(~r/[\s]+[^\w]+/, " ")
     |> String.replace(~r/[^\w]+[\s]+/, " ")

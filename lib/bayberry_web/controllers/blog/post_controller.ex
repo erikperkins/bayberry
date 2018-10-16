@@ -2,18 +2,17 @@ defmodule BayberryWeb.PostController do
   use BayberryWeb, :controller
   use Timex
 
-  alias Bayberry.CMS
-  # alias Bayberry.CMS.Page
+  alias Bayberry.Blog
 
   def index(conn, _params) do
-    posts = CMS.list_pages()
+    posts = Blog.list_articles()
     render(conn, "index.html", posts: posts)
   end
 
   def show(conn, %{"id" => id}) do
     post = id
-      |> CMS.get_page!()
-      |> CMS.increment_page_views()
+      |> Blog.get_article!()
+      |> Blog.increment_article_views()
 
     render(conn, "show.html", post: post)
   end
