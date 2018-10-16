@@ -6,7 +6,7 @@ defmodule BayberryWeb.ErrorViewTest do
 
   test "renders 404.html" do
     assert render_to_string(BayberryWeb.ErrorView, "404.html", []) ==
-           "Page not found"
+           "Article not found"
   end
 
   test "render 500.html" do

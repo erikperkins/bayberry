@@ -11,7 +11,7 @@
 
   <li>
     <strong>Name:</strong>
-    <%= link @user.name, to: blog_page_path(@conn, :index) %>
+    <%= link @user.name, to: blog_article_path(@conn, :index) %>
   </li>
 
   <li>

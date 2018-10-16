@@ -1,14 +1,14 @@
 defmodule Bayberry.Blog.Author do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Bayberry.Blog.Page
+  alias Bayberry.Blog.Article
 
 
   schema "authors" do
     field :bio, :string
     field :genre, :string
     field :role, :string
-    has_many :pages, Page
+    has_many :articles, Article
     belongs_to :user, Bayberry.Accounts.User
 
     timestamps()

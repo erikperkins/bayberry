@@ -86,7 +86,7 @@
           Of the recent Cambrian explosion of JavaScript libraries, D3 stands out
           as the most versatile and expressive tool for data visualization. All
           visualizations on this site are constructed with it, notably the word
-          cloud on the home page, which uses the site's own content as a source
+          cloud on the home article, which uses the site's own content as a source
           corpus of text.
         </div>
       </div>
@@ -208,7 +208,7 @@
           <h5 class=lead><%= link 'Bootstrap', to: 'http://v4-alpha.getbootstrap.com' %></h5>
           The front-end content is styled in Bootstrap, a CSS and JavaScript
           library. Its component-based approach relieves some of the burden of
-          creating aesthetically pleasing web pages, while providing a firm
+          creating aesthetically pleasing web articles, while providing a firm
           foundation for advanced stylistic touches. It coordinates well with
           the <%= link 'Font Awesome', to: 'http://fontawesome.io' %> icon library,
           also used here.

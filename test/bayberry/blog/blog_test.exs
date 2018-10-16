@@ -3,67 +3,67 @@ defmodule Bayberry.BlogTest do
 
   alias Bayberry.Blog
 
-  describe "pages" do
-    alias Bayberry.Blog.Page
+  describe "articles" do
+    alias Bayberry.Blog.Article
 
     @valid_attrs %{body: "some body", title: "some title", views: 42}
     @update_attrs %{body: "some updated body", title: "some updated title", views: 43}
     @invalid_attrs %{body: nil, title: nil, views: nil}
 
-    def page_fixture(attrs \\ %{}) do
-      {:ok, page} =
+    def article_fixture(attrs \\ %{}) do
+      {:ok, article} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Blog.create_page()
+        |> Blog.create_article()
 
-      page
+      article
     end
 
-    test "list_pages/0 returns all pages" do
-      page = page_fixture()
-      assert Blog.list_pages() == [page]
+    test "list_articles/0 returns all articles" do
+      article = article_fixture()
+      assert Blog.list_articles() == [article]
     end
 
-    test "get_page!/1 returns the page with given id" do
-      page = page_fixture()
-      assert Blog.get_page!(page.id) == page
+    test "get_article!/1 returns the article with given id" do
+      article = article_fixture()
+      assert Blog.get_article!(article.id) == article
     end
 
-    test "create_page/1 with valid data creates a page" do
-      assert {:ok, %Page{} = page} = Blog.create_page(@valid_attrs)
-      assert page.body == "some body"
-      assert page.title == "some title"
-      assert page.views == 42
+    test "create_article/1 with valid data creates a article" do
+      assert {:ok, %Article{} = article} = Blog.create_article(@valid_attrs)
+      assert article.body == "some body"
+      assert article.title == "some title"
+      assert article.views == 42
     end
 
-    test "create_page/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Blog.create_page(@invalid_attrs)
+    test "create_article/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Blog.create_article(@invalid_attrs)
     end
 
-    test "update_page/2 with valid data updates the page" do
-      page = page_fixture()
-      assert {:ok, page} = Blog.update_page(page, @update_attrs)
-      assert %Page{} = page
-      assert page.body == "some updated body"
-      assert page.title == "some updated title"
-      assert page.views == 43
+    test "update_article/2 with valid data updates the article" do
+      article = article_fixture()
+      assert {:ok, article} = Blog.update_article(article, @update_attrs)
+      assert %Article{} = article
+      assert article.body == "some updated body"
+      assert article.title == "some updated title"
+      assert article.views == 43
     end
 
-    test "update_page/2 with invalid data returns error changeset" do
-      page = page_fixture()
-      assert {:error, %Ecto.Changeset{}} = Blog.update_page(page, @invalid_attrs)
-      assert page == Blog.get_page!(page.id)
+    test "update_article/2 with invalid data returns error changeset" do
+      article = article_fixture()
+      assert {:error, %Ecto.Changeset{}} = Blog.update_article(article, @invalid_attrs)
+      assert article == Blog.get_article!(article.id)
     end
 
-    test "delete_page/1 deletes the page" do
-      page = page_fixture()
-      assert {:ok, %Page{}} = Blog.delete_page(page)
-      assert_raise Ecto.NoResultsError, fn -> Blog.get_page!(page.id) end
+    test "delete_article/1 deletes the article" do
+      article = article_fixture()
+      assert {:ok, %Article{}} = Blog.delete_article(article)
+      assert_raise Ecto.NoResultsError, fn -> Blog.get_article!(article.id) end
     end
 
-    test "change_page/1 returns a page changeset" do
-      page = page_fixture()
-      assert %Ecto.Changeset{} = Blog.change_page(page)
+    test "change_article/1 returns a article changeset" do
+      article = article_fixture()
+      assert %Ecto.Changeset{} = Blog.change_article(article)
     end
   end
 

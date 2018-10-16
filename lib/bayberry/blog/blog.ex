@@ -5,121 +5,121 @@ defmodule Bayberry.Blog do
 
   import Ecto.Query, warn: false
   alias Bayberry.Repo
-  alias Bayberry.Blog.{Author, Page}
+  alias Bayberry.Blog.{Author, Article}
   alias Bayberry.Accounts
 
 
   @doc """
-  Returns the list of pages.
+  Returns the list of articles.
 
   ## Examples
 
-      iex> list_pages()
-      [%Page{}, ...]
+      iex> list_articles()
+      [%Article{}, ...]
 
   """
-  def list_pages do
-    Page
+  def list_articles do
+    Article
     |> order_by(desc: :inserted_at)
     |> Repo.all()
     |> Repo.preload(author: [user: :credential])
   end
 
   @doc """
-  Gets a single page.
+  Gets a single article.
 
-  Raises `Ecto.NoResultsError` if the Page does not exist.
+  Raises `Ecto.NoResultsError` if the Article does not exist.
 
   ## Examples
 
-      iex> get_page!(123)
-      %Page{}
+      iex> get_article!(123)
+      %Article{}
 
-      iex> get_page!(456)
+      iex> get_article!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_page!(id) do
-    Page
+  def get_article!(id) do
+    Article
     |> Repo.get!(id)
     |> Repo.preload(author: [user: :credential])
   end
 
   @doc """
-  Creates a page.
+  Creates a article.
 
   ## Examples
 
-      iex> create_page(%{field: value})
-      {:ok, %Page{}}
+      iex> create_article(%{field: value})
+      {:ok, %Article{}}
 
-      iex> create_page(%{field: bad_value})
+      iex> create_article(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_page(%Author{} = author, attrs \\ %{}) do
-    %Page{}
-    |> Page.changeset(attrs)
+  def create_article(%Author{} = author, attrs \\ %{}) do
+    %Article{}
+    |> Article.changeset(attrs)
     |> Ecto.Changeset.put_change(:author_id, author.id)
     |> Repo.insert()
   end
 
   @doc """
-  Updates a page.
+  Updates a article.
 
   ## Examples
 
-      iex> update_page(page, %{field: new_value})
-      {:ok, %Page{}}
+      iex> update_article(article, %{field: new_value})
+      {:ok, %Article{}}
 
-      iex> update_page(page, %{field: bad_value})
+      iex> update_article(article, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_page(%Page{} = page, attrs) do
-    page
-    |> Page.changeset(attrs)
+  def update_article(%Article{} = article, attrs) do
+    article
+    |> Article.changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Deletes a Page.
+  Deletes a Article.
 
   ## Examples
 
-      iex> delete_page(page)
-      {:ok, %Page{}}
+      iex> delete_article(article)
+      {:ok, %Article{}}
 
-      iex> delete_page(page)
+      iex> delete_article(article)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_page(%Page{} = page) do
-    Repo.delete(page)
+  def delete_article(%Article{} = article) do
+    Repo.delete(article)
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking page changes.
+  Returns an `%Ecto.Changeset{}` for tracking article changes.
 
   ## Examples
 
-      iex> change_page(page)
-      %Ecto.Changeset{source: %Page{}}
+      iex> change_article(article)
+      %Ecto.Changeset{source: %Article{}}
 
   """
-  def change_page(%Page{} = page) do
-    Page.changeset(page, %{})
+  def change_article(%Article{} = article) do
+    Article.changeset(article, %{})
   end
 
   @doc """
-  Increments page views.
+  Increments article views.
   """
-  def increment_page_views(%Page{} = page) do
-    {1, [%Page{views: views}]} =
-      Repo.update_all from(p in Page, where: p.id == ^page.id),
+  def increment_article_views(%Article{} = article) do
+    {1, [%Article{views: views}]} =
+      Repo.update_all from(p in Article, where: p.id == ^article.id),
         [inc: [views: 1]], returning: [:views]
 
-    put_in(page.views, views)
+    put_in(article.views, views)
   end
 
   @doc """

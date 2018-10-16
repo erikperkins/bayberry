@@ -31,7 +31,7 @@
   <div class='col-xs-8 offset-xs-2'>
     <h4 class='display-4'>What am I looking at?</h4>
     <p>
-      This page shows the output of a small semantic search engine based on
+      This article shows the output of a small semantic search engine based on
       <%= link 'latent Dirichlet allocation',
         to: 'http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf'
       %>.
@@ -86,7 +86,7 @@
         to: 'https://en.wikipedia.org/wiki/Jensen%E2%80%93Shannon_divergence'
       %> to measure the 'distance' between the distributions, and sends
       the dozen or so most closely associated words back to Phoenix as JSON.
-      On the <%= link 'main page', to: main_path(@conn, :index) %>
+      On the <%= link 'main article', to: main_path(@conn, :index) %>
       there is also an interactive visualization of the top 10
       topics. The topics are named by the term which occurs in that topic with
       the highest probability - latent Dirichlet allocation will not,

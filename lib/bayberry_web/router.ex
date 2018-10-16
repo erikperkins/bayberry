@@ -37,7 +37,7 @@ defmodule BayberryWeb.Router do
   scope "/blog", BayberryWeb.Blog, as: :blog do
     pipe_through [:browser, :authenticate_user]
 
-    resources "/pages", PageController
+    resources "/articles", ArticleController
     resources "/authors", AuthorController
   end
 
