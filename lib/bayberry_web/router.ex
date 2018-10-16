@@ -30,6 +30,7 @@ defmodule BayberryWeb.Router do
   scope "/accounts", BayberryWeb.Accounts, as: :accounts do
     pipe_through [:browser, :authenticate_user]
 
+    get "/administration/", AdministrationController, :index
     resources "/users", UserController
   end
 

@@ -1,0 +1,7 @@
+<h2>Administration</h2>
+
+<ul>
+  <li><%= link "Users", to: accounts_user_path(@conn, :index) %></li>
+  <li><%= link "Authors", to: blog_author_path(@conn, :index) %></li>
+  <li><%= link "Articles", to: blog_article_path(@conn, :index) %></li>
+</ul>
