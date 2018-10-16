@@ -1,9 +1,9 @@
-defmodule BayberryWeb.CMS.PageView do
+defmodule BayberryWeb.Blog.PageView do
   use BayberryWeb, :view
 
-  alias Bayberry.CMS
+  alias Bayberry.Blog
 
-  def author_name(%CMS.Page{author: author}) do
+  def author_name(%Blog.Page{author: author}) do
     author.user.name
   end
 end

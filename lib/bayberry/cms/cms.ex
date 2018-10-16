@@ -1,11 +1,11 @@
-defmodule Bayberry.CMS do
+defmodule Bayberry.Blog do
   @moduledoc """
-  The CMS context.
+  The Blog context.
   """
 
   import Ecto.Query, warn: false
   alias Bayberry.Repo
-  alias Bayberry.CMS.{Author, Page}
+  alias Bayberry.Blog.{Author, Page}
   alias Bayberry.Accounts
 
 

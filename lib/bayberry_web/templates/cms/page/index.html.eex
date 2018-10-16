@@ -1,7 +1,7 @@
 <h3>
   Pages
   <span class="pull-right">
-    <%= link to: cms_page_path(@conn, :new) do %>
+    <%= link to: blog_page_path(@conn, :new) do %>
       <i class="fa fa-plus btn text-default"></i>
     <% end %>
   </span>
@@ -21,19 +21,19 @@
   <tbody>
 <%= for page <- @pages do %>
     <tr>
-      <td><%= link page.title, to: cms_page_path(@conn, :show, page) %></td>
+      <td><%= link page.title, to: blog_page_path(@conn, :show, page) %></td>
       <td><%= page.body %></td>
-      <td><%= link author_name(page), to: cms_author_path(@conn, :show, page.author) %></td>
+      <td><%= link author_name(page), to: blog_author_path(@conn, :show, page.author) %></td>
       <td><%= page.views %></td>
 
       <td class="text-right">
         <span>
-          <%= link to: cms_page_path(@conn, :edit, page) do %>
+          <%= link to: blog_page_path(@conn, :edit, page) do %>
             <i class="fa fa-edit btn text-default"></i>
           <% end %>
         </span>
         <span>
-          <%= link to: cms_page_path(@conn, :delete, page), method: :delete,
+          <%= link to: blog_page_path(@conn, :delete, page), method: :delete,
             data: [confirm: "Are you sure?"] do %>
             <i class="fa fa-trash btn text-danger"></i>
           <% end %>

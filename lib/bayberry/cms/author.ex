@@ -1,7 +1,7 @@
-defmodule Bayberry.CMS.Author do
+defmodule Bayberry.Blog.Author do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Bayberry.CMS.Page
+  alias Bayberry.Blog.Page
 
 
   schema "authors" do
