@@ -32,7 +32,7 @@
             case Plug.Conn.get_session(@conn, :user_id) do
               nil -> nil
               user_id ->
-                link to: user_path(@conn, :show, user_id),
+                link to: accounts_user_path(@conn, :show, user_id),
                   class: "lead text-default navbar-brand" do
                 HTML.raw("<i class='fa fa-user-circle-o text-info'></i>")
               end

@@ -19,13 +19,18 @@ defmodule BayberryWeb.Router do
     get "/", MainController, :index
     get "/twitter", MainController, :twitter
     get "/architecture", MainController, :architecture
-    get "/mnist", MainController, :mnist 
+    get "/mnist", MainController, :mnist
     get "/nlp", MainController, :nlp
     get "/word_cloud", MainController, :word_cloud
 
-    resources "/users", UserController
     resources "/sessions", SessionController,
       only: [:new, :create, :update, :delete], singleton: true
+  end
+
+  scope "/accounts", BayberryWeb.Accounts, as: :accounts do
+    pipe_through [:browser, :authenticate_user]
+
+    resources "/users", UserController
   end
 
   scope "/blog", BayberryWeb, as: :blog do

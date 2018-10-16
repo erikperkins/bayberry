@@ -1,7 +1,7 @@
 <h3>
   User
   <span class="pull-right">
-    <%= link to: user_path(@conn, :edit, @user) do %>
+    <%= link to: accounts_user_path(@conn, :edit, @user) do %>
       <i class="fa fa-edit btn btn-default"></i>
     <% end %>
   </span>

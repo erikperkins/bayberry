@@ -24,7 +24,7 @@
       if Enum.member?(@conn.path_info, "new")
       or @conn.query_params["change_credentials"] do
         render "_credential.html",
-          Map.merge(assigns, %{action: user_path(@conn, :create), form: f})
+          Map.merge(assigns, %{action: accounts_user_path(@conn, :create), form: f})
       end
     %>
   </div>
