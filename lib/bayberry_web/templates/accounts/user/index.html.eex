@@ -1,7 +1,7 @@
 <h3>
   Users
   <span class="pull-right">
-    <%= link to: user_path(@conn, :new) do %>
+    <%= link to: accounts_user_path(@conn, :new) do %>
       <i class="fa fa-plus btn text-default"></i>
     <% end %>
   </span>
@@ -19,17 +19,17 @@
   <tbody>
 <%= for user <- @users do %>
     <tr>
-      <td><%= link user.name, to: user_path(@conn, :show, user) %></td>
+      <td><%= link user.name, to: accounts_user_path(@conn, :show, user) %></td>
       <td><%= user.username %></td>
 
       <td class="text-right">
         <span>
-          <%= link to: user_path(@conn, :edit, user) do %>
+          <%= link to: accounts_user_path(@conn, :edit, user) do %>
             <i class="fa fa-edit btn text-default"></i>
           <% end %>
         </span>
         <span>
-          <%= link to: user_path(@conn, :delete, user), method: :delete,
+          <%= link to: accounts_user_path(@conn, :delete, user), method: :delete,
             data: [confirm: "Are you sure?"] do %>
             <i class="fa fa-trash btn text-danger"></i>
           <% end %>

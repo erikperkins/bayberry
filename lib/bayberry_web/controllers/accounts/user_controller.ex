@@ -1,4 +1,4 @@
-defmodule BayberryWeb.UserController do
+defmodule BayberryWeb.Accounts.UserController do
   use BayberryWeb, :controller
 
   alias Bayberry.Accounts
@@ -19,7 +19,7 @@ defmodule BayberryWeb.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: user_path(conn, :show, user))
+        |> redirect(to: accounts_user_path(conn, :show, user))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -43,7 +43,7 @@ defmodule BayberryWeb.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User updated successfully.")
-        |> redirect(to: user_path(conn, :show, user))
+        |> redirect(to: accounts_user_path(conn, :show, user))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
     end
@@ -55,6 +55,6 @@ defmodule BayberryWeb.UserController do
 
     conn
     |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: user_path(conn, :index))
+    |> redirect(to: accounts_user_path(conn, :index))
   end
 end
