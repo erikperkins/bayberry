@@ -24,6 +24,11 @@ defmodule BayberryWeb.MainView do
         <script>require("js/socket/twittersocket").TwitterSocket.run()</script>
         """
         |> raw
+        "/visage" ->
+          ~S"""
+          <script>require("js/socket/visagesocket").VisageSocket.run()</script>
+          """
+          |> raw
       _ -> nil
     end
   end

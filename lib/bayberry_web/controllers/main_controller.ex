@@ -25,4 +25,8 @@ defmodule BayberryWeb.MainController do
   def word_cloud(conn, _params) do
     json(conn, WordCloud.word_count)
   end
+
+  def visage(conn, _params) do
+    render(conn, "visage.html")
+  end
 end

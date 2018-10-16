@@ -4,6 +4,7 @@ defmodule BayberryWeb.Endpoint do
   socket "/mnistsocket", BayberryWeb.MNIST.Socket
   socket "/nlpsocket", BayberryWeb.NLP.Socket
   socket "/twittersocket", BayberryWeb.Twitter.Socket
+  socket "/visagesocket", BayberryWeb.Visage.Socket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -20,6 +21,7 @@ defmodule BayberryWeb.Endpoint do
     socket "/phoenix/live_reload/mnistsocket", Phoenix.LiveReloader.Socket
     socket "/phoenix/live_reload/nlpsocket", Phoenix.LiveReloader.Socket
     socket "/phoenix/live_reload/twittersocket", Phoenix.LiveReloader.Socket
+    socket "/phoenix/live_reload/visagesocket", Phoenix.LiveReloader.Socket
 
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
