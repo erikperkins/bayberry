@@ -223,18 +223,4 @@ defmodule Bayberry.Accounts do
   defp verify_password(credential, password) do
     credential.password == Crypto.hash(credential.salt, password)
   end
-
-#  defp secure_credential(attrs) do
-#    attrs
-#    |> add_salt()
-#    |> hash_password()
-#  end
-
-#  defp add_salt(attrs = %{"credential" => credential = %{"password" => _p}}) do
-#    %{attrs | "credential" => Map.put(credential, "salt", Crypto.salt)}
-#  end
-
-#  defp hash_password(attrs = %{"credential" => c = %{"salt" => s, "password" => p}}) do
-#    %{attrs | "credential" => Map.put(c, "password", Crypto.hash(s, p))}
-#  end
 end

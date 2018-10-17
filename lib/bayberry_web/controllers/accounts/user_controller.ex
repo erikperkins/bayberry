@@ -4,6 +4,8 @@ defmodule BayberryWeb.Accounts.UserController do
   alias Bayberry.Accounts
   alias Bayberry.Accounts.User
 
+  plug :preserve_self when action in [:delete]
+
   def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, "index.html", users: users)
@@ -56,5 +58,18 @@ defmodule BayberryWeb.Accounts.UserController do
     conn
     |> put_flash(:info, "User deleted successfully.")
     |> redirect(to: accounts_user_path(conn, :index))
+  end
+
+  defp preserve_self(conn, _) do
+    user = Accounts.get_user!(conn.params["id"])
+
+    if conn.assigns.current_user.id == user.id do
+      conn
+      |> put_flash(:error, "You cannot delete yourself.")
+      |> redirect(to: accounts_user_path(conn, :index))
+      |> halt()
+    else
+      conn
+    end
   end
 end

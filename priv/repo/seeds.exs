@@ -9,3 +9,14 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+admin = %{
+  "name" => "administrator",
+  "username" => "administrator",
+  "credential" => %{
+    "email" => "admin@datapun.net",
+    "password" => "datapunnet"
+  }
+}
+
+Bayberry.Accounts.create_user(admin)
