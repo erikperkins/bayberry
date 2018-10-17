@@ -5,8 +5,38 @@ defmodule BayberryWeb.LayoutView do
 
   def session_icon(conn) do
     case Plug.Conn.get_session(conn, :user_id) do
-      nil -> HTML.raw("<i class='fa fa-sign-in text-success'></i>")
-      _ -> HTML.raw("<i class='fa fa-sign-out text-warning'></i>")
+      nil ->
+        link to: session_path(conn, :update), method: :patch,
+          class: "lead text-default navbar-brand" do
+            HTML.raw("<i class='fa fa-sign-in text-success'></i>")
+          end
+      _ ->
+      link to: session_path(conn, :update), method: :patch,
+        class: "lead text-default navbar-brand" do
+          HTML.raw("<i class='fa fa-sign-out text-warning'></i>")
+        end
+    end
+  end
+
+  def user_icon(conn) do
+    case Plug.Conn.get_session(conn, :user_id) do
+      nil -> nil
+      user_id ->
+        link to: accounts_user_path(conn, :show, user_id),
+          class: "lead text-default navbar-brand" do
+            HTML.raw("<i class='fa fa-user-circle-o text-info'></i>")
+          end
+    end
+  end
+
+  def administration_icon(conn) do
+    case Plug.Conn.get_session(conn, :user_id) do
+      nil -> nil
+      _ ->
+        link to: accounts_administration_path(conn, :index),
+          class: "lead text-default navbar-brand" do
+            HTML.raw("<i class='fa fa-cogs text-primary'></i>")
+          end
     end
   end
 

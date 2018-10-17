@@ -1,9 +1,5 @@
 <h3 class="display-3">
   Blog
-  <%= link to: accounts_administration_path(@conn, :index),
-    class: "btn btn-default d-flex pull-right" do %>
-    <i class="fa fa-cogs fa-2x btn text-default"></i>
-  <% end %>
 </h3>
 
 <hr/>
