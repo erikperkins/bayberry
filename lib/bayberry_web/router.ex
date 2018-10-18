@@ -31,6 +31,8 @@ defmodule BayberryWeb.Router do
     pipe_through [:browser, :authenticate_user]
 
     get "/administration/", AdministrationController, :index
+    get "/administration/visitors", AdministrationController, :visitors
+    get "/administration/world_map", AdministrationController, :world_map
     resources "/users", UserController
   end
 
