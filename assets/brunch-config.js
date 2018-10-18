@@ -25,13 +25,20 @@ exports.config = {
           "/vendor/js/bootstrap.min.js",
           "vendor/js/d3.min.js",
           "vendor/js/d3/d3.layout.cloud.js",
-          "vendor/js/d3/d3.geoprojection.min.js",
+          "vendor/js/d3/d3-geo-projection.min.js",
           "vendor/js/d3/topojson.min.js"
         ]
       }
     },
     stylesheets: {
-      joinTo: "css/app.css"
+      joinTo: "css/app.css",
+      order: {
+        before: [
+          "vendor/css/bootstrap.min.css",
+          "vendor/css/bootstrap.min.css.map",
+          "vendor/css/font-awesome.min.css"
+        ]
+      }
     },
     templates: {
       joinTo: "js/app.js"
