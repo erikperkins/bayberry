@@ -15,4 +15,8 @@ defmodule BayberryWeb.Accounts.AdministrationController do
     |> Poison.decode!
     json(conn, world_map)
   end
+
+  def locations(conn, _params) do
+    json(conn, [[-119.7, 34.4], [-118.2, 37.2], [-122.4, 37.7]])
+  end
 end

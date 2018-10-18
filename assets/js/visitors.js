@@ -37,6 +37,10 @@ export var VisitorMap = {
       d3.selectAll("path").attr("d", path)
       d3.select(".ocean").selectAll("path")
         .attr("d", () => { return path(ocean()) })
+
+      d3.select(".visitors").selectAll("circle")
+        .attr("cx", (d) => { return projection(d)[0] })
+        .attr("cy", (d) => { return projection(d)[1] })
     }
 
     function rescale(transform) {
@@ -45,9 +49,14 @@ export var VisitorMap = {
       d3.selectAll("path").attr("d", path)
       d3.select(".ocean").selectAll("path")
         .attr("d", () => { return path(ocean()) })
+
+      d3.select(".visitors").selectAll("circle")
+        .attr("cx", (d) => { return projection(d)[0] })
+        .attr("cy", (d) => { return projection(d)[1] })
+        .attr("r", (d) => { return 4 * Math.log(1 + transform.k) })
     }
 
-    function draw(world) {
+    function draw(world, locations) {
       svg.append("g")
         .attr("class", "ocean")
         .selectAll("path")
@@ -62,7 +71,6 @@ export var VisitorMap = {
         .enter().append("path")
         .attr("name", function(d) { return d.properties.name })
         .attr("id", function(d) { return d.id })
-        .on('click', selected)
         .attr("d", path)
 
       svg.append("g")
@@ -72,18 +80,25 @@ export var VisitorMap = {
         .enter().append("path")
         .attr("name", function(d) { return d.properties.name })
         .attr("id", function(d) { return d.id })
-        .on('click', selected)
         .attr("d", path)
+
+      svg.append("g")
+        .attr("class", "visitors")
+        .selectAll("circle")
+        .data(locations).enter()
+        .append("circle")
+        .attr("cx", (d) => { return projection(d)[0] })
+        .attr("cy", (d) => { return projection(d)[1] })
+        .attr("r", 4 * Math.log(2))
+        .attr("fill", "darkorange")
     }
 
-    function selected() {
-      d3.select('.selected').classed('selected', false)
-      d3.select(this).classed('selected', true)
-    }
-
-    d3.json("/accounts/administration/world_map", function(error, world) {
+    d3.json("/accounts/administration/world_map", (error, world) => {
       if (error) return console.error(error)
-      draw(world)
+      d3.json("/accounts/administration/locations", (error, locations) => {
+        if (error) return console.error(error)
+        draw(world, locations)
+      })
     })
   }
 }

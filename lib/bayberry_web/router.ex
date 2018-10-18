@@ -33,6 +33,7 @@ defmodule BayberryWeb.Router do
     get "/administration/", AdministrationController, :index
     get "/administration/visitors", AdministrationController, :visitors
     get "/administration/world_map", AdministrationController, :world_map
+    get "/administration/locations", AdministrationController, :locations
     resources "/users", UserController
   end
 
