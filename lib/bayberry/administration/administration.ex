@@ -1,6 +1,7 @@
 defmodule Bayberry.Administration do
   alias Bayberry.{Geolocation, Location, Repo, Visitor}
   import Ecto.Query, only: [from: 2]
+  # import Ecto.Query.API, only: [type: 2]
 
   def geolocate(conn) do
     conn.remote_ip
@@ -21,6 +22,16 @@ defmodule Bayberry.Administration do
     |> Repo.insert!
 
     conn
+  end
+
+  def get_visits do
+    query = from v in Visitor,
+      select: %{
+        latitude: type(v.latitude, :float),
+        longitude: type(v.longitude, :float)
+      }
+
+    Repo.all(query)
   end
 
   defp ip_integer(ip) do
@@ -45,9 +56,8 @@ defmodule Bayberry.Administration do
   end
 
   defp find_ip(ip) do
-    fields = [:latitude, :longitude]
     from l in Location,
       where: l.ip_from <= ^ip and ^ip < l.ip_to,
-      select: map(l, ^fields)
+      select: %{latitude: l.latitude, longitude: l.longitude}
   end
 end

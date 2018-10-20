@@ -17,6 +17,6 @@ defmodule BayberryWeb.Accounts.AdministrationController do
   end
 
   def locations(conn, _params) do
-    json(conn, [[-119.7, 34.4], [-118.2, 37.2], [-122.4, 37.7]])
+    json(conn, Bayberry.Administration.get_visits)
   end
 end

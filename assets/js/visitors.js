@@ -85,7 +85,7 @@ export var VisitorMap = {
       svg.append("g")
         .attr("class", "visitors")
         .selectAll("circle")
-        .data(locations).enter()
+        .data(locations.map((l) => {return [l.longitude, l.latitude]})).enter()
         .append("circle")
         .attr("cx", (d) => { return projection(d)[0] })
         .attr("cy", (d) => { return projection(d)[1] })
