@@ -6,11 +6,8 @@ defmodule Bayberry.Repo.Migrations.CreateVisitors do
       add :ip_address, :string
       add :latitude, :decimal
       add :longitude, :decimal
-      add :user_agent, :string
-      add :path, :string
-
-      timestamps()
     end
 
+    create unique_index(:visitors, [:ip_address])
   end
 end

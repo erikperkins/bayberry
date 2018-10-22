@@ -1,30 +1,47 @@
 defmodule Bayberry.Administration do
-  alias Bayberry.{Geolocation, Location, Repo, Visitor}
+  alias Bayberry.{Geolocation, Location, Repo, Visit, Visitor}
   import Ecto.Query, only: [from: 2]
-  # import Ecto.Query.API, only: [type: 2]
+
+  def record_visit(conn) do
+    case find_visitor(conn) do
+      nil ->
+        build_visitor(conn)
+        |> Repo.insert!
+        |> Ecto.build_assoc(:visits, build_visit(conn))
+        |> Repo.insert!
+        conn
+      visitor = %Visitor{} ->
+        visitor
+        |> Ecto.build_assoc(:visits, build_visit(conn))
+        |> Repo.insert!
+        conn
+    end
+  end
 
   def geolocate(conn) do
     conn.remote_ip
     |> ip_integer
-    |> find_ip
+    |> query_location
     |> Geolocation.one
   end
 
-  def record_visit(conn) do
-    attrs = conn
-    |> geolocate
-    |> Map.put(:path, conn.request_path)
-    |> Map.put(:ip_address, conn.remote_ip |> ip_string)
-    |> Map.put(:user_agent, user_agent(conn))
-
-    %Visitor{}
-    |> Visitor.changeset(attrs)
-    |> Repo.insert!
-
-    conn
+  def find_visitor(conn) do
+    conn.remote_ip
+    |> ip_string
+    |> (&Repo.get_by(Visitor, ip_address: &1)).()
   end
 
-  def get_visits do
+  defp build_visitor(conn) do
+    %{latitude: latitude, longitude: longitude} = geolocate(conn)
+
+    %Visitor{
+      latitude: latitude,
+      longitude: longitude,
+      ip_address: ip_string(conn.remote_ip)
+    }
+  end
+
+  def find_visits do
     query = from v in Visitor,
       select: %{
         latitude: type(v.latitude, :float),
@@ -32,6 +49,13 @@ defmodule Bayberry.Administration do
       }
 
     Repo.all(query)
+  end
+
+  defp build_visit(conn) do
+    %Visit{
+      path: conn.request_path,
+      user_agent: user_agent(conn)
+    }
   end
 
   defp ip_integer(ip) do
@@ -55,7 +79,7 @@ defmodule Bayberry.Administration do
     user_agent
   end
 
-  defp find_ip(ip) do
+  defp query_location(ip) do
     from l in Location,
       where: l.ip_from <= ^ip and ^ip < l.ip_to,
       select: %{latitude: l.latitude, longitude: l.longitude}

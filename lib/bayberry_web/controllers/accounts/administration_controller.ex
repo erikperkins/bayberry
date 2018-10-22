@@ -17,6 +17,6 @@ defmodule BayberryWeb.Accounts.AdministrationController do
   end
 
   def locations(conn, _params) do
-    json(conn, Bayberry.Administration.get_visits)
+    json(conn, Bayberry.Administration.find_visits)
   end
 end

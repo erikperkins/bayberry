@@ -55,6 +55,8 @@ defmodule Bayberry.Accounts do
 
   """
   def create_user(attrs \\ %{}) do
+    IO.puts inspect attrs
+
     %User{}
     |> User.changeset(attrs)
     |> Ecto.Changeset.cast_assoc(:credential, with: &Credential.changeset/2)
