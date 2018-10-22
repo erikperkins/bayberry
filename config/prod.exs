@@ -91,4 +91,5 @@ config :bayberry, Bayberry.Geolocation,
   password: System.get_env("BAYBERRY_PASSWORD"),
   database: "geolocation",
   hostname: "storage.datapun.net",
+  timeout: 20000,
   pool_size: 5

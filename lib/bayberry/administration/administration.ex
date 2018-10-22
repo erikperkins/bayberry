@@ -9,24 +9,24 @@ defmodule Bayberry.Administration do
         |> Repo.insert!
         |> Ecto.build_assoc(:visits, build_visit(conn))
         |> Repo.insert!
-        conn
       visitor = %Visitor{} ->
         visitor
         |> Ecto.build_assoc(:visits, build_visit(conn))
         |> Repo.insert!
-        conn
     end
   end
 
   def geolocate(conn) do
-    conn.remote_ip
+    conn
+    |> forwarded_for
     |> ip_integer
     |> query_location
     |> Geolocation.one
   end
 
   def find_visitor(conn) do
-    conn.remote_ip
+    conn
+    |> forwarded_for
     |> ip_string
     |> (&Repo.get_by(Visitor, ip_address: &1)).()
   end
@@ -37,7 +37,7 @@ defmodule Bayberry.Administration do
     %Visitor{
       latitude: latitude,
       longitude: longitude,
-      ip_address: ip_string(conn.remote_ip)
+      ip_address: conn |> forwarded_for |> ip_string
     }
   end
 
@@ -74,9 +74,18 @@ defmodule Bayberry.Administration do
     "#{a}.#{b}.#{c}.#{d}"
   end
 
+  defp forwarded_for(conn) do
+    Plug.Conn.get_req_header(conn, "x-forwarded-for")
+    |> Enum.at(0)
+    |> String.split(".")
+    |> Enum.map(fn a -> Integer.parse a end)
+    |> Enum.map(fn {a, _} -> a end)
+    |> List.to_tuple
+  end
+
   defp user_agent(conn) do
-    [user_agent] = Plug.Conn.get_req_header(conn, "user-agent")
-    user_agent
+    Plug.Conn.get_req_header(conn, "user-agent")
+    |> Enum.at(0)
   end
 
   defp query_location(ip) do
