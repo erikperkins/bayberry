@@ -84,3 +84,12 @@ config :bayberry, Bayberry.Repo,
   database: System.get_env("BAYBERRY_DATABASE"),
   hostname: "storage.datapun.net",
   pool_size: 15
+
+config :bayberry, Bayberry.Geolocation,
+  adapter: Ecto.Adapters.Postgres,
+  username: System.get_env("BAYBERRY_USERNAME"),
+  password: System.get_env("BAYBERRY_PASSWORD"),
+  database: "geolocation",
+  hostname: "storage.datapun.net",
+  timeout: 10000,
+  pool_size: 5

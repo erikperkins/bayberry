@@ -13,29 +13,46 @@ defmodule BayberryWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :analytics do
+    plug :geolocate
+  end
+
   scope "/", BayberryWeb do
-    pipe_through :browser
+    pipe_through [:browser, :analytics]
 
     get "/", MainController, :index
     get "/twitter", MainController, :twitter
     get "/architecture", MainController, :architecture
     get "/mnist", MainController, :mnist
     get "/nlp", MainController, :nlp
-    get "/word_cloud", MainController, :word_cloud
 
     resources "/sessions", SessionController,
       only: [:new, :create, :update, :delete], singleton: true
   end
 
+  scope "/", BayberryWeb do
+    pipe_through :browser
+
+    get "/administration", AdministrationController, :index
+    get "/word_cloud", MainController, :word_cloud
+  end
+
+  scope "/administration", BayberryWeb.Administration, as: :administration do
+    pipe_through [:browser, :authenticate_user]
+
+    get "/visitors", VisitorController, :index
+    get "/world_map", VisitorController, :world_map
+    get "/locations", VisitorController, :locations
+  end
+
   scope "/accounts", BayberryWeb.Accounts, as: :accounts do
     pipe_through [:browser, :authenticate_user]
 
-    get "/administration/", AdministrationController, :index
     resources "/users", UserController
   end
 
   scope "/blog", BayberryWeb, as: :blog do
-    pipe_through :browser
+    pipe_through [:browser, :analytics]
 
     resources "/posts", PostController, only: [:index, :show]
   end
@@ -45,6 +62,11 @@ defmodule BayberryWeb.Router do
 
     resources "/articles", ArticleController
     resources "/authors", AuthorController
+  end
+
+  defp geolocate(conn, _) do
+    spawn(fn -> conn |> Bayberry.Administration.record_visit end)
+    conn
   end
 
   defp authenticate_user(conn, _) do

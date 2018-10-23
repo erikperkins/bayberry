@@ -10,6 +10,7 @@ defmodule Bayberry.Application do
     children = [
       # Start the Ecto repository
       supervisor(Bayberry.Repo, []),
+      supervisor(Bayberry.Geolocation, []),
       # Start the endpoint when the application starts
       supervisor(BayberryWeb.Endpoint, []),
       supervisor(Bayberry.MNIST.Supervisor, []),

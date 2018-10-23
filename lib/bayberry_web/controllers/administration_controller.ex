@@ -1,4 +1,4 @@
-defmodule BayberryWeb.Accounts.AdministrationController do
+defmodule BayberryWeb.AdministrationController do
   use BayberryWeb, :controller
 
   def index(conn, _params) do

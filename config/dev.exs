@@ -65,3 +65,11 @@ config :bayberry, Bayberry.Repo,
   database: "development",
   hostname: "localhost",
   pool_size: 10
+
+config :bayberry, Bayberry.Geolocation,
+  adapter: Ecto.Adapters.Postgres,
+  username: "development",
+  password: "development",
+  database: "geolocation",
+  hostname: "localhost",
+  pool_size: 5
