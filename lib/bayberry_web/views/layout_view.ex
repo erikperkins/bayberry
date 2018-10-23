@@ -33,7 +33,7 @@ defmodule BayberryWeb.LayoutView do
     case Plug.Conn.get_session(conn, :user_id) do
       nil -> nil
       _ ->
-        link to: accounts_administration_path(conn, :index),
+        link to: administration_path(conn, :index),
           class: "lead text-default navbar-brand" do
             HTML.raw("<i class='fa fa-cogs text-primary'></i>")
           end

@@ -1,12 +1,8 @@
-defmodule BayberryWeb.Accounts.AdministrationController do
+defmodule BayberryWeb.Administration.VisitorController do
   use BayberryWeb, :controller
 
   def index(conn, _params) do
     render(conn, "index.html")
-  end
-
-  def visitors(conn, _params) do
-    render(conn, "visitors.html")
   end
 
   def world_map(conn, _params) do

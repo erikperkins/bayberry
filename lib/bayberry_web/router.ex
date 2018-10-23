@@ -33,22 +33,22 @@ defmodule BayberryWeb.Router do
   scope "/", BayberryWeb do
     pipe_through :browser
 
+    get "/administration", AdministrationController, :index
     get "/word_cloud", MainController, :word_cloud
   end
 
-  scope "/accounts", BayberryWeb.Accounts, as: :accounts do
-    pipe_through [:browser, :authenticate_user, :analytics]
+  scope "/administration", BayberryWeb.Administration, as: :administration do
+    pipe_through [:browser, :authenticate_user]
 
-    get "/administration/", AdministrationController, :index
-    get "/administration/visitors", AdministrationController, :visitors
-    resources "/users", UserController
+    get "/visitors", VisitorController, :index
+    get "/world_map", VisitorController, :world_map
+    get "/locations", VisitorController, :locations
   end
 
   scope "/accounts", BayberryWeb.Accounts, as: :accounts do
     pipe_through [:browser, :authenticate_user]
 
-    get "/administration/world_map", AdministrationController, :world_map
-    get "/administration/locations", AdministrationController, :locations
+    resources "/users", UserController
   end
 
   scope "/blog", BayberryWeb, as: :blog do

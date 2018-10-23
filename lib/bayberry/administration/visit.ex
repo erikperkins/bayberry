@@ -1,7 +1,7 @@
-defmodule Bayberry.Visit do
+defmodule Bayberry.Administration.Visit do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Bayberry.Visitor
+  alias Bayberry.Administration.Visitor
 
 
   schema "visits" do

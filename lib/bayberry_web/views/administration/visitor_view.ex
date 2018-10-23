@@ -1,9 +1,9 @@
-defmodule BayberryWeb.Accounts.AdministrationView do
+defmodule BayberryWeb.Administration.VisitorView do
   use BayberryWeb, :view
 
   def render("scripts.html", assigns) do
     case assigns.script_path do
-      "/accounts/administration/visitors" ->
+      "/administration/visitors" ->
         ~S"""
         <script>require("js/visitors").VisitorMap.run()</script>
         """

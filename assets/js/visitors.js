@@ -93,9 +93,9 @@ export var VisitorMap = {
         .attr("fill", "darkorange")
     }
 
-    d3.json("/accounts/administration/world_map", (error, world) => {
+    d3.json("/administration/world_map", (error, world) => {
       if (error) return console.error(error)
-      d3.json("/accounts/administration/locations", (error, locations) => {
+      d3.json("/administration/locations", (error, locations) => {
         if (error) return console.error(error)
         draw(world, locations)
       })
