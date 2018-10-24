@@ -22,6 +22,6 @@ config :bayberry, Bayberry.Geolocation,
   adapter: Ecto.Adapters.Postgres,
   username: "test",
   password: "test",
-  database: "geolocation",
+  database: "bayberry_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
