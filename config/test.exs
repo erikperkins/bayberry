@@ -12,8 +12,16 @@ config :logger, level: :warn
 # Configure your database
 config :bayberry, Bayberry.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "test",
+  password: "test",
+  database: "bayberry_test",
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox
+
+config :bayberry, Bayberry.Geolocation,
+  adapter: Ecto.Adapters.Postgres,
+  username: "test",
+  password: "test",
   database: "bayberry_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

@@ -3,19 +3,24 @@ defmodule BayberryWeb.UserControllerTest do
 
   alias Bayberry.Accounts
 
-  @create_attrs %{name: "some name", username: "some username"}
+  @credential_attrs %{email: "email", password: "password"}
+  @create_attrs %{name: "some name", username: "some username", credential: @credential_attrs}
   @update_attrs %{name: "some updated name", username: "some updated username"}
   @invalid_attrs %{name: nil, username: nil}
 
-  def fixture(:user) do
-    {:ok, user} = Accounts.create_user(@create_attrs)
+  def fixture(:user, attrs \\ %{}) do
+    {:ok, user} =
+      attrs
+      |> Enum.into(@create_attrs)
+      |> Accounts.create_user()
+
     user
   end
 
   describe "index" do
     test "lists all users", %{conn: conn} do
       conn = get conn, accounts_user_path(conn, :index)
-      assert html_response(conn, 200) =~ "Listing Users"
+      assert html_response(conn, 200) =~ "Users"
     end
   end
 
@@ -34,7 +39,7 @@ defmodule BayberryWeb.UserControllerTest do
       assert redirected_to(conn) == accounts_user_path(conn, :show, id)
 
       conn = get conn, accounts_user_path(conn, :show, id)
-      assert html_response(conn, 200) =~ "Show User"
+      assert html_response(conn, 200) =~ @create_attrs.name
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -70,9 +75,11 @@ defmodule BayberryWeb.UserControllerTest do
   end
 
   describe "delete user" do
-    setup [:create_user]
+    setup [:create_user, :create_admin]
 
-    test "deletes chosen user", %{conn: conn, user: user} do
+    test "deletes chosen user", %{conn: conn, user: user, admin: admin} do # failing
+      conn = assign(conn, :current_user, admin)
+
       conn = delete conn, accounts_user_path(conn, :delete, user)
       assert redirected_to(conn) == accounts_user_path(conn, :index)
       assert_error_sent 404, fn ->
@@ -84,5 +91,14 @@ defmodule BayberryWeb.UserControllerTest do
   defp create_user(_) do
     user = fixture(:user)
     {:ok, user: user}
+  end
+
+  defp create_admin(_) do
+    attrs = %{
+      username: "admin",
+      credential: %{email: "admin", password: "password"}
+    }
+    admin = fixture(:user, attrs)
+    {:ok, admin: admin}
   end
 end

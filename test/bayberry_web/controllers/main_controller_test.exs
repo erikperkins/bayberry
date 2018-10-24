@@ -3,6 +3,6 @@ defmodule BayberryWeb.MainControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"
-    assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+    assert html_response(conn, 200) =~ "a small basket for berries"
   end
 end

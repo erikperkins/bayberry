@@ -9,6 +9,7 @@ defmodule Bayberry.AccountsTest do
     @valid_attrs %{name: "some name", username: "some username"}
     @update_attrs %{name: "some updated name", username: "some updated username"}
     @invalid_attrs %{name: nil, username: nil}
+    @credential_attrs %{credential: %{email: "email", password: "password"}}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -20,12 +21,12 @@ defmodule Bayberry.AccountsTest do
     end
 
     test "list_users/0 returns all users" do
-      user = user_fixture()
+      user = user_fixture(@credential_attrs)
       assert Accounts.list_users() == [user]
     end
 
     test "get_user!/1 returns the user with given id" do
-      user = user_fixture()
+      user = user_fixture(@credential_attrs)
       assert Accounts.get_user!(user.id) == user
     end
 
@@ -48,13 +49,13 @@ defmodule Bayberry.AccountsTest do
     end
 
     test "update_user/2 with invalid data returns error changeset" do
-      user = user_fixture()
+      user = user_fixture(@credential_attrs)
       assert {:error, %Ecto.Changeset{}} = Accounts.update_user(user, @invalid_attrs)
       assert user == Accounts.get_user!(user.id)
     end
 
     test "delete_user/1 deletes the user" do
-      user = user_fixture()
+      user = user_fixture(@credential_attrs)
       assert {:ok, %User{}} = Accounts.delete_user(user)
       assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(user.id) end
     end
@@ -67,60 +68,56 @@ defmodule Bayberry.AccountsTest do
 
   describe "credentials" do
     alias Bayberry.Accounts.Credential
+    alias Bayberry.Accounts.User
 
-    @valid_attrs %{email: "some email"}
-    @update_attrs %{email: "some updated email"}
-    @invalid_attrs %{email: nil}
+    @valid_attrs %{email: "some email", password: "password"}
+    @update_attrs %{email: "some updated email", password: "updated password"}
+    @invalid_attrs %{email: nil, password: nil, user_id: nil}
+    @user_attrs %{user: %{name: "some name", username: "some username"}}
 
     def credential_fixture(attrs \\ %{}) do
       {:ok, credential} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Accounts.create_credential()
+        |> (&Credential.changeset(%Credential{}, &1)).()
+        |> Ecto.Changeset.cast_assoc(:user, with: &User.changeset/2)
+        |> Bayberry.Repo.insert
 
       credential
+      |> Ecto.Reaper.unload(:user)
     end
 
     test "list_credentials/0 returns all credentials" do
-      credential = credential_fixture()
+      credential = credential_fixture(@user_attrs)
       assert Accounts.list_credentials() == [credential]
     end
 
     test "get_credential!/1 returns the credential with given id" do
-      credential = credential_fixture()
+      credential = credential_fixture(@user_attrs)
       assert Accounts.get_credential!(credential.id) == credential
     end
 
-    test "create_credential/1 with valid data creates a credential" do
-      assert {:ok, %Credential{} = credential} = Accounts.create_credential(@valid_attrs)
-      assert credential.email == "some email"
-    end
-
-    test "create_credential/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Accounts.create_credential(@invalid_attrs)
-    end
-
     test "update_credential/2 with valid data updates the credential" do
-      credential = credential_fixture()
+      credential = credential_fixture(@user_attrs)
       assert {:ok, credential} = Accounts.update_credential(credential, @update_attrs)
       assert %Credential{} = credential
       assert credential.email == "some updated email"
     end
 
     test "update_credential/2 with invalid data returns error changeset" do
-      credential = credential_fixture()
+      credential = credential_fixture(@user_attrs)
       assert {:error, %Ecto.Changeset{}} = Accounts.update_credential(credential, @invalid_attrs)
       assert credential == Accounts.get_credential!(credential.id)
     end
 
     test "delete_credential/1 deletes the credential" do
-      credential = credential_fixture()
+      credential = credential_fixture(@user_attrs)
       assert {:ok, %Credential{}} = Accounts.delete_credential(credential)
       assert_raise Ecto.NoResultsError, fn -> Accounts.get_credential!(credential.id) end
     end
 
     test "change_credential/1 returns a credential changeset" do
-      credential = credential_fixture()
+      credential = credential_fixture(@user_attrs)
       assert %Ecto.Changeset{} = Accounts.change_credential(credential)
     end
   end
