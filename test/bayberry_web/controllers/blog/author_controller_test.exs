@@ -1,21 +1,27 @@
 defmodule BayberryWeb.Blog.AuthorControllerTest do
   use BayberryWeb.ConnCase
 
-  alias Bayberry.Blog
+  alias Bayberry.{Accounts, Blog}
 
-  @create_attrs %{}
-  @update_attrs %{}
-  @invalid_attrs %{}
+  @create_attrs %{bio: "bio", role: "role", genre: "genre"}
+  @update_attrs %{bio: "other bio", role: "other role", genre: "other genre"}
+  @invalid_attrs %{bio: nil, role: nil, genre: nil}
+  @user_attrs %{name: "name", username: "username"}
+  @admin_attrs %{name: "admin", username: "admin"}
 
-  def fixture(:author) do
-    {:ok, author} = Blog.create_author(@create_attrs)
-    author
+  setup do
+    {:ok, user} = Accounts.create_user(@user_attrs)
+    {:ok, admin} = Accounts.create_user(@admin_attrs)
+    {:ok, author} = Blog.create_author(user, @create_attrs)
+    conn = Phoenix.ConnTest.build_conn() |> assign(:current_user, user)
+
+    {:ok, conn: conn, user: user, author: author, admin: admin}
   end
 
   describe "index" do
     test "lists all authors", %{conn: conn} do
       conn = get conn, blog_author_path(conn, :index)
-      assert html_response(conn, 200) =~ "Listing Authors"
+      assert html_response(conn, 200) =~ "Authors"
     end
   end
 
@@ -27,14 +33,17 @@ defmodule BayberryWeb.Blog.AuthorControllerTest do
   end
 
   describe "create author" do
-    test "redirects to show when data is valid", %{conn: conn} do
+    test "redirects to show when data is valid", %{conn: conn, admin: admin} do
+      conn = conn |> assign(:current_user, admin)
+      current_user = conn.assigns.current_user
       conn = post conn, blog_author_path(conn, :create), author: @create_attrs
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == blog_author_path(conn, :show, id)
 
+      conn = conn |> recycle |> assign(:current_user, current_user)
       conn = get conn, blog_author_path(conn, :show, id)
-      assert html_response(conn, 200) =~ "Show Author"
+      assert html_response(conn, 200) =~ "Author"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -44,8 +53,6 @@ defmodule BayberryWeb.Blog.AuthorControllerTest do
   end
 
   describe "edit author" do
-    setup [:create_author]
-
     test "renders form for editing chosen author", %{conn: conn, author: author} do
       conn = get conn, blog_author_path(conn, :edit, author)
       assert html_response(conn, 200) =~ "Edit Author"
@@ -53,12 +60,12 @@ defmodule BayberryWeb.Blog.AuthorControllerTest do
   end
 
   describe "update author" do
-    setup [:create_author]
-
     test "redirects when data is valid", %{conn: conn, author: author} do
+      current_user = conn.assigns.current_user
       conn = put conn, blog_author_path(conn, :update, author), author: @update_attrs
       assert redirected_to(conn) == blog_author_path(conn, :show, author)
 
+      conn = conn |> recycle |> assign(:current_user, current_user)
       conn = get conn, blog_author_path(conn, :show, author)
       assert html_response(conn, 200)
     end
@@ -70,19 +77,13 @@ defmodule BayberryWeb.Blog.AuthorControllerTest do
   end
 
   describe "delete author" do
-    setup [:create_author]
-
     test "deletes chosen author", %{conn: conn, author: author} do
       conn = delete conn, blog_author_path(conn, :delete, author)
       assert redirected_to(conn) == blog_author_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get conn, blog_author_path(conn, :show, author)
       end
     end
-  end
-
-  defp create_author(_) do
-    author = fixture(:author)
-    {:ok, author: author}
   end
 end
