@@ -141,24 +141,6 @@ defmodule Bayberry.Accounts do
   def get_credential!(id), do: Repo.get!(Credential, id)
 
   @doc """
-  Creates a credential.
-
-  ## Examples
-
-      iex> create_credential(%{field: value})
-      {:ok, %Credential{}}
-
-      iex> create_credential(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_credential(attrs \\ %{}) do
-    %Credential{}
-    |> Credential.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
   Updates a credential.
 
   ## Examples
