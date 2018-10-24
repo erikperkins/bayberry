@@ -14,7 +14,17 @@ defmodule BayberryWeb.Router do
   end
 
   pipeline :analytics do
-    plug :geolocate
+    case Mix.env do
+      :test -> nil
+      _ -> plug :geolocate
+    end
+  end
+
+  pipeline :authentication do
+    case Mix.env do
+      :test -> nil
+      _ -> plug :authenticate_user
+    end
   end
 
   scope "/", BayberryWeb do
@@ -38,7 +48,7 @@ defmodule BayberryWeb.Router do
   end
 
   scope "/administration", BayberryWeb.Administration, as: :administration do
-    pipe_through [:browser, :authenticate_user]
+    pipe_through [:browser, :authentication]
 
     get "/visitors", VisitorController, :index
     get "/world_map", VisitorController, :world_map
@@ -46,7 +56,7 @@ defmodule BayberryWeb.Router do
   end
 
   scope "/accounts", BayberryWeb.Accounts, as: :accounts do
-    pipe_through [:browser, :authenticate_user]
+    pipe_through [:browser, :authentication]
 
     resources "/users", UserController
   end
@@ -58,7 +68,7 @@ defmodule BayberryWeb.Router do
   end
 
   scope "/blog", BayberryWeb.Blog, as: :blog do
-    pipe_through [:browser, :authenticate_user]
+    pipe_through [:browser, :authentication]
 
     resources "/articles", ArticleController
     resources "/authors", AuthorController
