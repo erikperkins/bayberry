@@ -5,8 +5,8 @@ defmodule Bayberry.WordCloud do
     Blog.list_articles
     |> Enum.map(fn article -> article.body end)
     |> Enum.join(" ")
-    |> String.replace(~r/[\s]+[^\w]+/, " ")
-    |> String.replace(~r/[^\w]+[\s]+/, " ")
+    |> String.replace(~r/(^|[\s]+)[^\w]+/, " ")
+    |> String.replace(~r/[^\w]+([\s]+|$)/, " ")
     |> String.downcase()
     |> String.split(" ")
     |> Enum.reduce(%{}, &tally(&1, &2))

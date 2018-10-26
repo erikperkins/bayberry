@@ -1,36 +1,58 @@
 export var LdaTopics = {
   run: function() {
-    if (window.location.pathname == '/') {
-      d3.select('#pack')
-        .append('foreignObject')
-        .attr('width', '5em')
-        .attr('height', '5em')
-        .attr('transform', 'translate(60,60)')
-        .html("<i id='wait' class='fa fa-cog fa-spin fa-5x'></i>");
+    var bubbles = renderBubbles()
 
-      d3.json('http://main.datapun.net:1025/lda', function(errors, json) {
-        if (!errors) { renderLdaPack(json); }
-      });
-    }
+    d3.json('http://main.datapun.net:1025/lda', function(errors, json) {
+      if (!errors) {
+        setTimeout(() => {
+          clearInterval(bubbles)
+          renderLdaPack(json)
+        }, 500)
+      }
+    })
   }
 }
 
-function renderLdaPack(root) {
-  d3.select('#wait').remove();
+function renderBubbles() {
+  var svg = d3.select("#pack"),
+    margin = 0,
+    diameter = 200,
+    bubbles = svg.append("g")
+      .attr("class", "bubbles")
+      .attr("id", "wait")
+      .attr("transform", `translate(${diameter / 2},${diameter / 2})`)
 
+  return setInterval(() => { bubble(bubbles) }, 20)
+}
+
+function bubble(bubbles) {
+  var
+    grow = d3.transition().duration(1000).ease(d3.easeLinear),
+    fade = d3.transition().duration(25),
+    rho = d3.randomUniform(0, 100),
+    theta = d3.randomUniform(0, 2 * Math.PI),
+    cx = rho() * Math.cos(theta()),
+    cy = rho() * Math.sin(theta())
+
+  var circle = bubbles.append("circle")
+    .attr("class", "bubble")
+    .attr("cx", cx)
+    .attr("cy", cy)
+    .attr("r", 1)
+    .transition(grow)
+    .attr("r", 25)
+    .transition(fade)
+    .attr("class", "bubble-fade")
+    .remove()
+}
+
+function renderLdaPack(root) {
   var svg = d3.select("#pack"),
       margin = 0,
       diameter = 200,
       g = svg.append("g")
-        .attr(
-          "transform",
-          "translate(" + diameter / 2 + "," + diameter / 2 + ")"
-        );
-
-  var color = d3.scaleLinear()
-    .domain([-1, 0, 1])
-    .range(["#FFF", "#FFF", "#FFF"])
-    .interpolate(d3.interpolateHcl);
+        .attr("class", "g-fade-in")
+        .attr("transform", `translate(${diameter / 2},${diameter / 2})`)
 
   var pack = d3.pack()
     .size([diameter - margin, diameter - margin])
@@ -40,39 +62,38 @@ function renderLdaPack(root) {
     .sum(function(d) { return d.size; })
     .sort(function(a, b) { return b.value - a.value; });
 
-  var focus = root,
-      nodes = pack(root).descendants(),
-      view;
+  var
+    nodes = pack(root).descendants(),
+    focus = root,
+    view
 
   var circle = g.selectAll("circle")
-  .data(nodes)
-  .enter().append("circle")
+    .data(nodes)
+    .enter().append("circle")
     .attr("class", function(d) {
-      return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root";
-    }).style("fill", function(d) {
-      return d.children ? color(d.depth) : null;
-    }).style("stroke", "#BBB")
-    .on("click", function(d) {
-      if (focus !== d) zoom(d), d3.event.stopPropagation();
-    });
+      return d.parent ? (d.children ? "node" : "node--leaf") : "node--root"
+    })
 
   var text = g.selectAll("text")
     .data(nodes)
     .enter().append("text")
-      .attr("class", "d3-label")
-      .style("fill-opacity", function(d) { return d.parent === root ? 1 : 0; })
-      .style("display", function(d) { return d.parent === root ? "inline" : "none"; })
-      .text(function(d) { return d.data.name; });
+    .attr("class", (d) => {
+      return d.parent === root ? "d3-label" : "hidden"
+    }).text(function(d) { return d.data.name })
 
-  var node = g.selectAll("circle,text");
+  var node = g.selectAll("circle,text").on("click", function(d) {
+    if (focus !== d) zoom(d), d3.event.stopPropagation();
+  })
 
-  svg.style("background", color(-1))
-      .on("click", function() { zoom(root); });
+  svg.style("background", "white")
+    .on("click", function() { zoom(root); });
 
   zoomTo([root.x, root.y, root.r * 2 + margin]);
 
   function zoom(d) {
-    var focus0 = focus; focus = d;
+    var
+      _focus = focus
+      focus = d
 
     var transition = d3.transition()
       .duration(d3.event.altKey ? 7500 : 750)
@@ -81,24 +102,17 @@ function renderLdaPack(root) {
         return function(t) { zoomTo(i(t)); };
       });
 
-    transition.selectAll("text")
-      .filter(function(d) {
-        return d.parent === focus || this.style.display === "inline";
-      }).style("fill-opacity", function(d) {
-        return d.parent === focus ? 1 : 0;
-      }).on("start", function(d) {
-        if (d.parent === focus) this.style.display = "inline";
-      }).on("end", function(d) {
-        if (d.parent !== focus) this.style.display = "none";
-      });
+    svg.selectAll("text").transition(transition)
+      .attr("class", function(d) {
+        return d.parent === focus ? "d3-label fadein" : "d3-label hidden"
+      })
   }
 
   function zoomTo(v) {
     var k = diameter / v[2]; view = v;
     node.attr("transform", function(d) {
-      return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")";
-    });
-    circle.attr("r", function(d) { return d.r * k; });
+      return `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`
+    })
+    circle.attr("r", function(d) { return d.r * k });
   }
-
 }

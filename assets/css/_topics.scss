@@ -3,23 +3,62 @@
 }
 
 .node:hover {
-  stroke: #000;
-  stroke-width: 1.5px;
+  stroke: #BBB;
+  stroke-width: 2px;
 }
 
 .node--leaf {
   fill: white;
 }
 
-.d3-label {
-  font: 12px Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  fill: #3a3a3a;
-  text-anchor: middle;
-  dominant-baseline: middle;
-}
-
-.d3-label,
+.node,
 .node--root,
 .node--leaf {
+  fill: white;
+  stroke: #BBB;
+}
+
+.node--leaf {
   pointer-events: none;
+}
+
+.d3-label {
+  font: 12px Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  display: inline;
+  fill: #3a3a3a;
+  //cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.g-fade-in {
+  animation: fade 0.75s ease-in normal;
+}
+
+.fadein {
+  animation: fade ease-in 0.75s normal;
+}
+
+.fadeout {
+  animation: fade ease-in 0.75s reverse;
+}
+
+.bubble {
+  fill: none;
+  stroke: #BBB;
+}
+
+.bubble-fade {
+  fill: none;
+  stroke: #BBB;
+  animation: fade ease-out 1.0s reverse;
 }
