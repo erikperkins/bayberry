@@ -37,9 +37,8 @@ function renderCloud(json) {
       .attr("text-anchor", "middle")
       .style("font-size", function(d) { return d.size + "px"; })
       .style("fill", function(d, i) { return color(i); })
-      .style("fill-opacity", 0)
       .transition().duration(500)
-      .style("fill-opacity", 1)
+      .attr("class", "word")
       .attr("transform", function(d) {
           return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
       });
