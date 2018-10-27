@@ -32,7 +32,8 @@ defmodule Bayberry.Twitter.Receiver do
 
   defp publish_tweets(state) do
     Logger.warn("Receiving tweets...")
-    for tweet <- ExTwitter.stream_filter([follow: @follow, lang: "en"], 10000) do
+    filters = [follow: @follow, language: "en"]
+    for tweet <- ExTwitter.stream_filter(filters, 10000) do
       tweet
       |> extend_tweet
       |> publish(state)
