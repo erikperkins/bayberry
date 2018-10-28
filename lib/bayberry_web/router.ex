@@ -75,7 +75,7 @@ defmodule BayberryWeb.Router do
   end
 
   defp geolocate(conn, _) do
-    spawn(fn -> conn |> Bayberry.Administration.record_visit end)
+    spawn(fn -> Bayberry.Administration.record_visit(conn) end)
     conn
   end
 
