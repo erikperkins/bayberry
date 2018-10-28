@@ -6,13 +6,16 @@ defmodule BayberryWeb.LayoutView do
   def session_icon(conn) do
     case Plug.Conn.get_session(conn, :user_id) do
       nil ->
-        link to: session_path(conn, :update), method: :patch,
-          class: "lead text-default navbar-brand" do
-            HTML.raw("<i class='fa fa-sign-in text-success'></i>")
-          end
+        link to: session_path(conn, :update),
+             method: :patch,
+             class: "lead text-default navbar-brand" do
+          HTML.raw("<i class='fa fa-sign-in text-success'></i>")
+        end
+
       _ ->
-      link to: session_path(conn, :update), method: :patch,
-        class: "lead text-default navbar-brand" do
+        link to: session_path(conn, :update),
+             method: :patch,
+             class: "lead text-default navbar-brand" do
           HTML.raw("<i class='fa fa-sign-out text-warning'></i>")
         end
     end
@@ -55,7 +58,7 @@ defmodule BayberryWeb.LayoutView do
   end
 
   defp path_exists?(path) do
-    BayberryWeb.Router.__routes__
+    BayberryWeb.Router.__routes__()
     |> Enum.map(fn route -> route.path end)
     |> Enum.member?("/#{path}")
   end

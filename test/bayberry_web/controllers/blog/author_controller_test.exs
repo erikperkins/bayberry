@@ -13,7 +13,9 @@ defmodule BayberryWeb.Blog.AuthorControllerTest do
     {:ok, user} = Accounts.create_user(@user_attrs)
     {:ok, admin} = Accounts.create_user(@admin_attrs)
     {:ok, author} = Blog.create_author(user, @create_attrs)
-    conn = Phoenix.ConnTest.build_conn() |> assign(:current_user, user)
+    conn =
+      Phoenix.ConnTest.build_conn
+      |> assign(:current_user, user)
 
     {:ok, conn: conn, user: user, author: author, admin: admin}
   end
@@ -34,7 +36,7 @@ defmodule BayberryWeb.Blog.AuthorControllerTest do
 
   describe "create author" do
     test "redirects to show when data is valid", %{conn: conn, admin: admin} do
-      conn = conn |> assign(:current_user, admin)
+      conn = assign(conn, :current_user, admin)
       current_user = conn.assigns.current_user
       conn = post conn, blog_author_path(conn, :create), author: @create_attrs
 

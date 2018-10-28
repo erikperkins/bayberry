@@ -16,12 +16,15 @@ defmodule Mix.Tasks.Phx.Npm.Install do
   @doc false
   def run(_) do
     case System.cmd("which", ["npm"]) do
-      {_, 1} -> Mix.shell.error "npm not found."
+      {_, 1} ->
+        Mix.shell().error("npm not found.")
+
       {npm, 0} ->
         args = ["install", "--no-optional"]
+
         case System.cmd(String.trim(npm), args, cd: @assets) do
           {_, 0} -> IO.puts("Installed npm packages.")
-          _ -> Mix.shell.error "npm install failed."
+          _ -> Mix.shell().error("npm install failed.")
         end
     end
   end

@@ -14,18 +14,18 @@ defmodule Bayberry.Twitter.Receiver do
   def init(%{}) do
     state = start_channel()
 
-    send self(), :stream
-    { :ok, state }
+    send(self(), :stream)
+    {:ok, state}
   end
 
   def handle_info(:stream, state) do
     publish_tweets(state)
-    { :noreply, state }
+    {:noreply, state}
   end
 
   defp start_channel() do
-    { :ok, connection } = Connection.open(@rabbitmq)
-    { :ok, channel } = Channel.open(connection)
+    {:ok, connection} = Connection.open(@rabbitmq)
+    {:ok, channel} = Channel.open(connection)
     Queue.declare(channel, "tweets")
     [connection: connection, channel: channel]
   end
@@ -33,6 +33,7 @@ defmodule Bayberry.Twitter.Receiver do
   defp publish_tweets(state) do
     Logger.warn("Receiving tweets...")
     filters = [follow: @follow, language: "en"]
+
     for tweet <- ExTwitter.stream_filter(filters, 10000) do
       tweet
       |> extend_tweet
@@ -40,14 +41,16 @@ defmodule Bayberry.Twitter.Receiver do
     end
 
     Logger.warn("Twitter stream stopped. Restarting stream...")
-    send self(), :stream
+    send(self(), :stream)
   end
 
   defp extend_tweet(tweet) do
     case tweet do
       %{extended_tweet: %{full_text: full_text}} ->
         %{created_at: tweet.created_at, text: full_text}
-      _ -> %{created_at: tweet.created_at, text: tweet.text}
+
+      _ ->
+        %{created_at: tweet.created_at, text: tweet.text}
     end
   end
 

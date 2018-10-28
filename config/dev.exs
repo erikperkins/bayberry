@@ -11,8 +11,14 @@ config :bayberry, BayberryWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../assets", __DIR__)]]
+  watchers: [
+    node: [
+      "node_modules/brunch/bin/brunch",
+      "watch",
+      "--stdin",
+      cd: Path.expand("../assets", __DIR__)
+    ]
+  ]
 
 # Configure external API endpoints
 config :bayberry, BayberryWeb.Endpoint,
@@ -21,6 +27,7 @@ config :bayberry, BayberryWeb.Endpoint,
   timeseries: "http://timeseries.datapun.net/api/forecast",
   rabbitmq: "localhost",
   redis: "localhost"
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
@@ -50,7 +57,8 @@ config :bayberry, BayberryWeb.Endpoint,
 
 # Do not include metadata nor timestamps in development logs
 # config :logger, :console, format: "[$level] $message\n"
-config :logger, :console, format: "$time $metadata[$level] $message\n",
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
 # Set a higher stacktrace during development. Avoid configuring such

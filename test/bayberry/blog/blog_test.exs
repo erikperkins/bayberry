@@ -13,7 +13,7 @@ defmodule Bayberry.BlogTest do
     {:ok, user} = Bayberry.Accounts.create_user(@user_attrs)
     {:ok, author} = Blog.create_author(user, @author_attrs)
     {:ok, article_} = Blog.create_article(author, @article_attrs)
-    article = %{article_ | views: 0 }
+    article = %{article_ | views: 0}
 
     {:ok, user: user, author: author, admin: admin, article: article}
   end
@@ -26,7 +26,10 @@ defmodule Bayberry.BlogTest do
     @invalid_attrs %{body: nil, title: nil}
 
     test "list_articles/0 returns all articles", %{article: article} do
-      articles = Blog.list_articles() |> Enum.map(fn a -> Ecto.Reaper.unload(a, :author) end)
+      articles =
+        Blog.list_articles
+        |> Enum.map(fn a -> Ecto.Reaper.unload(a, :author) end)
+
       assert articles == [article]
     end
 
@@ -74,7 +77,10 @@ defmodule Bayberry.BlogTest do
     @invalid_attrs %{bio: nil, genre: nil, role: nil}
 
     test "list_authors/0 returns all authors", %{author: author} do
-      authors = Blog.list_authors() |> Enum.map(fn a -> Ecto.Reaper.unload(a, :user) end)
+      authors =
+        Blog.list_authors
+        |> Enum.map(fn a -> Ecto.Reaper.unload(a, :user) end)
+
       assert authors == [author]
     end
 

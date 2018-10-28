@@ -7,7 +7,8 @@ defmodule Bayberry.Administration.Analytics do
     |> forwarded_for
     |> ip_integer
     |> query_location
-    |> Geolocation.one
+    |> Geolocation.one()
+    |> (fn a -> a || %{} end).()
   end
 
   def ip_address(conn) do
@@ -44,9 +45,9 @@ defmodule Bayberry.Administration.Analytics do
     |> Enum.at(0)
     |> (fn ip -> ip || "0.0.0.0" end).()
     |> String.split(".")
-    |> Enum.map(fn a -> Integer.parse a end)
+    |> Enum.map(fn a -> Integer.parse(a) end)
     |> Enum.map(fn {a, _} -> a end)
-    |> List.to_tuple
+    |> List.to_tuple()
   end
 
   defp query_location(ip) do

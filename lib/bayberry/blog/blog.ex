@@ -8,7 +8,6 @@ defmodule Bayberry.Blog do
   alias Bayberry.Blog.{Author, Article}
   alias Bayberry.Accounts
 
-
   @doc """
   Returns the list of articles.
 
@@ -157,7 +156,6 @@ defmodule Bayberry.Blog do
     |> Repo.preload(user: :credential)
   end
 
-
   @doc """
   Creates a author.
 
@@ -232,10 +230,11 @@ defmodule Bayberry.Blog do
     |> Ecto.Changeset.change()
     |> Ecto.Changeset.unique_constraint(:user_id)
     |> Repo.insert()
-    |> handle_existing_author()
+    |> handle_existing_author
   end
 
   defp handle_existing_author({:ok, author}), do: author
+
   defp handle_existing_author({:error, changeset}) do
     Repo.get_by!(Author, user_id: changeset.data.user_id)
   end

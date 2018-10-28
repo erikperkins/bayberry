@@ -15,6 +15,7 @@ defmodule BayberryWeb.SessionController do
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
         |> redirect(to: get_session(conn, :redirect_url) || "/")
+
       {:error, :unauthorized} ->
         conn
         |> put_flash(:error, "Invalid email or password")

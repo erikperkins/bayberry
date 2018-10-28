@@ -22,6 +22,7 @@ defmodule BayberryWeb.Blog.AuthorController do
         conn
         |> put_flash(:info, "Author created successfully.")
         |> redirect(to: blog_author_path(conn, :show, author))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -43,6 +44,7 @@ defmodule BayberryWeb.Blog.AuthorController do
         conn
         |> put_flash(:info, "Author updated successfully.")
         |> redirect(to: blog_author_path(conn, :show, author))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", changeset: changeset)
     end
@@ -66,7 +68,7 @@ defmodule BayberryWeb.Blog.AuthorController do
       conn
       |> put_flash(:error, "You cannot modify that author")
       |> redirect(to: blog_author_path(conn, :index))
-      |> halt()
+      |> halt
     end
   end
 end

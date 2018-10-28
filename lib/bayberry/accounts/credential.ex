@@ -16,8 +16,8 @@ defmodule Bayberry.Accounts.Credential do
   def changeset(credential, attrs) do
     credential
     |> cast(attrs, [:email, :password, :salt])
-    |> add_salt()
-    |> hash_password()
+    |> add_salt
+    |> hash_password
     |> validate_required([:email, :password])
     |> unique_constraint(:email)
   end
@@ -25,14 +25,13 @@ defmodule Bayberry.Accounts.Credential do
   defp add_salt(changeset) do
     case get_change(changeset, :password) do
       nil -> changeset
-      _ -> change(changeset, salt: Crypto.salt)
+      _ -> change(changeset, salt: Crypto.salt())
     end
   end
 
   defp hash_password(changeset) do
     with password when not is_nil(password) <- get_change(changeset, :password),
-         salt when not is_nil(password) <- get_change(changeset, :salt)
-    do
+         salt when not is_nil(password) <- get_change(changeset, :salt) do
       change(changeset, password: Crypto.hash(salt, password))
     else
       _ -> changeset

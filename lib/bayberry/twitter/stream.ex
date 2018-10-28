@@ -14,8 +14,7 @@ defmodule Bayberry.Twitter.Stream do
     with {:ok, connection} <- Connection.open(@rabbitmq),
          {:ok, channel} <- Channel.open(connection),
          _ <- Queue.declare(channel, "tweets"),
-         {:ok, _} <- Basic.consume(channel, "tweets", nil, no_ack: true)
-    do
+         {:ok, _} <- Basic.consume(channel, "tweets", nil, no_ack: true) do
       {:ok, channel}
     else
       {:error, error} -> {:error, error}
@@ -31,7 +30,7 @@ defmodule Bayberry.Twitter.Stream do
   end
 
   def handle_info({:basic_deliver, payload, _meta}, channel) do
-    spawn fn -> consume(payload, channel) end
+    spawn(fn -> consume(payload, channel) end)
     {:noreply, channel}
   end
 
@@ -43,9 +42,11 @@ defmodule Bayberry.Twitter.Stream do
   end
 
   defp broadcast(%{"text" => text}) do
+    link = ~r/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/
+
     text
     |> (&Regex.replace(~r/\n|\r/, &1, "\n")).()
-    |> (&Regex.replace(~r/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/, &1, "<a href='\\1' target='_blank'>\\1</a>")).()
+    |> (&Regex.replace(link, &1, "<a href='\\1' target='_blank'>\\1</a>")).()
     |> (&Endpoint.broadcast("twitter:stream", "tweet", %{body: &1} || %{})).()
   end
 end

@@ -3,7 +3,6 @@ defmodule Bayberry.Blog.Article do
   import Ecto.Changeset
   alias Bayberry.Blog.Author
 
-
   schema "articles" do
     field :body, :string
     field :title, :string

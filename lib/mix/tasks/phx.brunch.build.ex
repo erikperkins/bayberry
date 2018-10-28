@@ -19,7 +19,7 @@ defmodule Mix.Tasks.Phx.Brunch.Build do
       System.cmd(node, [@brunch, "build", "--production"], cd: @assets)
       IO.puts("Precompiled assets.")
     else
-      {:error, precompiler} -> Mix.shell.error "#{precompiler} not found."
+      {:error, precompiler} -> Mix.shell().error("#{precompiler} not found.")
     end
   end
 

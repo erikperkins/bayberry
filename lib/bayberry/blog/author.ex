@@ -3,7 +3,6 @@ defmodule Bayberry.Blog.Author do
   import Ecto.Changeset
   alias Bayberry.Blog.Article
 
-
   schema "authors" do
     field :bio, :string
     field :genre, :string

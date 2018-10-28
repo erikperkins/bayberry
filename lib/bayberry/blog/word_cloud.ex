@@ -2,7 +2,7 @@ defmodule Bayberry.WordCloud do
   alias Bayberry.Blog
 
   def word_count do
-    Blog.list_articles
+    Blog.list_articles()
     |> Enum.map(fn article -> article.body end)
     |> Enum.join(" ")
     |> String.replace(~r/(^|[\s]+)[^\w]+/, " ")

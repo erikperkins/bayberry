@@ -12,7 +12,8 @@ config :bayberry,
 # Configures the endpoint
 config :bayberry, BayberryWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "848jxxJwuXulhXM078YPNoxL1QVyz2KrRI5sdByOkiEm5o8x05UEdqTWy9wHUqhT",
+  secret_key_base:
+    "848jxxJwuXulhXM078YPNoxL1QVyz2KrRI5sdByOkiEm5o8x05UEdqTWy9wHUqhT",
   render_errors: [view: BayberryWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Bayberry.PubSub, adapter: Phoenix.PubSub.PG2]
 
@@ -22,12 +23,11 @@ config :logger, :console,
   metadata: [:request_id]
 
 # Configure Twitter API client
-config :extwitter, :oauth, [
-   consumer_key: System.get_env("TWITTER_CONSUMER_KEY"),
-   consumer_secret: System.get_env("TWITTER_CONSUMER_SECRET"),
-   access_token: System.get_env("TWITTER_ACCESS_TOKEN"),
-   access_token_secret: System.get_env("TWITTER_ACCESS_SECRET")
-]
+config :extwitter, :oauth,
+  consumer_key: System.get_env("TWITTER_CONSUMER_KEY"),
+  consumer_secret: System.get_env("TWITTER_CONSUMER_SECRET"),
+  access_token: System.get_env("TWITTER_ACCESS_TOKEN"),
+  access_token_secret: System.get_env("TWITTER_ACCESS_SECRET")
 
 # Configure Cross-Origin Resource Sharing
 config :cors_plug,
@@ -37,4 +37,4 @@ config :cors_plug,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

@@ -8,7 +8,7 @@ defmodule Bayberry.MNIST.Stream do
   end
 
   def init(%{}) do
-    send self(), :digit
+    send(self(), :digit)
     {:ok, %{}}
   end
 
