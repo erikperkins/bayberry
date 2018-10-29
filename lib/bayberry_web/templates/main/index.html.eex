@@ -92,7 +92,7 @@
           <svg id='wordcloud'
             class='card-image-top wordcloud rounded-circle'></svg>
           <h2 class='card-title'>
-            <%= link "Blog", to: blog_post_path(@conn, :index) %>
+            <%= link "Blog", to: blog_article_path(@conn, :posts) %>
           </h2>
           <p class='card-text lead'>
             Notes on things

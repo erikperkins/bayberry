@@ -20,7 +20,7 @@
         <%= post.body %>
       </p>
       <%= link 'Read more...',
-        to: blog_post_path(@conn, :show, post),
+        to: blog_article_path(@conn, :post, post),
         class: "btn btn-default btn-xs" %>
     </div>
   </div>
