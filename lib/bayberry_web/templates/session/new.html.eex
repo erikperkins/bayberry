@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center">
   <%= form_for @conn, session_path(@conn, :create),
-    [method: :post, as: :user], fn f -> %>
+    [method: :post, as: :user, id: "login"], fn f -> %>
     <div class="form-group">
       <%= text_input f, :email, placeholder: "Email" %>
     </div>
@@ -10,7 +10,7 @@
     </div>
 
     <div "form-group">
-      <%= submit "Login" %>
+      <%= submit "Login", id: "submit" %>
     </div>
   <% end %>
 </div>
