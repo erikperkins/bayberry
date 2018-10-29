@@ -20,27 +20,12 @@ exports.config = {
       // }
       order: {
         before: [
-          "vendor/js/jquery-3.1.1.min.js",
-          "vendor/js/tether.min.js",
-          "vendor/js/bootstrap.min.js",
-          "vendor/js/d3.min.js",
-          "vendor/js/d3.random.min.js",
-          "vendor/js/d3/d3.layout.cloud.js",
-          "vendor/js/d3/d3-geo-projection.min.js",
-          "vendor/js/d3/d3-transition.v1.min.js",
-          "vendor/js/d3/topojson.min.js"
+          "vendor/js/d3/d3.layout.cloud.js"
         ]
       }
     },
     stylesheets: {
-      joinTo: "css/app.css",
-      order: {
-        before: [
-          "vendor/css/bootstrap.min.css",
-          "vendor/css/bootstrap.min.css.map",
-          "vendor/css/font-awesome.min.css"
-        ]
-      }
+      joinTo: "css/app.scss"
     },
     templates: {
       joinTo: "js/app.js"
@@ -57,7 +42,7 @@ exports.config = {
   // Phoenix paths configuration
   paths: {
     // Dependencies and current project directories to watch
-    watched: ["static", "css", "js", "vendor"],
+    watched: ["static", "css", "js", "vendor", "scss", "fonts"],
     // Where to compile files to
     public: "../priv/static"
   },
@@ -67,6 +52,22 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/vendor/]
+    },
+    sass: {
+      mode: "native",
+      options: {
+        includePaths: [
+          "node_modules/bootstrap/scss",
+          "node_modules/tether/scss",
+          "node_modules/font-awesome/scss"
+        ],
+        precision: 8
+      }
+    },
+    copycat: {
+      "fonts": ["static/fonts", "node_modules/font-awesome/fonts"],
+      verbose: false,
+      onlyChanged: true
     }
   },
 
@@ -77,6 +78,26 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    whitelist: [
+      "jquery",
+      "popper",
+      "bootstrap",
+      "tether",
+      "d3",
+      "d3-geo-projection",
+      "d3-random",
+      "d3-transition",
+      "topojson"
+    ],
+    globals: {
+      $: "jquery",
+      jQuery: "jquery",
+      Popper: "popper.js",
+      Tether: "tether",
+      bootstrap: "bootstrap",
+      d3: "d3",
+      topojson: "topojson"
+    }
   }
 };
