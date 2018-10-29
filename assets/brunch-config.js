@@ -20,15 +20,7 @@ exports.config = {
       // }
       order: {
         before: [
-          "vendor/js/jquery-3.1.1.min.js",
-          "vendor/js/tether.min.js",
-          "vendor/js/bootstrap.min.js",
-          "vendor/js/d3.min.js",
-          "vendor/js/d3.random.min.js",
-          "vendor/js/d3/d3.layout.cloud.js",
-          "vendor/js/d3/d3-geo-projection.min.js",
-          "vendor/js/d3/d3-transition.v1.min.js",
-          "vendor/js/d3/topojson.min.js"
+          "vendor/js/d3/d3.layout.cloud.js"
         ]
       }
     },
@@ -77,6 +69,26 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    whitelist: [
+      "jquery",
+      "popper",
+      "bootstrap",
+      "tether",
+      "d3",
+      "d3-geo-projection",
+      "d3-random",
+      "d3-transition",
+      "topojson"
+    ],
+    globals: {
+      $: "jquery",
+      jQuery: "jquery",
+      Popper: "popper.js",
+      Tether: "tether",
+      bootstrap: "bootstrap",
+      d3: "d3",
+      topojson: "topojson"
+    }
   }
 };
