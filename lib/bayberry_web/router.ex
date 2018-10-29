@@ -61,10 +61,11 @@ defmodule BayberryWeb.Router do
     resources "/users", UserController
   end
 
-  scope "/blog", BayberryWeb, as: :blog do
+  scope "/blog", BayberryWeb.Blog, as: :blog do
     pipe_through [:browser, :analytics]
 
-    resources "/posts", PostController, only: [:index, :show]
+    get "/posts", ArticleController, :posts
+    get "/posts/:id", ArticleController, :post
   end
 
   scope "/blog", BayberryWeb.Blog, as: :blog do
