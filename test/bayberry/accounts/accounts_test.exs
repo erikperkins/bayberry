@@ -15,7 +15,7 @@ defmodule Bayberry.AccountsTest do
       {:ok, user} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Accounts.create_user()
+        |> Accounts.create_user
 
       user
     end

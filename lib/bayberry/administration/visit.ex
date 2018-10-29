@@ -3,7 +3,6 @@ defmodule Bayberry.Administration.Visit do
   import Ecto.Changeset
   alias Bayberry.Administration.Visitor
 
-
   schema "visits" do
     field :path, :string
     field :user_agent, :string

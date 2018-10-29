@@ -23,6 +23,6 @@ defmodule BayberryWeb.MainController do
   end
 
   def word_cloud(conn, _params) do
-    json(conn, WordCloud.word_count)
+    json(conn, WordCloud.word_count())
   end
 end

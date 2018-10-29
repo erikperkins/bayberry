@@ -12,7 +12,7 @@ defmodule BayberryWeb.UserControllerTest do
     {:ok, user} =
       attrs
       |> Enum.into(@create_attrs)
-      |> Accounts.create_user()
+      |> Accounts.create_user
 
     user
   end

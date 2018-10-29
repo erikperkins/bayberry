@@ -23,6 +23,7 @@ defmodule BayberryWeb.Blog.ArticleController do
         conn
         |> put_flash(:info, "Article created successfully.")
         |> redirect(to: blog_article_path(conn, :show, article))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -44,6 +45,7 @@ defmodule BayberryWeb.Blog.ArticleController do
         conn
         |> put_flash(:info, "Article updated successfully.")
         |> redirect(to: blog_article_path(conn, :show, article))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", changeset: changeset)
     end
@@ -71,7 +73,7 @@ defmodule BayberryWeb.Blog.ArticleController do
       conn
       |> put_flash(:error, "You cannot modify that article")
       |> redirect(to: blog_article_path(conn, :index))
-      |> halt()
+      |> halt
     end
   end
 end

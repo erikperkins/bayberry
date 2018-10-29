@@ -19,11 +19,12 @@ defmodule Bayberry.Administration do
   end
 
   def find_visits do
-    query = from v in Visitor,
-      select: %{
-        latitude: type(v.latitude, :float),
-        longitude: type(v.longitude, :float)
-      }
+    query =
+      from v in Visitor,
+        select: %{
+          latitude: type(v.latitude, :float),
+          longitude: type(v.longitude, :float)
+        }
 
     Repo.all(query)
   end
@@ -38,7 +39,7 @@ defmodule Bayberry.Administration do
 
   defp find_visitor(%Plug.Conn{} = conn) do
     conn
-    |> Analytics.ip_address
+    |> Analytics.ip_address()
     |> (&Repo.get_by(Visitor, ip_address: &1)).()
   end
 
@@ -51,15 +52,15 @@ defmodule Bayberry.Administration do
 
     visitor
     |> Visitor.changeset(location)
-    |> Repo.update
+    |> Repo.update()
   end
 
   defp create_visitor(conn) do
     conn
     |> build_visitor
-    |> Repo.insert!
+    |> Repo.insert!()
     |> Ecto.build_assoc(:visits, build_visit(conn))
-    |> Repo.insert!
+    |> Repo.insert!()
     |> find_visitor
     |> (&spawn(fn -> locate_visitor(&1, conn) end)).()
   end
@@ -67,13 +68,13 @@ defmodule Bayberry.Administration do
   defp create_visit(%Visitor{} = visitor, conn) do
     visitor
     |> Ecto.build_assoc(:visits, build_visit(conn))
-    |> Repo.insert!
+    |> Repo.insert!()
   end
 
   defp update_visitor(%Visitor{} = visitor, conn) do
     visitor
     |> Ecto.build_assoc(:visits, build_visit(conn))
-    |> Repo.insert!
+    |> Repo.insert!()
 
     spawn(fn -> locate_visitor(visitor, conn) end)
   end

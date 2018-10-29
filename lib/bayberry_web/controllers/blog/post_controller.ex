@@ -10,7 +10,8 @@ defmodule BayberryWeb.PostController do
   end
 
   def show(conn, %{"id" => id}) do
-    post = id
+    post =
+      id
       |> Blog.get_article!()
       |> Blog.increment_article_views()
 

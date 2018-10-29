@@ -14,14 +14,14 @@ defmodule BayberryWeb.Router do
   end
 
   pipeline :analytics do
-    case Mix.env do
+    case Mix.env() do
       :test -> nil
       _ -> plug :geolocate
     end
   end
 
   pipeline :authentication do
-    case Mix.env do
+    case Mix.env() do
       :test -> nil
       _ -> plug :authenticate_user
     end
@@ -37,7 +37,8 @@ defmodule BayberryWeb.Router do
     get "/nlp", MainController, :nlp
 
     resources "/sessions", SessionController,
-      only: [:new, :create, :update, :delete], singleton: true
+      only: [:new, :create, :update, :delete],
+      singleton: true
   end
 
   scope "/", BayberryWeb do
@@ -86,7 +87,8 @@ defmodule BayberryWeb.Router do
         |> put_session(:redirect_url, conn.request_path)
         |> Phoenix.Controller.put_flash(:error, "Login required")
         |> Phoenix.Controller.redirect(to: "/sessions/new")
-        |> halt()
+        |> halt
+
       user_id ->
         assign(conn, :current_user, Bayberry.Accounts.get_user!(user_id))
     end

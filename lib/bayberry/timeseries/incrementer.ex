@@ -16,8 +16,7 @@ defmodule Bayberry.Timeseries.Incrementer do
     with {:ok, connection} <- Connection.open(@rabbitmq),
          {:ok, channel} <- Channel.open(connection),
          _ <- Queue.declare(channel, "tweets"),
-         {:ok, _} <- Basic.consume(channel, "tweets", nil, no_ack: true)
-    do
+         {:ok, _} <- Basic.consume(channel, "tweets", nil, no_ack: true) do
       {:ok, channel}
     else
       {:error, error} -> {:error, error}
@@ -33,7 +32,7 @@ defmodule Bayberry.Timeseries.Incrementer do
   end
 
   def handle_info({:basic_deliver, payload, _meta}, channel) do
-    spawn fn -> consume(payload, channel) end
+    spawn(fn -> consume(payload, channel) end)
     {:noreply, channel}
   end
 
@@ -50,7 +49,7 @@ defmodule Bayberry.Timeseries.Incrementer do
     day = %{time | hour: 0, minute: 0, second: 0}
     minute = %{time | second: 0}
 
-    hash = "en:#{Timex.to_unix day}"
+    hash = "en:#{Timex.to_unix(day)}"
     key = Timex.to_unix(minute)
 
     case Redix.command(:redix, ~w(hincrby #{hash} #{key} 1)) do
@@ -60,7 +59,7 @@ defmodule Bayberry.Timeseries.Incrementer do
   end
 
   defp expire(hash, day) do
-    expiry = Timex.to_unix(day) + (30 * 24 * 60 * 60)
+    expiry = Timex.to_unix(day) + 30 * 24 * 60 * 60
     Redix.command(:redix, ~w(expireat #{hash} #{expiry}))
   end
 end

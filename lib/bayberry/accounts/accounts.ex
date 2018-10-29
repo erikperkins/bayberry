@@ -55,8 +55,6 @@ defmodule Bayberry.Accounts do
 
   """
   def create_user(attrs \\ %{}) do
-    IO.puts inspect attrs
-
     %User{}
     |> User.changeset(attrs)
     |> Ecto.Changeset.cast_assoc(:credential, with: &Credential.changeset/2)
@@ -187,18 +185,18 @@ defmodule Bayberry.Accounts do
     Credential.changeset(credential, %{})
   end
 
-
   @doc """
   Authenticates User with Credential
   """
   def authenticate_by_email_password(email, password) do
-    query = from user in User,
-      inner_join: credential in assoc(user, :credential),
-      where: credential.email == ^email
+    query =
+      from user in User,
+        inner_join: credential in assoc(user, :credential),
+        where: credential.email == ^email
 
     with %User{} = user <- Repo.one(query) |> Repo.preload(:credential),
-         true <- verify_password(user.credential, password)
-    do {:ok, user}
+         true <- verify_password(user.credential, password) do
+      {:ok, user}
     else
       _ -> {:error, :unauthorized}
     end

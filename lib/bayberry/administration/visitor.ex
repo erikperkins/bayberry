@@ -3,7 +3,6 @@ defmodule Bayberry.Administration.Visitor do
   import Ecto.Changeset
   alias Bayberry.Administration.Visit
 
-
   schema "visitors" do
     field :ip_address, :string
     field :latitude, :decimal

@@ -10,7 +10,7 @@ defmodule Bayberry.Timeseries.Stream do
   end
 
   def init(%{}) do
-    send self(), :timeseries
+    send(self(), :timeseries)
     {:ok, %{}}
   end
 
@@ -20,15 +20,17 @@ defmodule Bayberry.Timeseries.Stream do
   end
 
   def timeseries() do
-    spawn fn -> forecast() end
-    Process.send_after self(), :timeseries, 500
+    spawn(fn -> forecast() end)
+    Process.send_after(self(), :timeseries, 500)
   end
 
   defp forecast() do
     case HTTPoison.get("#{@api}") do
-      {:ok, %HTTPoison.Response{ body: body }} ->
-        spawn fn -> broadcast(body) end
-      {:error, %HTTPoison.Error{reason: reason}} -> Logger.error reason
+      {:ok, %HTTPoison.Response{body: body}} ->
+        spawn(fn -> broadcast(body) end)
+
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        Logger.error(reason)
     end
   end
 
@@ -36,7 +38,9 @@ defmodule Bayberry.Timeseries.Stream do
     case Poison.decode(body) do
       {:ok, response} ->
         Endpoint.broadcast("twitter:stream", "timeseries", response || %{})
-      _ -> Logger.error "Poison decode error"
+
+      _ ->
+        Logger.error("Poison decode error")
     end
   end
 end
