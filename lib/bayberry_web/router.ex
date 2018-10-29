@@ -43,14 +43,13 @@ defmodule BayberryWeb.Router do
 
   scope "/", BayberryWeb do
     pipe_through :browser
-
-    get "/administration", AdministrationController, :index
     get "/word_cloud", MainController, :word_cloud
   end
 
   scope "/administration", BayberryWeb.Administration, as: :administration do
     pipe_through [:browser, :authentication]
 
+    get "/", DashboardController, :index
     get "/visitors", VisitorController, :index
     get "/world_map", VisitorController, :world_map
     get "/locations", VisitorController, :locations
