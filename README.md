@@ -24,9 +24,11 @@ To completely clean the Elixir packages, simply delete `mix.lock` and the `deps`
 $ cd assets
 $ npm install
 ```
-This will create the `assets/node_modules` directory - this can be deleted
-wholesale if a clean build is required. To compile static assets, run `brunch`
-from the `assets` directory
+This will create the `assets/node_modules` directory. If a clean build is required, run `npm cache clean`, or delete the `node_modules` directory wholesale. To compile static assets, run the custom `mix` task
+```
+$ mix phx.assets
+```
+This is a wrapper for running `brunch` and `mix phx.digest`. To run these commands separately, first run `brunch` from the `assets` directory
 ```
 $ node node_modules/brunch/bin/brunch/build
 ```
@@ -38,8 +40,7 @@ to digest and compress the static assets, which places the output in `/priv`. Cr
 ```
 $ mix ecto.setup
 ```
-The asset compilation and database setup steps can be performed in a sigle
-command by running `/assets.sh`. Finally, run the server with
+Finally, run the server with
 ```
 $ mix phx.server
 ```
