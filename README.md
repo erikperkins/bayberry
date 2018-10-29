@@ -45,6 +45,22 @@ Finally, run the server with
 $ mix phx.server
 ```
 
+### Test
+Tests are split into two groups: unit and acceptance. Acceptance tests are
+tagged with `@tag phantomjs: true`, and use the PhantomJS webdriver.
+To run unit tests only, do
+```
+$ mix test
+```
+To run acceptance tests only, do
+```
+$ mix test --only phantomjs:true
+```
+To run all tests, do
+```
+$ mix test --include phantomjs:true
+```
+
 ### Container
 Docker builds the application in production mode. Migrations and
 asset compilation are performed when the container starts. The container can

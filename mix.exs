@@ -51,7 +51,8 @@ defmodule Test.Mixfile do
       {:httpoison, "~> 1.0"},
       {:poison, "~> 3.0"},
       {:timex, "~> 3.4"},
-      {:cors_plug, "~> 1.5"}
+      {:cors_plug, "~> 1.5"},
+      {:hound, "~> 1.0"}
     ]
   end
 
