@@ -40,6 +40,7 @@ defmodule BayberryWeb.Router do
 
   scope "/", BayberryWeb do
     pipe_through :browser
+    get "/topics", MainController, :topics
     get "/word_cloud", MainController, :word_cloud
   end
 

@@ -29,3 +29,6 @@ config :bayberry, Bayberry.Geolocation,
 config :bayberry, BayberryWeb.Plugs,
   authorization: Stub.BayberryWeb.Plugs.Authorization,
   geolocation: Stub.BayberryWeb.Plugs.Geolocation
+
+config :bayberry, Bayberry.Service,
+  nlp: Stub.Bayberry.Service.NLP
