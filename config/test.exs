@@ -32,4 +32,8 @@ config :bayberry, BayberryWeb.Plugs,
 
 config :bayberry, Bayberry.Service,
   mnist: Stub.Bayberry.Service.MNIST,
-  nlp: Stub.Bayberry.Service.NLP
+  nlp: Stub.Bayberry.Service.NLP,
+  rabbitmq: Stub.Bayberry.Service.RabbitMQ,
+  redis: Stub.Bayberry.Service.Redis,
+  timeseries: Stub.Bayberry.Service.Timeseries,
+  twitter: Stub.Bayberry.Service.Twitter

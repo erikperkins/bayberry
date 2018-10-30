@@ -1,7 +1,8 @@
 defmodule Bayberry.Timeseries.Supervisor do
   use Supervisor
+  import Application, only: [get_env: 2]
 
-  @redis Application.get_env(:bayberry, BayberryWeb.Endpoint)[:redis]
+  @redis get_env(:bayberry, Bayberry.Service)[:redis]
 
   def start_link() do
     Supervisor.start_link(__MODULE__, :ok)
@@ -9,17 +10,12 @@ defmodule Bayberry.Timeseries.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(Redix, [[host: @redis, port: 6379, database: 3], [name: :redix]]),
+      @redis.worker(),
       worker(Bayberry.Timeseries.Incrementer, [], restart: :permanent),
       worker(Bayberry.Timeseries.Stream, [], restart: :permanent)
     ]
 
     opts = [strategy: :one_for_one, name: Bayberry.Timeseries.Supervisor]
-
-    case Mix.env() do
-      :dev -> Supervisor.init([], opts)
-      :test -> Supervisor.init([], opts)
-      :prod -> Supervisor.init(children, opts)
-    end
+    Supervisor.init(children, opts)
   end
 end

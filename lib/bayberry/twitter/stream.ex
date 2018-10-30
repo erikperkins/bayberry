@@ -1,24 +1,17 @@
 defmodule Bayberry.Twitter.Stream do
   use GenServer
-  use AMQP
   require Logger
-  alias BayberryWeb.Endpoint
+  import Application, only: [get_env: 2]
 
-  @rabbitmq "amqp://guest:guest@#{Application.get_env(:bayberry, Endpoint)[:rabbitmq]}"
+  @rabbitmq get_env(:bayberry, Bayberry.Service)[:rabbitmq]
+  @twitter get_env(:bayberry, Bayberry.Service)[:twitter]
 
   def start_link do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
   def init(%{}) do
-    with {:ok, connection} <- Connection.open(@rabbitmq),
-         {:ok, channel} <- Channel.open(connection),
-         _ <- Queue.declare(channel, "tweets"),
-         {:ok, _} <- Basic.consume(channel, "tweets", nil, no_ack: true) do
-      {:ok, channel}
-    else
-      {:error, error} -> {:error, error}
-    end
+    @rabbitmq.consume("tweets")
   end
 
   def handle_info({:basic_consume_ok, _meta}, channel) do
@@ -36,17 +29,8 @@ defmodule Bayberry.Twitter.Stream do
 
   defp consume(payload, _channel) do
     case Poison.decode(payload) do
-      {:ok, tweet} -> spawn(fn -> broadcast(tweet) end)
+      {:ok, tweet} -> spawn(fn -> @twitter.broadcast(tweet) end)
       _ -> Logger.error("Could not decode tweet")
     end
-  end
-
-  defp broadcast(%{"text" => text}) do
-    link = ~r/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/
-
-    text
-    |> (&Regex.replace(~r/\n|\r/, &1, "\n")).()
-    |> (&Regex.replace(link, &1, "<a href='\\1' target='_blank'>\\1</a>")).()
-    |> (&Endpoint.broadcast("twitter:stream", "tweet", %{body: &1} || %{})).()
   end
 end

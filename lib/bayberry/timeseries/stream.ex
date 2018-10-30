@@ -1,9 +1,8 @@
 defmodule Bayberry.Timeseries.Stream do
   use GenServer
-  require Logger
-  alias BayberryWeb.Endpoint
+  import Application, only: [get_env: 2]
 
-  @api Application.get_env(:bayberry, Endpoint)[:timeseries]
+  @timeseries get_env(:bayberry, Bayberry.Service)[:timeseries]
 
   def start_link do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -14,33 +13,13 @@ defmodule Bayberry.Timeseries.Stream do
     {:ok, %{}}
   end
 
-  def handle_info(:timeseries, state) do
+  def handle_info(:timeseries, channel) do
     timeseries()
-    {:noreply, state}
+    {:noreply, channel}
   end
 
   def timeseries() do
-    spawn(fn -> forecast() end)
+    spawn(fn -> @timeseries.forecast() end)
     Process.send_after(self(), :timeseries, 500)
-  end
-
-  defp forecast() do
-    case HTTPoison.get("#{@api}") do
-      {:ok, %HTTPoison.Response{body: body}} ->
-        spawn(fn -> broadcast(body) end)
-
-      {:error, %HTTPoison.Error{reason: reason}} ->
-        Logger.error(reason)
-    end
-  end
-
-  defp broadcast(body) do
-    case Poison.decode(body) do
-      {:ok, response} ->
-        Endpoint.broadcast("twitter:stream", "timeseries", response || %{})
-
-      _ ->
-        Logger.error("Poison decode error")
-    end
   end
 end

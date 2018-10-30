@@ -100,4 +100,8 @@ config :bayberry, BayberryWeb.Plugs,
 
 config :bayberry, Bayberry.Service,
   mnist: Bayberry.Service.MNIST,
-  nlp: Bayberry.Service.NLP
+  nlp: Bayberry.Service.NLP,
+  rabbitmq: Bayberry.Service.RabbitMQ,
+  redis: Bayberry.Service.Redis,
+  timeseries: Bayberry.Service.Timeseries,
+  twitter: Bayberry.Service.Twitter
