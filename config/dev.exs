@@ -81,3 +81,7 @@ config :bayberry, Bayberry.Geolocation,
   database: "geolocation",
   hostname: "localhost",
   pool_size: 5
+
+config :bayberry, BayberryWeb.Plugs,
+  authorization: BayberryWeb.Plugs.Authorization,
+  geolocation: BayberryWeb.Plugs.Geolocation

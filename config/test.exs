@@ -25,3 +25,7 @@ config :bayberry, Bayberry.Geolocation,
   database: "bayberry_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :bayberry, BayberryWeb.Plugs,
+  authorization: Stub.BayberryWeb.Plugs.Authorization,
+  geolocation: Stub.BayberryWeb.Plugs.Geolocation

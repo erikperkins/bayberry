@@ -93,3 +93,7 @@ config :bayberry, Bayberry.Geolocation,
   hostname: "storage.datapun.net",
   timeout: 60000,
   pool_size: 10
+
+config :bayberry, BayberryWeb.Plugs,
+  authorization: BayberryWeb.Plugs.Authorization,
+  geolocation: BayberryWeb.Plugs.Geolocation
