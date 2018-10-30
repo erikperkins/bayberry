@@ -99,4 +99,5 @@ config :bayberry, BayberryWeb.Plugs,
   geolocation: BayberryWeb.Plugs.Geolocation
 
 config :bayberry, Bayberry.Service,
+  mnist: Bayberry.Service.MNIST,
   nlp: Bayberry.Service.NLP

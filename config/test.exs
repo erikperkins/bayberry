@@ -31,4 +31,5 @@ config :bayberry, BayberryWeb.Plugs,
   geolocation: Stub.BayberryWeb.Plugs.Geolocation
 
 config :bayberry, Bayberry.Service,
+  mnist: Stub.Bayberry.Service.MNIST,
   nlp: Stub.Bayberry.Service.NLP
