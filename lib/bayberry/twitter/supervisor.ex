@@ -12,11 +12,6 @@ defmodule Bayberry.Twitter.Supervisor do
     ]
 
     opts = [strategy: :one_for_one, name: Bayberry.Twitter.Supervisor]
-
-    case Mix.env() do
-      :dev -> Supervisor.init([], opts)
-      :test -> Supervisor.init([], opts)
-      :prod -> Supervisor.init(children, opts)
-    end
+    Supervisor.init(children, opts)
   end
 end

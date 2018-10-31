@@ -25,8 +25,8 @@ config :bayberry, BayberryWeb.Endpoint,
   mnist: "http://mnist.datapun.net/mnist",
   nlp: "http://main.datapun.net:1025/lda",
   timeseries: "http://timeseries.datapun.net/api/forecast",
-  rabbitmq: "localhost",
-  redis: "localhost"
+  rabbitmq: "storage.datapun.net",
+  redis: "storage.datapun.net"
 
 # ## SSL Support
 #
@@ -81,3 +81,15 @@ config :bayberry, Bayberry.Geolocation,
   database: "geolocation",
   hostname: "localhost",
   pool_size: 5
+
+config :bayberry, BayberryWeb.Plugs,
+  authorization: BayberryWeb.Plugs.Authorization,
+  geolocation: BayberryWeb.Plugs.Geolocation
+
+config :bayberry, Bayberry.Service,
+  mnist: Stub.Bayberry.Service.MNIST,
+  nlp: Stub.Bayberry.Service.NLP,
+  rabbitmq: Stub.Bayberry.Service.RabbitMQ,
+  redis: Stub.Bayberry.Service.Redis,
+  timeseries: Stub.Bayberry.Service.Timeseries,
+  twitter: Stub.Bayberry.Service.Twitter

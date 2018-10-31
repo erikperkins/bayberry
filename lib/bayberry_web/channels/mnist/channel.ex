@@ -1,6 +1,8 @@
 defmodule BayberryWeb.MNIST.Channel do
   use Phoenix.Channel
-  alias Bayberry.MNIST.Classifier
+  import Application, only: [get_env: 2]
+
+  @classifier get_env(:bayberry, Bayberry.Service)[:mnist]
 
   def join("mnist:digit", _message, socket) do
     {:ok, socket}
@@ -13,6 +15,6 @@ defmodule BayberryWeb.MNIST.Channel do
   intercept ["digit-classify"]
 
   def handle_in("digit-classify", image, socket) do
-    {:reply, {:ok, Classifier.classify(image)}, socket}
+    {:reply, {:ok, @classifier.classify(image)}, socket}
   end
 end

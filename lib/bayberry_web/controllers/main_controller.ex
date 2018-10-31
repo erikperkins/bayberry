@@ -1,6 +1,9 @@
 defmodule BayberryWeb.MainController do
   use BayberryWeb, :controller
+  import Application, only: [get_env: 2]
   alias Bayberry.WordCloud
+
+  @classifier get_env(:bayberry, Bayberry.Service)[:nlp]
 
   def index(conn, _params) do
     render(conn, "index.html")
@@ -16,6 +19,10 @@ defmodule BayberryWeb.MainController do
 
   def nlp(conn, _params) do
     render(conn, "nlp.html")
+  end
+
+  def topics(conn, _params) do
+    json(conn, @classifier.topics())
   end
 
   def twitter(conn, _params) do

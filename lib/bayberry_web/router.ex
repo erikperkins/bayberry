@@ -1,5 +1,8 @@
 defmodule BayberryWeb.Router do
   use BayberryWeb, :router
+  import Application, only: [get_env: 2]
+  @authentication get_env(:bayberry, BayberryWeb.Plugs)[:authorization]
+  @geolocation get_env(:bayberry, BayberryWeb.Plugs)[:geolocation]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -14,17 +17,11 @@ defmodule BayberryWeb.Router do
   end
 
   pipeline :analytics do
-    case Mix.env() do
-      :test -> nil
-      _ -> plug :geolocate
-    end
+    plug @geolocation
   end
 
   pipeline :authentication do
-    case Mix.env() do
-      :test -> nil
-      _ -> plug :authenticate_user
-    end
+    plug @authentication
   end
 
   scope "/", BayberryWeb do
@@ -43,6 +40,7 @@ defmodule BayberryWeb.Router do
 
   scope "/", BayberryWeb do
     pipe_through :browser
+    get "/topics", MainController, :topics
     get "/word_cloud", MainController, :word_cloud
   end
 
@@ -73,24 +71,5 @@ defmodule BayberryWeb.Router do
 
     resources "/articles", ArticleController
     resources "/authors", AuthorController
-  end
-
-  defp geolocate(conn, _) do
-    spawn(fn -> Bayberry.Administration.record_visit(conn) end)
-    conn
-  end
-
-  defp authenticate_user(conn, _) do
-    case get_session(conn, :user_id) do
-      nil ->
-        conn
-        |> put_session(:redirect_url, conn.request_path)
-        |> Phoenix.Controller.put_flash(:error, "Login required")
-        |> Phoenix.Controller.redirect(to: "/sessions/new")
-        |> halt
-
-      user_id ->
-        assign(conn, :current_user, Bayberry.Accounts.get_user!(user_id))
-    end
   end
 end

@@ -1,8 +1,10 @@
 export var LdaTopics = {
   run: function() {
-    var bubbles = renderBubbles()
+    var
+      bubbles = renderBubbles(),
+      url = '/topics'
 
-    d3.json('http://main.datapun.net:1025/lda', function(errors, json) {
+    d3.json(url, function(errors, json) {
       if (!errors) {
         setTimeout(() => {
           clearInterval(bubbles)
