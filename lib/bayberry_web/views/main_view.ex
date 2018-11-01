@@ -7,6 +7,7 @@ defmodule BayberryWeb.MainView do
         ~S"""
         <script>require("js/topics").LdaTopics.run()</script>
         <script>require("js/wordcloud").WordCloud.run()</script>
+        <script>require("js/socket/visitors").VisitorMap.run()</script>
         """
         |> raw
       "/mnist" ->

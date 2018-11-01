@@ -48,7 +48,6 @@ defmodule BayberryWeb.Router do
     pipe_through [:browser, :authentication]
 
     get "/", DashboardController, :index
-    get "/visitors", VisitorController, :index
     get "/world_map", VisitorController, :world_map
     get "/locations", VisitorController, :locations
   end

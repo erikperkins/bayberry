@@ -24,8 +24,8 @@ export var VisitorMap = {
       })
 
     var
-      width = 640,
-      height = 480,
+      width = 200,
+      height = 200,
       coordinates = [95, -39, 0],
       scale = 100,
       altitude = scale,
@@ -43,18 +43,12 @@ export var VisitorMap = {
     var svg = d3.select("#visitor-map")
       .attr("width", width)
       .attr("height", height)
-      .attr("class", "map")
       .call(drag.on("drag", () => { rotate(d3.event) }))
       .call(zoom.on("zoom", () => { rescale(d3.event.transform) }))
 
     var
-      path = d3.geoPath().projection(projection).pointRadius(1),
+      path = d3.geoPath().projection(projection).pointRadius(2),
       ocean = d3.geoCircle().center([0, 90]).radius(180)
-
-    svg.append("rect")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("fill", "black")
 
     var globe = svg.append("g")
 
