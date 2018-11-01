@@ -44,6 +44,8 @@ defmodule Bayberry.Administration.Analytics do
     conn
     |> Plug.Conn.get_req_header("x-forwarded-for")
     |> Enum.at(0)
+    |> String.split(",")
+    |> Enum.at(0)
     |> (fn ip -> ip || "0.0.0.0" end).()
     |> String.split(".")
     |> Enum.map(fn a -> Integer.parse(a) end)
