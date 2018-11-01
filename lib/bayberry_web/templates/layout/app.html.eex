@@ -12,10 +12,15 @@
   </head>
 
   <body>
-    <nav class='navbar navbar-light bg-faded'>
+    <nav class='navbar navbar-light bg-light'>
       <div class='container d-flex justify-content-between align-items-center'>
 
         <big class="text-muted">
+          <%= link to: "http://github.com/erikperkins/datapunnet",
+              class: "lead text-dark navbar-brand", target: "_blank" do %>
+            <i class='fa fa-github'></i>
+          <% end %>
+
           <%= link "Data Punnet", to: main_path(@conn, :index) %>
           <%= for path <- path_tree(@conn) do %>
             / <%= path_link(path) %>
@@ -23,11 +28,6 @@
         </big>
 
         <big class="navbar-text">
-          <%= link to: "http://github.com/erikperkins/datapunnet",
-              class: "lead text-default navbar-brand", target: "_blank" do %>
-            <i class='fa fa-github'></i>
-          <% end %>
-
           <%= administration_icon(@conn) %>
           <%= user_icon(@conn) %>
           <%= session_icon(@conn) %>

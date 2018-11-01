@@ -1,5 +1,6 @@
 defmodule Bayberry.Administration.Analytics do
-  alias Bayberry.{Location, Geolocation}
+  alias Bayberry.Geolocation
+  alias Bayberry.Geolocation.Point
   import Ecto.Query, only: [from: 2]
 
   def geolocate(conn) do
@@ -51,8 +52,8 @@ defmodule Bayberry.Administration.Analytics do
   end
 
   defp query_location(ip) do
-    from l in Location,
-      where: l.ip_from <= ^ip and ^ip < l.ip_to,
-      select: %{latitude: l.latitude, longitude: l.longitude}
+    from p in Point,
+      where: p.ip_from <= ^ip and ^ip < p.ip_to,
+      select: %{latitude: p.latitude, longitude: p.longitude}
   end
 end

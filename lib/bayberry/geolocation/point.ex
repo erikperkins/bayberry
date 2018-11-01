@@ -1,7 +1,7 @@
-defmodule Bayberry.Location do
+defmodule Bayberry.Geolocation.Point do
   use Ecto.Schema
 
-  schema "locations" do
+  schema "points" do
     field :ip_from, :integer
     field :ip_to, :integer
     field :country_code, :string

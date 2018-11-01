@@ -1,6 +1,7 @@
 defmodule Bayberry.Administration do
   alias Bayberry.Administration.{Analytics, Visit, Visitor}
   alias Bayberry.Repo
+  alias BayberryWeb.Endpoint
   import Ecto.Query, only: [from: 2]
 
   def record_visit(conn) do
@@ -18,15 +19,22 @@ defmodule Bayberry.Administration do
     conn
   end
 
-  def find_visits do
-    query =
-      from v in Visitor,
-        select: %{
-          latitude: type(v.latitude, :float),
-          longitude: type(v.longitude, :float)
-        }
+  def stream_visits(_ref) do
+    query = from v in Visitor,
+      select: %{
+        latitude: type(v.latitude, :float),
+        longitude: type(v.longitude, :float)
+      },
+      limit: 75,
+      order_by: [desc: :id]
 
-    Repo.all(query)
+    stream = Repo.stream(query)
+
+    Repo.transaction(fn ->
+      for point <- stream do
+        Endpoint.broadcast!("geolocation:visitor", "visit", point)
+      end
+    end)
   end
 
   defp build_visit(conn) do
