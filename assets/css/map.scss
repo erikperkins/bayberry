@@ -1,8 +1,3 @@
-.map {
-  border: 1px solid black;
-  color: cornflower;
-}
-
 .boundary {
   fill: wheat;
   stroke: black;
@@ -11,10 +6,10 @@
 
 .ocean {
   fill: lightBlue;
-  stroke: azure;
-  stroke-width: 5px;
+  stroke: aliceBlue;
+  stroke-width: 3px;
 }
 
 .location {
-  fill: orange;
+  fill: firebrick;
 }

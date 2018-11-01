@@ -5,7 +5,7 @@ defmodule BayberryWeb.Administration.VisitorView do
     case assigns.script_path do
       "/administration/visitors" ->
         ~S"""
-        <script>require("js/visitors").VisitorMap.run()</script>
+        <script>require("js/socket/visitors").VisitorMap.run()</script>
         """
         |> raw
       _ -> nil
