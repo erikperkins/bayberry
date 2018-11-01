@@ -12,7 +12,7 @@ defmodule BayberryWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :bayberry,
-    gzip: true,
+    gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
