@@ -2,7 +2,7 @@ Mix.Tasks.Phx.Phantom.run([])
 
 Application.ensure_all_started(:hound)
 
-ExUnit.start(exclude: [:phantomjs])
+ExUnit.start(exclude: [:acceptance])
 
 Ecto.Adapters.SQL.Sandbox.mode(Bayberry.Repo, :manual)
 
