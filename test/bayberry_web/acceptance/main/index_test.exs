@@ -14,7 +14,7 @@ defmodule BayberryWeb.Main.IndexTest do
     :ok
   end
 
-  @tag phantomjs: true
+  @tag acceptance: true
   test "main page" do
     assert page_source() =~ "Data Punnet"
     assert page_source() =~ "Site Architecture"
@@ -24,7 +24,7 @@ defmodule BayberryWeb.Main.IndexTest do
     assert page_source() =~ "Blog"
   end
 
-  @tag phantomjs: true
+  @tag acceptance: true
   test "architecture page" do
     link = find_element(:link_text, "Site Architecture")
     click(link)
@@ -32,7 +32,7 @@ defmodule BayberryWeb.Main.IndexTest do
     assert current_url() == main_url(Endpoint, :architecture)
   end
 
-  @tag phantomjs: true
+  @tag acceptance: true
   test "digit recognition page" do
     link = find_element(:link_text, "Digit Recognition")
     click(link)
@@ -40,7 +40,7 @@ defmodule BayberryWeb.Main.IndexTest do
     assert current_url() == main_url(Endpoint, :mnist)
   end
 
-  @tag phantomjs: true
+  @tag acceptance: true
   test "word association page" do
       link = find_element(:link_text, "Word Association")
     click(link)
@@ -48,7 +48,7 @@ defmodule BayberryWeb.Main.IndexTest do
     assert current_url() == main_url(Endpoint, :nlp)
   end
 
-  @tag phantomjs: true
+  @tag acceptance: true
   test "twitter stream page" do
     link = find_element(:link_text, "Twitter Stream")
     click(link)
@@ -56,7 +56,7 @@ defmodule BayberryWeb.Main.IndexTest do
     assert current_url() == main_url(Endpoint, :twitter)
   end
 
-  @tag phantomjs: true
+  @tag acceptance: true
   test "blog page" do
     link = find_element(:link_text, "Blog")
     click(link)

@@ -19,7 +19,7 @@ defmodule BayberryWeb.Session.NewTest do
 
   hound_session()
 
-  @tag phantomjs: true
+  @tag acceptance: true
   test "valid login" do
     Endpoint
     |> session_url(:new)
@@ -38,7 +38,7 @@ defmodule BayberryWeb.Session.NewTest do
     assert current_url() == main_url(Endpoint, :index)
   end
 
-  @tag phantomjs: true
+  @tag acceptance: true
   test "invalid login" do
     login_page = session_url(Endpoint, :new)
 

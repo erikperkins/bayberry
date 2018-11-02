@@ -32,4 +32,13 @@ defmodule BayberryWeb.MainController do
   def word_cloud(conn, _params) do
     json(conn, WordCloud.word_count())
   end
+
+  def world_map(conn, _params) do
+    geojson =
+      Application.app_dir(:bayberry, "/priv/data/countries.geo.json")
+      |> File.read!()
+      |> Poison.decode!()
+
+    json(conn, geojson)
+  end
 end

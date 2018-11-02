@@ -48,7 +48,7 @@ config :bayberry, BayberryWeb.Endpoint,
 config :bayberry, BayberryWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{priv/static/.*(js|css|scss|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/bayberry_web/views/.*(ex)$},
       ~r{lib/bayberry_web/templates/.*(eex)$}
