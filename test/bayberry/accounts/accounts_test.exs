@@ -6,9 +6,9 @@ defmodule Bayberry.AccountsTest do
   describe "users" do
     alias Bayberry.Accounts.User
 
-    @valid_attrs %{name: "some name", username: "some username"}
-    @update_attrs %{name: "some updated name", username: "some updated username"}
-    @invalid_attrs %{name: nil, username: nil}
+    @valid_attrs %{name: "some name"}
+    @update_attrs %{name: "some updated name"}
+    @invalid_attrs %{name: nil}
     @credential_attrs %{credential: %{email: "email", password: "password"}}
 
     def user_fixture(attrs \\ %{}) do
@@ -33,7 +33,6 @@ defmodule Bayberry.AccountsTest do
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
       assert user.name == "some name"
-      assert user.username == "some username"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -45,7 +44,6 @@ defmodule Bayberry.AccountsTest do
       assert {:ok, user} = Accounts.update_user(user, @update_attrs)
       assert %User{} = user
       assert user.name == "some updated name"
-      assert user.username == "some updated username"
     end
 
     test "update_user/2 with invalid data returns error changeset" do
@@ -73,7 +71,7 @@ defmodule Bayberry.AccountsTest do
     @valid_attrs %{email: "some email", password: "password"}
     @update_attrs %{email: "some updated email", password: "updated password"}
     @invalid_attrs %{email: nil, password: nil, user_id: nil}
-    @user_attrs %{user: %{name: "some name", username: "some username"}}
+    @user_attrs %{user: %{name: "some name"}}
 
     def credential_fixture(attrs \\ %{}) do
       {:ok, credential} =
