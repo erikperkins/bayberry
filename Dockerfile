@@ -26,6 +26,6 @@ RUN npm rebuild node-sass
 WORKDIR $BAYBERRY_HOME
 RUN mix compile
 
-RUN chmod 755 assets.sh
-ENTRYPOINT ["/bayberry/assets.sh"]
+RUN chmod 755 entrypoint.sh
+ENTRYPOINT ["/bayberry/entrypoint.sh"]
 CMD ["mix", "phx.server"]
