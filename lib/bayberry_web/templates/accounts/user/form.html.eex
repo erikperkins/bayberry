@@ -5,7 +5,7 @@
     </div>
   <% end %>
 
-  <div class="container d-flex justify-content-between">
+  <div class="container">
     <div class="form-group">
       <%= label f, :name, class: "control-label" %>
       <%= text_input f, :name, class: "form-control" %>
@@ -19,12 +19,13 @@
     </div>
   </div>
 
-  <div class="container d-flex justify-content-between">
+  <div class="container">
     <%=
       if Enum.member?(@conn.path_info, "new")
-      or @conn.query_params["change_credentials"] do
-        render "_credential.html",
-          Map.merge(assigns, %{action: accounts_user_path(@conn, :create), form: f})
+      or not is_nil(@conn.query_params["change_credentials"])
+      or not is_nil(@changeset.action) do
+        params = %{action: accounts_user_path(@conn, :create), form: f}
+        render "_credential.html", Map.merge(assigns, params)
       end
     %>
   </div>
