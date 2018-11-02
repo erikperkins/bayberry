@@ -4,9 +4,9 @@ defmodule BayberryWeb.UserControllerTest do
   alias Bayberry.Accounts
 
   @credential_attrs %{email: "email", password: "password"}
-  @create_attrs %{name: "some name", username: "some username", credential: @credential_attrs}
-  @update_attrs %{name: "some updated name", username: "some updated username"}
-  @invalid_attrs %{name: nil, username: nil}
+  @create_attrs %{name: "some name", credential: @credential_attrs}
+  @update_attrs %{name: "some updated name"}
+  @invalid_attrs %{name: nil}
 
   def fixture(:user, attrs \\ %{}) do
     {:ok, user} =
@@ -95,7 +95,7 @@ defmodule BayberryWeb.UserControllerTest do
 
   defp create_admin(_) do
     attrs = %{
-      username: "admin",
+      name: "admin",
       credential: %{email: "admin", password: "password"}
     }
     admin = fixture(:user, attrs)
