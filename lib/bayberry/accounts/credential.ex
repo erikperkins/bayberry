@@ -6,6 +6,7 @@ defmodule Bayberry.Accounts.Credential do
   schema "credentials" do
     field :email, :string
     field :password, :string
+    field :password_confirmation, :string, virtual: true
     field :salt, :string
     belongs_to :user, User
 
@@ -15,10 +16,11 @@ defmodule Bayberry.Accounts.Credential do
   @doc false
   def changeset(credential, attrs) do
     credential
-    |> cast(attrs, [:email, :password, :salt])
+    |> cast(attrs, [:email, :password, :password_confirmation, :salt])
     |> add_salt
     |> hash_password
     |> validate_required([:email, :password])
+    |> validate_confirmation(:password, message: "passwords do not match")
     |> unique_constraint(:email)
   end
 

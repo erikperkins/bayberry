@@ -10,7 +10,7 @@
     </div>
 
     <div "form-group">
-      <%= submit "Login", id: "submit" %>
+      <%= submit "Login", id: "submit", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>
