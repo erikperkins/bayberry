@@ -5,6 +5,7 @@ defmodule BayberryWeb.MainView do
     case assigns.script_path do
       "/" ->
         ~S"""
+        <script>require("js/socket/mnistcloud").DigitCloud.run()</script>
         <script>require("js/topics").LdaTopics.run()</script>
         <script>require("js/wordcloud").WordCloud.run()</script>
         <script>require("js/socket/visitors").VisitorMap.run()</script>
@@ -24,6 +25,10 @@ defmodule BayberryWeb.MainView do
         ~S"""
         <script>require("js/socket/twittersocket").TwitterSocket.run()</script>
         """
+        |> raw
+      "/blank" ->
+      ~S"""
+      """
         |> raw
       _ -> nil
     end

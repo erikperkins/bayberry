@@ -32,6 +32,7 @@ defmodule BayberryWeb.Router do
     get "/architecture", MainController, :architecture
     get "/mnist", MainController, :mnist
     get "/nlp", MainController, :nlp
+    get "/blank", MainController, :blank
 
     resources "/sessions", SessionController,
       only: [:new, :create, :update, :delete],

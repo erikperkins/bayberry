@@ -38,15 +38,14 @@
     <div class='card placard'>
       <div class='text-center'>
         <div class='card-block'>
-          <img src="<%= static_path(@conn, "/images/mnist.png") %>"
-              class="card-image-top rounded-circle img-thumbnail">
-
-          <h2 class='card-title'>
-            <%= link "Digit Recognition", to: main_path(@conn, :mnist) %>
-          </h2>
-          <p class='card-text lead'>
-            Neural network classification of handwritten numbers
-          </p>
+          <svg id='digitcloud'
+            class='card-image-top digitcloud rounded-circle'></svg>
+            <h2 class='card-title'>
+              <%= link "Digit Recognition", to: main_path(@conn, :mnist) %>
+            </h2>
+            <p class='card-text lead'>
+              Neural network classification of handwritten numbers
+            </p>
         </div>
       </div>
     </div>

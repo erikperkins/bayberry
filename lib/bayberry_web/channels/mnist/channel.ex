@@ -12,9 +12,13 @@ defmodule BayberryWeb.MNIST.Channel do
     {:error, %{reason: "unauthorized"}}
   end
 
-  intercept ["digit-classify"]
+  intercept ["digit-classify", "digits"]
 
   def handle_in("digit-classify", image, socket) do
     {:reply, {:ok, @classifier.classify(image)}, socket}
+  end
+
+  def handle_in("digits", _payload, socket) do
+    {:reply, {:digits, %{digits: @classifier.digits()}}, socket}
   end
 end

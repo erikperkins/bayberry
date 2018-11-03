@@ -15,6 +15,7 @@
     "brunch": "2.10.9",
     "clean-css-brunch": "2.10.0",
     "d3": "4.5.0",
+    "d3-force": "1.1.2",
     "d3-geo-projection": "1.2.1",
     "d3-random": "1.1.2",
     "d3-transition": "1.1.3",
