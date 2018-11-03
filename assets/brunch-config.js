@@ -85,6 +85,7 @@ exports.config = {
       "bootstrap",
       "tether",
       "d3",
+      "d3-force",
       "d3-geo-projection",
       "d3-random",
       "d3-transition",

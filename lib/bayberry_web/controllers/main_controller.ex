@@ -41,4 +41,8 @@ defmodule BayberryWeb.MainController do
 
     json(conn, geojson)
   end
+
+  def blank(conn, _params) do
+    render(conn, "blank.html")
+  end
 end

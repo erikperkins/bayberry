@@ -8,6 +8,12 @@ defmodule Bayberry.Service.MNIST do
     end
   end
 
+  def digits() do
+    "priv/data/digits.json"
+    |> File.read!()
+    |> Poison.decode!()
+  end
+
   def classify(image) do
     url = "http://mnist.datapun.net/mnist/new/classification.json"
     json = Poison.encode!(image)

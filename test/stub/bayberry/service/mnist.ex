@@ -1,6 +1,11 @@
 defmodule Stub.Bayberry.Service.MNIST do
   def digit(_id) do
-    "priv/data/digit.json"
+    digits()
+    |> Enum.random()
+  end
+
+  def digits() do
+    "priv/data/digits.json"
     |> File.read!()
     |> Poison.decode!()
   end
