@@ -117,3 +117,5 @@
 
   </div>
 </div>
+
+<script src="<%= static_path(@conn, "/js/main.js") %>"></script>

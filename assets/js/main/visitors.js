@@ -34,7 +34,7 @@ export var Visitors = {
       .translate([width/2, height/2])
       .rotate(coordinates)
 
-    var svg = d3.select("#visitor-map")
+    let svg = d3.select("#visitor-map")
       .attr("width", width)
       .attr("height", height)
       .call(drag.on("drag", () => rotate(d3.event)))
