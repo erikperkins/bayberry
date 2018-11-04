@@ -3,7 +3,10 @@ import {Socket} from "phoenix"
 export var VisitorMap = {
   run: function() {
 
-    let socket = new Socket("/geolocationsocket", {params: {token: window.userToken}})
+    let socket = new Socket(
+      "/geolocationsocket",
+      {params: {token: window.userToken}}
+    )
     socket.connect()
 
     let channel = socket.channel("geolocation:visitor", {})
@@ -13,16 +16,6 @@ export var VisitorMap = {
         drawPoint([payload.longitude, payload.latitude])
       }
     })
-
-    channel.join()
-      .receive("ok", _ => {
-        console.log("Joined channel geolocation:visitor successfully")
-        d3.json("/world_map", (error, world) => {
-          if (error) return console.error(error)
-
-          drawMap(world)
-        })
-      })
 
     var
       width = 200,
@@ -44,8 +37,8 @@ export var VisitorMap = {
     var svg = d3.select("#visitor-map")
       .attr("width", width)
       .attr("height", height)
-      .call(drag.on("drag", () => { rotate(d3.event) }))
-      .call(zoom.on("zoom", () => { rescale(d3.event.transform) }))
+      .call(drag.on("drag", () => rotate(d3.event)))
+      .call(zoom.on("zoom", () => rescale(d3.event.transform)))
 
     var
       path = d3.geoPath().projection(projection).pointRadius(2),
@@ -53,23 +46,31 @@ export var VisitorMap = {
 
     var globe = svg.append("g")
 
+    d3.json("/world_map", (error, world) => {
+      if (error) return console.error(error)
+      drawMap(world)
+    })
+
     function drawMap(world) {
       globe.append("g")
         .attr("class", "ocean")
         .selectAll("path")
         .data([0])
         .enter().append("path")
-        .attr("d", () => { return path(ocean()) })
+        .attr("d", () => path(ocean()))
 
       globe.append("path")
         .datum(world)
         .attr("class", "boundary")
         .attr("d", path)
 
-        visitors = globe.append("g")
-          .attr("class", "visitors")
+      visitors = globe.append("g")
+        .attr("class", "visitors")
 
-        channel.push("stream-visits", {})
+      channel.join()
+        .receive("ok", _ => console.log("Joined channel geolocation:visitor"))
+
+      channel.push("stream-visits", {})
     }
 
     function drawPoint(location) {
@@ -89,11 +90,11 @@ export var VisitorMap = {
 
       d3.selectAll("path").attr("d", path)
       d3.select(".ocean").selectAll("path")
-        .attr("d", () => { return path(ocean()) })
+        .attr("d", () => path(ocean()))
 
       d3.select(".visitors").selectAll("circle")
-        .attr("cx", (d) => { return projection(d)[0] })
-        .attr("cy", (d) => { return projection(d)[1] })
+        .attr("cx", d => projection(d)[0])
+        .attr("cy", d => projection(d)[1])
     }
 
     function rescale(transform) {
@@ -102,12 +103,12 @@ export var VisitorMap = {
 
       d3.selectAll("path").attr("d", path)
       d3.select(".ocean").selectAll("path")
-        .attr("d", () => { return path(ocean()) })
+        .attr("d", () => path(ocean()))
 
       d3.select(".visitors").selectAll("circle")
-        .attr("cx", (d) => { return projection(d)[0] })
-        .attr("cy", (d) => { return projection(d)[1] })
-        .attr("r", (d) => { return 4 * Math.log(1 + transform.k) })
+        .attr("cx", d => projection(d)[0])
+        .attr("cy", d => projection(d)[1])
+        .attr("r", d => 4 * Math.log(1 + transform.k))
     }
   }
 }
