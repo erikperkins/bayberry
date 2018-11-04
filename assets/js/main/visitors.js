@@ -1,6 +1,6 @@
 import {Socket} from "phoenix"
 
-export var VisitorMap = {
+export var Visitors = {
   run: function() {
 
     let socket = new Socket(

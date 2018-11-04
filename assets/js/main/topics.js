@@ -1,4 +1,4 @@
-export var LdaTopics = {
+export var Topics = {
   run: function() {
     var
       bubbles = renderBubbles(),

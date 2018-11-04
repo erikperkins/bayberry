@@ -1,6 +1,6 @@
 import {Socket} from "phoenix"
 
-export var DigitCloud = {
+export var Digits = {
   run: () => {
     let socket = new Socket("/mnistsocket", {params: {token: window.userToken}})
     socket.connect()
