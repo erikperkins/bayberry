@@ -2,7 +2,7 @@ import {Socket} from "phoenix"
 
 export var Search = {
   run: function() {
-    let socket = new Socket("/nlpsocket", {params: {token: window.userToken}})
+    let socket = new Socket("/socket", {params: {token: window.userToken}})
     socket.connect()
 
     let channel = socket.channel("nlp:lda", {})

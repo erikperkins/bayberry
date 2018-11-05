@@ -1,10 +1,7 @@
 defmodule BayberryWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :bayberry
 
-  socket "/mnistsocket", BayberryWeb.MNIST.Socket
-  socket "/nlpsocket", BayberryWeb.NLP.Socket
-  socket "/twittersocket", BayberryWeb.Twitter.Socket
-  socket "/geolocationsocket", BayberryWeb.Geolocation.Socket
+  socket "/socket", BayberryWeb.Socket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -20,10 +17,6 @@ defmodule BayberryWeb.Endpoint do
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-    socket "/phoenix/live_reload/mnistsocket", Phoenix.LiveReloader.Socket
-    socket "/phoenix/live_reload/nlpsocket", Phoenix.LiveReloader.Socket
-    socket "/phoenix/live_reload/twittersocket", Phoenix.LiveReloader.Socket
-    socket "/phoenix/live_reload/geolocationsocket", Phoenix.LiveReloader.Socket
 
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader

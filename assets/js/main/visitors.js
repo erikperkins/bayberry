@@ -4,7 +4,7 @@ export var Visitors = {
   run: function() {
 
     let socket = new Socket(
-      "/geolocationsocket",
+      "/socket",
       {params: {token: window.userToken}}
     )
     socket.connect()
