@@ -15,14 +15,17 @@ defmodule Bayberry.MNIST.Stream do
   end
 
   def handle_info(:digit, state) do
-    stream_digits()
+    digit()
     {:noreply, state}
   end
 
-  def stream_digits() do
-    id = Enum.random(0..10000)
-    Endpoint.broadcast("mnist:digit", "digit-stream", @classifier.digit(id) || %{})
+  defp digit() do
+    message =
+      Enum.random(0..10000)
+      |> @classifier.digit() || %{}
 
-    Process.send_after self(), :digit, 2000
+    Endpoint.broadcast("mnist:digit", "digit-stream", message)
+
+    send(self(), :digit)
   end
 end
