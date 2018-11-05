@@ -13,11 +13,12 @@ defmodule Bayberry.Application do
       supervisor(Bayberry.Geolocation, []),
       # Start the endpoint when the application starts
       supervisor(BayberryWeb.Endpoint, []),
+      # Start your own worker by calling: Bayberry.Worker.start_link(arg1, arg2, arg3)
+      # worker(Bayberry.Worker, [arg1, arg2, arg3]),
+      supervisor(Bayberry.Presence, []),
       supervisor(Bayberry.MNIST.Supervisor, []),
       supervisor(Bayberry.Twitter.Supervisor, []),
       supervisor(Bayberry.Timeseries.Supervisor, [])
-      # Start your own worker by calling: Bayberry.Worker.start_link(arg1, arg2, arg3)
-      # worker(Bayberry.Worker, [arg1, arg2, arg3]),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

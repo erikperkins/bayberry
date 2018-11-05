@@ -1,14 +1,20 @@
 defmodule Bayberry.MNIST.Supervisor do
-  use Supervisor
+  use DynamicSupervisor
 
   def start_link() do
-    Supervisor.start_link(__MODULE__, :ok)
+    DynamicSupervisor.start_link(__MODULE__, :ok, name: __MODULE__)
   end
 
   def init(:ok) do
-    children = [worker(Bayberry.MNIST.Stream, [], restart: :permanent)]
+    DynamicSupervisor.init(strategy: :one_for_one)
+  end
 
-    opts = [strategy: :one_for_one, name: Bayberry.MNIST.Supervisor]
-    Supervisor.init(children, opts)
+  def start_stream() do
+    DynamicSupervisor.start_child(__MODULE__, {Bayberry.MNIST.Stream, %{}})
+  end
+
+  def stop_stream() do
+    stream = GenServer.whereis(Bayberry.MNIST.Stream)
+    DynamicSupervisor.terminate_child(__MODULE__, stream)
   end
 end
