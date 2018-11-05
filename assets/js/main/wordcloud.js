@@ -16,7 +16,7 @@ function renderCloud(json) {
   var domain = d3.extent(json, function(d) { return d.size; });
   var size = d3.scaleLog().domain(domain).range([12, 36]);
 
-  var svg = d3.select("#wordcloud").append("g")
+  let svg = d3.select("#wordcloud").append("g")
     .attr("transform", "translate(100,100)")
 
   d3.layout.cloud().size([200, 200])

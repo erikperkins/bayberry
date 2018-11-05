@@ -2,7 +2,12 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: "js/app.js",
+      joinTo: {
+        "js/main.js": /^(js\/main|vendor|node_modules)/,
+        "js/mnist.js": /^(js\/mnist|node_modules)/,
+        "js/nlp.js": /^(js\/nlp|node_modules)/,
+        "js/twitter.js": /^(js\/twitter|node_modules)/
+      },
 
       // To use a separate vendor.js bundle, specify two files path
       // http://brunch.io/docs/config#-files-
@@ -73,7 +78,10 @@ exports.config = {
 
   modules: {
     autoRequire: {
-      "js/app.js": ["js/app"]
+      "js/main.js": ["js/main"],
+      "js/mnist.js": ["js/mnist"],
+      "js/nlp.js": ["js/nlp"],
+      "js/twitter.js": ["js/twitter"]
     }
   },
 

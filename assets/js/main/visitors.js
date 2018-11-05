@@ -1,6 +1,6 @@
 import {Socket} from "phoenix"
 
-export var VisitorMap = {
+export var Visitors = {
   run: function() {
 
     let socket = new Socket(
@@ -34,7 +34,7 @@ export var VisitorMap = {
       .translate([width/2, height/2])
       .rotate(coordinates)
 
-    var svg = d3.select("#visitor-map")
+    let svg = d3.select("#visitor-map")
       .attr("width", width)
       .attr("height", height)
       .call(drag.on("drag", () => rotate(d3.event)))

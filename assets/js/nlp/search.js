@@ -1,6 +1,6 @@
 import {Socket} from "phoenix"
 
-export var NlpSocket = {
+export var Search = {
   run: function() {
     let socket = new Socket("/nlpsocket", {params: {token: window.userToken}})
     socket.connect()

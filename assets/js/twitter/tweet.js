@@ -1,16 +1,19 @@
 import {Socket} from "phoenix"
-import {updateTimeSeries} from "./timeseries"
+import {Timeseries} from "./timeseries"
 
-export var TwitterSocket = {
+export var Tweet = {
   run: function() {
-    let socket = new Socket("/twittersocket", {params: {token: window.userToken}})
+    let socket = new Socket(
+      "/twittersocket",
+      {params: {token: window.userToken}}
+    )
     socket.connect()
 
     let id = 0
     let channel = socket.channel("twitter:stream", {})
 
     channel.on("timeseries", payload => {
-      updateTimeSeries(payload)
+      Timeseries.update(payload)
     })
 
     channel.on("tweet", payload => {

@@ -1,10 +1,7 @@
 import {Socket} from "phoenix"
-import {mnistDraw} from "./mnistdraw"
 
-export var MnistSocket = {
+export var Stream = {
   run: function() {
-    mnistDraw()
-
     let socket = new Socket("/mnistsocket", {params: {token: window.userToken}})
     socket.connect()
 
