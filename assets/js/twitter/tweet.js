@@ -4,7 +4,7 @@ import {Timeseries} from "./timeseries"
 export var Tweet = {
   run: function() {
     let socket = new Socket(
-      "/twittersocket",
+      "/socket",
       {params: {token: window.userToken}}
     )
     socket.connect()

@@ -2,7 +2,7 @@ import {Socket} from "phoenix"
 
 export var Digits = {
   run: () => {
-    let socket = new Socket("/mnistsocket", {params: {token: window.userToken}})
+    let socket = new Socket("/socket", {params: {token: window.userToken}})
     socket.connect()
     let channel = socket.channel("mnist:digit", {})
 
