@@ -15,15 +15,22 @@ export var Digits = {
     channel.push("digits", {})
       .receive("digits", payload => cloud(payload.digits))
 
-
     function replaceDigit(payload) {
       var nodes = d3.selectAll(".digit").nodes()
-
       var i = Math.floor(d3.randomUniform(0, nodes.length)())
+      var node = d3.select(nodes[i])
 
-      d3.select(nodes[i])
-        .attr("xlink:href", () => `data:image/png;base64,${payload.image}`)
-        .html(() => `<title>${payload.classification}</title>`)
+      var fadeout = d3.transition().duration(250)
+      var fadein = d3.transition().duration(250)
+
+      node.transition(fadeout).style("opacity", 0)
+        .on("end", () => {
+          let url = `data:image/png;base64,${payload.image}`
+          node.attr("xlink:href", () => url)
+            .html(() => `<title>${payload.classification}</title>`)
+
+          node.transition(fadein).style("opacity", 1)
+        })
     }
 
     function cloud(digits) {
