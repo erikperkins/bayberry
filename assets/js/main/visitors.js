@@ -13,7 +13,7 @@ export var Visitors = {
 
     channel.on("visit", payload => {
       if (payload.latitude && payload.longitude) {
-        drawPoint([payload.longitude, payload.latitude])
+        drawPoint(payload)
       }
     })
 
@@ -25,7 +25,6 @@ export var Visitors = {
       altitude = scale,
       drag = d3.drag(),
       zoom = d3.zoom(),
-      locations = [],
       visitors
 
     var projection = d3.geoOrthographic()
@@ -73,13 +72,17 @@ export var Visitors = {
       channel.push("stream-visits", {})
     }
 
-    function drawPoint(location) {
-      locations.push(location)
+    function drawPoint(payload) {
+      let location = [payload.longitude, payload.latitude]
 
       visitors.append("path")
-        .datum({type: "MultiPoint", coordinates: locations})
-        .attr("class", "location")
+        .datum({type: "Point", coordinates: location, bot: payload.bot})
+        .attr("class", d => visitorClass(d))
         .attr("d", path)
+    }
+
+    function visitorClass(datum) {
+      return datum.bot ? "bot" : "visitor"
     }
 
     function rotate(event) {
@@ -108,7 +111,7 @@ export var Visitors = {
       d3.select(".visitors").selectAll("circle")
         .attr("cx", d => projection(d)[0])
         .attr("cy", d => projection(d)[1])
-        .attr("r", d => 4 * Math.log(1 + transform.k))
+        .attr("r", d => 4 * Math.sqrt(transform.k))
     }
   }
 }
