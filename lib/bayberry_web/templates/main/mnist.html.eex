@@ -54,12 +54,10 @@
 
     <h4 class='display-4'>What am I looking at?</h4>
     <p>
-      This article shows the output of a convolutional neural network. This neural
+      This page shows the output of a convolutional neural network. The neural
       network has been trained to classify images of handwritten single-digit
-      numbers. At the top of the article is a live feed of images of digits being
-      read in real time by the neural network, along with what digit it thinks
-      each image is. Below that is a palette where you can scribble in your own
-      handwritten digit and submit it to the neural network for classification.
+      numbers. On the palette, you can scribble in your own handwritten digit
+      and submit it to the neural network for classification.
     </p>
 
     <h4 class='display-4'>What is it good for?</h4>
@@ -96,26 +94,25 @@
     <h4 class='display-4'>How does it work?</h4>
     <p>
       The interface here is simple, but there is a lot of technology underlying
-      this article. The live feed of classified digits is sent to the browser over
-      a websocket connection as pure JSON, with the images base-64 encoded. The
-      equals sign in the digit display indicates that the websocket connection
-      is active, and turns grey if the connection is lost. On the server side, an
-      Elixir worker requests random images from the MNIST data set to be
-      classified by communicating with a Python Flask application via a
-      JSON API. The Flask application hosts the TensorFlow code which actually
-      classifies each image.
-    </p>
-
-    <p>
-      Similarly, the user-input digit classification works via exchanging JSON
+      this article. The user-input digit classification works via exchanging JSON
       data. The user draws the digit on an HTML5 canvas, which is base-64
       encoded and sent to Phoenix through a websocket. Phoenix then forwards this
       data to Flask, where the image is cropped, resized, and fed to the neural
       network, which returns the result in JSON form to Phoenix. Since this series
-      of operations, including the actual digit classification, takes only a
-      second or two, it is performed synchronously rather than by a background
+      of operations, including the actual digit classification, takes less than
+      one second, it is performed synchronously rather than by a background
       job. Indeed, most of the wait time is from network latency - a trained
       neural network is actually quite fast and lightweight.
+    </p>
+    <p>
+      On the <%= link "main page", to: main_path(@conn, :index) %> is a live
+      feed of digit classifications from the MNIST data set - hovering the mouse
+      over a digit (or touching it on a touchscreen) shows the digit
+      classification in a tooltip. Each digit classification is performed live
+      by the neural network. As soon as a result is returned, a new
+      classification request is made. The network can handle several digit
+      classifications per second, even while running on a modest t3.micro EC2
+      instance.
     </p>
 
   </div>
