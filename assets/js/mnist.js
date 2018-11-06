@@ -1,5 +1,5 @@
 import {Draw} from "./mnist/draw"
-import {Stream} from "./mnist/stream"
+import {Classify} from "./mnist/classify"
 
 Draw.run()
-Stream.run()
+Classify.run()

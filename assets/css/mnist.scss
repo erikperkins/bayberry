@@ -54,12 +54,6 @@
   margin: 2em 0 2em 0;
 }
 
-.plug {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
 .digitcloud {
   width: 200px;
   height: 200px;
@@ -68,4 +62,15 @@
 
 .digit {
   border-radius: 7px;
+}
+
+.tooltip {
+  font: 24px sans serif;
+}
+
+.tooltip-inner {
+  background-color: white;
+  fill: none;
+  border: 1px solid #6c757d;
+  color: #007bff;
 }

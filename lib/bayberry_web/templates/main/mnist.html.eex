@@ -11,17 +11,6 @@
       </div>
 
       <div class='row justify-content-center padded'>
-        <div class='text-center'>
-          <svg id='digit-feed' class='digit-feed'>
-            <image id='mnist-image' width=56 height=56 x=22 y=18
-              xlink:href="http://mnist.datapun.net/mnist/image/1.png"></image>
-            <text x=100 y=50 id="mnist-equals" class='mnist-equals-nosocket'>=</text>
-            <text id='mnist-digit' x=150 y=50 class='mnist-digit'>2</text>
-          </svg>
-        </div>
-      </div>
-
-      <div class='row justify-content-center padded'>
         <p class='lead text-center'>
           Draw a single digit number in the box below.<br/>
           A neural network will try to read your handwriting.

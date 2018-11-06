@@ -1,6 +1,6 @@
 import {Socket} from "phoenix"
 
-export var Stream = {
+export var Classify = {
   run: function() {
     let socket = new Socket("/socket", {params: {token: window.userToken}})
     socket.connect()
@@ -24,20 +24,9 @@ export var Stream = {
         })
     })
 
-    channel.on("digit-stream", payload => {
-      $("#mnist-image").fadeOut(500, function() {
-        $(this).attr("xlink:href", `data:image/png;base64,${payload.image}`)
-          .fadeIn()
-      })
-
-      $("#mnist-digit").fadeOut(500, function() {
-        $(this).text(payload.classification).fadeIn()
-      })
-    })
-
     channel.join()
       .receive("ok", resp => {
-        document.getElementById("mnist-equals").style['fill'] = "black"
+        //document.getElementById("mnist-equals").style['fill'] = "black"
         console.log("Joined mnist:digit successfully", resp)
       }).receive("error", resp => {
         console.log("Unable to join mnist:digit", resp)
