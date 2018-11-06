@@ -84,7 +84,7 @@ function renderLdaPack(root) {
     }).text(function(d) { return d.data.name })
 
   var node = g.selectAll("circle,text").on("click", function(d) {
-    if (focus !== d) zoom(d), d3.event.stopPropagation();
+    if (focus !== d) zoom(d);
   })
 
   svg.style("background", "white")
