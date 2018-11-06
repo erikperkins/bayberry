@@ -15,13 +15,17 @@ export var Digits = {
     channel.push("digits", {})
       .receive("digits", payload => cloud(payload.digits))
 
+    let i = 0
+
     function replaceDigit(payload) {
-      var nodes = d3.selectAll(".digit").nodes()
-      var i = Math.floor(d3.randomUniform(0, nodes.length)())
+      let nodes = d3.selectAll(".digit").nodes()
+
+      let j =  Math.floor(d3.randomUniform(0, nodes.length)())
+      i = (i == j) ? (i + 1) % 10 : j
       var node = d3.select(nodes[i])
 
-      var fadeout = d3.transition().duration(250)
-      var fadein = d3.transition().duration(250)
+      let fadeout = d3.transition().duration(250)
+      let fadein = d3.transition().duration(250)
 
       node.transition(fadeout).style("opacity", 0)
         .on("end", () => {
@@ -38,26 +42,29 @@ export var Digits = {
         width = 200,
         height = 200
 
-      var svg = d3.select("#digitcloud")
+      let svg = d3.select("#digitcloud")
         .attr("width", width)
         .attr("height", height)
+        .style("fill", "red")
 
-      var group = svg.append("g")
+      let group = svg.append("g")
         .attr("transform", `translate(${width/2},${height/2})`)
 
-      var bodies = d3.forceSimulation(digits)
+      let bodies = d3.forceSimulation(digits)
         .force("charge", d3.forceManyBody().strength(-10/digits.length))
         .force("collide", d3.forceCollide(14 * Math.sqrt(2)))
         .force("center", d3.forceCenter(-14, -14))
         .on("tick", update)
 
       function update() {
-        var selection = group.selectAll(".digit").data(digits)
+        let selection = group.selectAll(".digit").data(digits)
 
         selection.enter()
           .append("image")
           .attr("class", "digit")
           .attr("xlink:href", d => `data:image/png;base64,${d.image}`)
+          .attr("width", 28)
+          .attr("height", 28)
           .html(d => `<title>${d.classification}</title>`)
           .merge(selection)
           .attr("x", d => d.x)
