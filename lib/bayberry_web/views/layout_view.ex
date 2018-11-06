@@ -1,22 +1,21 @@
 defmodule BayberryWeb.LayoutView do
   use BayberryWeb, :view
-
   alias Phoenix.HTML
 
   def session_icon(conn) do
     case Plug.Conn.get_session(conn, :user_id) do
       nil ->
-        link to: session_path(conn, :update),
-             method: :patch,
-             class: "lead text-default navbar-brand" do
-          HTML.raw("<i class='fa fa-sign-in text-success'></i>")
+        form_tag(session_path(conn, :update), method: :patch, class: "navbar-brand") do
+          "<i class='fa fa-lg fa-sign-in text-success'></i>"
+          |> HTML.raw()
+          |> submit(class: "btn bg-light")
         end
 
       _ ->
-        link to: session_path(conn, :update),
-             method: :patch,
-             class: "lead text-default navbar-brand" do
-          HTML.raw("<i class='fa fa-sign-out text-warning'></i>")
+        form_tag(session_path(conn, :update), method: :patch, class: "navbar-brand") do
+          "<i class='fa fa-lg fa-sign-out text-warning'></i>"
+          |> HTML.raw()
+          |> submit(class: "btn bg-light")
         end
     end
   end

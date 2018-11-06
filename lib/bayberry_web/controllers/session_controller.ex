@@ -14,7 +14,7 @@ defmodule BayberryWeb.SessionController do
         |> put_flash(:success, "Signed in")
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> redirect(to: get_session(conn, :redirect_url) || "/")
+        |> redirect(to: get_session(conn, :redirect_url) || main_path(conn, :index))
 
       {:error, :unauthorized} ->
         conn
@@ -32,8 +32,8 @@ defmodule BayberryWeb.SessionController do
 
   def delete(conn, _) do
     conn
-    |> clear_session
+    |> clear_session()
     |> put_flash(:warning, "Signed out")
-    |> redirect(to: "/")
+    |> redirect(to: main_path(conn, :index))
   end
 end

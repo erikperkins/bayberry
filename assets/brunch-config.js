@@ -88,6 +88,7 @@ exports.config = {
       "js/mnist.js": ["js/mnist"],
       "js/nlp.js": ["js/nlp"],
       "js/twitter.js": ["js/twitter"],
+      "css/app.css": ["css/app"],
       "css/main.css": ["css/main"],
       "css/mnist.css": ["css/mnist"],
       "css/nlp.css": ["css/nlp"],

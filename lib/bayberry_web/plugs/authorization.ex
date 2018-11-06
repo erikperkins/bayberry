@@ -1,6 +1,7 @@
 defmodule BayberryWeb.Plugs.Authorization do
   import Plug.Conn, only: [get_session: 2, put_session: 3, assign: 3, halt: 1]
   import Phoenix.Controller, only: [put_flash: 3, redirect: 2]
+  alias BayberryWeb.Router.Helpers, as: Routes
 
   def init(_params) do
   end
@@ -11,7 +12,7 @@ defmodule BayberryWeb.Plugs.Authorization do
         conn
         |> put_session(:redirect_url, conn.request_path)
         |> put_flash(:error, "Login required")
-        |> redirect(to: "/sessions/new")
+        |> redirect(to: Routes.session_path(conn, :new))
         |> halt()
 
       user_id ->
