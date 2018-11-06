@@ -5,13 +5,15 @@ defmodule Stub.Bayberry.Service.Timeseries do
       timeseries = %{
         predicted: [
           %{time: 1540943220, datum: 20},
-          %{time: 1540943280, datum: 41.5},
-          %{time: 1540943340, datum: 63.25}
+          %{time: 1540943280, datum: 51.5},
+          %{time: 1540943340, datum: 63.25},
+          %{time: 1540943400, datum: 53.4}
         ],
         observed: [
           %{time: 1540943220, datum: 63},
           %{time: 1540943280, datum: 85},
-          %{time: 1540943340, datum: Timex.now.second}
+          %{time: 1540943340, datum: 72},
+          %{time: 1540943400, datum: Timex.now.second}
         ]
       }
 

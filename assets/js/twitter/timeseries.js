@@ -52,17 +52,26 @@ export var Timeseries = {
   }
 }
 
-var
-  svg = d3.select("svg").style("background-color", "white"),
-  margin = { top: 20, right: 85, bottom: 50, left: 85 },
-  width = svg.attr("width") - margin.left - margin.right,
-  height = svg.attr("height") - margin.top - margin.bottom,
-  group = svg.append("g").attr(
-    "transform",
-    `translate(${margin.left},${margin.top})`
-  )
+let svg = d3.select("#tweets")
+      .append("div")
+      .classed("svg-container", true)
+      .append("svg")
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 640 320")
 
-var
+let
+  margin = { top: 20, right: 85, bottom: 50, left: 85 },
+  width = svg.attr("viewBox").split(" ")[2] - margin.left - margin.right,
+  height = svg.attr("viewBox").split(" ")[3] - margin.top - margin.bottom,
+  group = svg.append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`)
+
+group.append("rect")
+  .attr("width", width)
+  .attr("height", height)
+  .attr("fill", "none")
+
+let
   time = d3.scaleTime().range([0, width]),
   tweets = d3.scaleLinear().range([height, 0])
 
@@ -72,84 +81,74 @@ beginTime.setMinutes(endTime.getMinutes() - 60)
 time.domain([beginTime, endTime])
 tweets.domain([0, 50])
 
-var parse = function(d) {
-  var date = new Date(parseInt(d) * 1000)
-  return date;
-};
+let parse = function(d) { return new Date(parseInt(d) * 1000) }
 
-var predictedPath = svg.append("path")
-  .attr("class", "timeseries predicted static")
-  .attr("transform", `translate(${margin.left},${margin.top})`)
+let predictedPath = group.append("path")
+  .attr("class", "timeseries predicted")
 
-var observedPath = svg.append("path")
-  .attr("class", "timeseries observed static")
-  .attr("transform", `translate(${margin.left},${margin.top})`)
+let observedPath = group.append("path")
+  .attr("class", "timeseries observed")
 
-var predictedNowPath = svg.append("path")
-  .attr("class", "timeseries predicted static")
-  .attr("transform", `translate(${margin.left},${margin.top})`)
+let predictedNowPath = group.append("path")
+  .attr("class", "timeseries predicted")
   .attr("stroke-dasharray", "2, 2")
 
-var observedNowPath = svg.append("path")
-  .attr("class", "timeseries observed dynamic")
-  .attr("transform", `translate(${margin.left},${margin.top})`)
+let observedNowPath = group.append("path")
+  .attr("class", "timeseries observed")
   .attr("stroke-dasharray", "2, 2")
 
-var tAxisLine = svg.append("g").attr("class", "axis")
-  .attr(
-    "transform",
-    `translate(${margin.left},${margin.top + height})`
-  )
+let tAxisLine = group.append("g").attr("class", "axis")
+  .attr("transform", `translate(0,${height})`)
 tAxisLine.call(d3.axisBottom(time).ticks(5));
 
-var yAxisLine = svg.append("g").attr("class", "axis")
-  .attr("transform",
-   `translate(${margin.left},${margin.top})`
- )
+let yAxisLine = group.append("g").attr("class", "axis")
 yAxisLine.call(d3.axisLeft(tweets).ticks(5))
 
-var tAxisLabel = svg.append("text").attr("class", "axis axis-label")
+let tAxisLabel = svg.append("text")
+  .attr("class", "axis axis-label")
   .attr(
     "transform",
     `translate(${margin.left + width / 2},
       ${height + margin.bottom + margin.top / 2})`
-  ).style("text-anchor", "middle")
-  .text("Time")
+  ).text("Time")
 
-var yAxisLabel = svg.append("text").attr("class", "axis axis-label")
-  .attr(
-    "transform",
-    `translate(${margin.left / 2 - 10},
-      ${margin.top + height / 2}) rotate(270)`
-  ).style("text-anchor", "middle")
-  .text("Tweets per Minute")
+let yAxisLabel = group.append("text")
+  .attr("class", "axis axis-label")
+  .attr("transform", `translate(${-2*margin.left/3},${height/2}) rotate(270)`
+  ).text("Tweets per Minute")
 
-var observedLabel = group.append("g")
-  .attr(
-    "transform",
-    `translate(0,${height - 5})`
-  )
-
-observedLabel.append("circle")
-  .attr("r", 3)
-  .style("fill", "steelblue")
-
-observedLabel.append("text")
-  .text("observed")
-  .attr("transform", "translate(6,0)")
-  .style("dominant-baseline", "middle")
-
-var predictedLabel = group.append("g")
-.attr(
-  "transform",
-  `translate(0,${height - 15})`
-)
+let predictedLabel = group.append("g")
+.attr("transform", `translate(0,${height - 15})`)
 
 predictedLabel.append("circle")
+  .attr("class", "predicted-point")
   .attr("r", 3)
-  .style("fill", "firebrick")
 
-predictedLabel.append("text")
-  .text("forecast")
-  .attr("transform", "translate(6,0)")
-  .style("dominant-baseline", "middle")
+let predictedText = predictedLabel.append("foreignObject")
+  .attr("width", "5em")
+  .attr("height", "2em")
+  .attr("x", 3)
+  .attr("y", -12)
+
+predictedText.append("xhtml:div")
+  .append("div")
+  .attr("class", "point-label")
+  .text("predicted")
+
+let observedLabel = group.append("g")
+  .attr("transform", `translate(0,${height - 5})`)
+
+observedLabel.append("circle")
+  .attr("class", "observed-point")
+  .attr("r", 3)
+
+let observedText = observedLabel.append("foreignObject")
+  .attr("width", "5em")
+  .attr("height", "2em")
+  .attr("x", 3)
+  .attr("y", -12)
+
+observedText.append("xhtml:div")
+  .append("div")
+  .attr("class", "point-label")
+  .text("observed")
