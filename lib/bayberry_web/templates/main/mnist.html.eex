@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/mnist.css") %>">
+
 <div class=''>
   <div class='jumbotron'>
     <div class='container'>

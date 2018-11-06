@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/nlp.css") %>">
+
 <div class='jumbotron'>
   <div class='container'>
     <div class='row justify-content-center'>

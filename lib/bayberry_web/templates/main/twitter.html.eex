@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/twitter.css") %>">
+
 <div class='jumbotron'>
   <div class='container'>
     <div class='row justify-content-center'>

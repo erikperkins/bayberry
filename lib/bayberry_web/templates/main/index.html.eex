@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/main.css") %>">
+
 <div class='row justify-content-center padded'>
   <div class='col-lg-4'>
     <p class='text-center punnet'>
