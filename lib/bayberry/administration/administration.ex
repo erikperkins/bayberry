@@ -20,13 +20,19 @@ defmodule Bayberry.Administration do
   end
 
   def stream_visits(_ref) do
-    query = from v in Visitor,
-      select: %{
-        latitude: type(v.latitude, :float),
-        longitude: type(v.longitude, :float)
-      },
-      limit: 75,
-      order_by: [desc: :id]
+    query =
+      from r in Visitor,
+        join: t in Visit,
+        on: r.id == t.visitor_id,
+        distinct: true,
+        select: %{
+          id: r.id,
+          latitude: type(r.latitude, :float),
+          longitude: type(r.longitude, :float),
+          bot: fragment("lower(?) ~ '(bot|spider|scan)'", t.user_agent)
+        },
+        limit: 75,
+        order_by: [desc: r.id]
 
     stream = Repo.stream(query)
 
