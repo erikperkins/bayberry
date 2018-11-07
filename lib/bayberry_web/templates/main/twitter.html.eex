@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/twitter.css") %>">
+
 <div class='jumbotron'>
   <div class='container'>
     <div class='row justify-content-center'>
@@ -34,7 +36,7 @@
     <hr/>
 
     <div class='row justify-content-center'>
-      <svg id='tweets' width="640" height="320"></svg>
+      <div id="tweets" class="chart"></div>
     </div>
 
     <hr/>
@@ -50,45 +52,23 @@
     <hr/>
 
     <div class='row justify-content-center'>
-
-      <div class='col-xs-8 col-sm-6'>
-        <div class="card">
-          <div class="card-block">
-            <p class='card-text tweet'>
-              <span id='tweet-0'>...</span>
-            </p>
+      <%= for i <- [0, 1] do %>
+        <div class='col-xs-8 col-sm-6'>
+          <%= for j <- [0, 1] do %>
+          <div class="card">
+            <div class="card-block">
+              <p class='card-text text-wrap tweet'>
+                <span id='tweet-<%= 2 * i + j %>'>...</span>
+              </p>
+            </div>
           </div>
+          <% end %>
         </div>
-        <div class="card">
-          <div class="card-block">
-            <p class='card-text tweet'>
-              <span id='tweet-1'>...</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class='col-xs-8 col-sm-6'>
-        <div class="card">
-          <div class="card-block">
-            <p class='card-text tweet'>
-              <span id='tweet-2'>...</span>
-            </p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-block">
-            <p class='card-text tweet'>
-              <span id='tweet-3'>...</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
+      <% end %>
     </div>
+
   </div>
 </div>
-
 
 <div class='container'>
   <div class='col-xs-8 offset-xs-2'>

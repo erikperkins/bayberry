@@ -1,15 +1,6 @@
 /* This file is for your main application css. */
 @import "bootstrap";
 @import "font-awesome";
-@import "map";
-@import "mnist";
-@import "nlp";
-@import "placard";
-@import "punnet";
-@import "timeseries";
-@import "topics";
-@import "tweet";
-@import "wordcloud";
 
 .alert:empty { display: none; }
 .padded { margin: 1rem 0 1rem 0; }

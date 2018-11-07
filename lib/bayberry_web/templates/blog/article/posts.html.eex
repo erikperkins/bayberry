@@ -1,28 +1,30 @@
-<h3 class="display-3">
-  Blog
-</h3>
+<div class="container">
+  <h3 class="display-3">
+    Blog
+  </h3>
 
-<hr/>
-
-<%= for post <- @posts do %>
-  <div class='row'>
-    <div class='col-md-10'>
-      <p>
-        <h4 class='display-4'>
-          <%= post.title %>
-        </h4>
-        <div class='blockquote-footer text-muted'>
-          <%= post.author.user.name %>,
-          <%= Timex.format!(post.inserted_at, "%A, %e %B %Y", :strftime) %>
-        </div>
-      </p>
-      <p class='lead'>
-        <%= post.body %>
-      </p>
-      <%= link 'Read more...',
-        to: blog_article_path(@conn, :post, post),
-        class: "btn btn-default btn-xs" %>
-    </div>
-  </div>
   <hr/>
-<% end %>
+
+  <%= for post <- @posts do %>
+    <div class='row'>
+      <div class='col-md-10'>
+        <p>
+          <h4 class='display-4'>
+            <%= post.title %>
+          </h4>
+          <div class='blockquote-footer text-muted'>
+            <%= post.author.user.name %>,
+            <%= Timex.format!(post.inserted_at, "%A, %e %B %Y", :strftime) %>
+          </div>
+        </p>
+        <p class='lead'>
+          <%= post.body %>
+        </p>
+        <%= link 'Read more...',
+          to: blog_article_path(@conn, :post, post),
+          class: "btn btn-default btn-xs" %>
+      </div>
+    </div>
+    <hr/>
+  <% end %>
+</div>

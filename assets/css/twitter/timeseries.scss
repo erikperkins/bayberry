@@ -1,0 +1,45 @@
+.timeseries {
+  stroke-width: 3;
+  fill: none;
+}
+
+.observed {
+  stroke: #007bff;
+}
+
+.predicted {
+  stroke: #dc3545;
+}
+
+.observed-point {
+  fill: #007bff;
+}
+
+.predicted-point {
+  fill: #dc3545;
+}
+
+.chart {
+  background-color: white;
+  border: 1px solid #6c757d;
+  border-radius: 4px;
+}
+
+.axis-label {
+  text-anchor: middle;
+}
+
+.point-label {
+  background-color: #f9f9f9;
+  border: 1px solid white;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.svg-container {
+  display: inline-block;
+  position: relative;
+  width: 75vw;
+  max-width: 720px;
+  vertical-align: top;
+}

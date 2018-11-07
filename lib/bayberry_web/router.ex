@@ -33,17 +33,18 @@ defmodule BayberryWeb.Router do
     get "/mnist", MainController, :mnist
     get "/nlp", MainController, :nlp
     get "/blank", MainController, :blank
-
-    resources "/sessions", SessionController,
-      only: [:new, :create, :update, :delete],
-      singleton: true
   end
 
   scope "/", BayberryWeb do
     pipe_through :browser
+
     get "/topics", MainController, :topics
     get "/word_cloud", MainController, :word_cloud
     get "/world_map", MainController, :world_map
+
+    resources "/session", SessionController,
+      only: [:new, :create, :update, :delete],
+      singleton: true
   end
 
   scope "/administration", BayberryWeb.Administration, as: :administration do

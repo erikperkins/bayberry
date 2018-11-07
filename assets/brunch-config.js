@@ -30,7 +30,13 @@ exports.config = {
       }
     },
     stylesheets: {
-      joinTo: "css/app.css"
+      joinTo: {
+        "css/app.css": /^(css\/app|vendor|node_modules)/,
+        "css/main.css": /^(css\/main)/,
+        "css/mnist.css": /^(css\/mnist)/,
+        "css/nlp.css": /^(css\/nlp)/,
+        "css/twitter.css": /^(css\/twitter)/
+      }
     },
     templates: {
       joinTo: "js/app.js"
@@ -81,7 +87,12 @@ exports.config = {
       "js/main.js": ["js/main"],
       "js/mnist.js": ["js/mnist"],
       "js/nlp.js": ["js/nlp"],
-      "js/twitter.js": ["js/twitter"]
+      "js/twitter.js": ["js/twitter"],
+      "css/app.css": ["css/app"],
+      "css/main.css": ["css/main"],
+      "css/mnist.css": ["css/mnist"],
+      "css/nlp.css": ["css/nlp"],
+      "css/twitter.css": ["css/twitter"]
     }
   },
 
