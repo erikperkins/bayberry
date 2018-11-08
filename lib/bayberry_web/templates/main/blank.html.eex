@@ -1,1 +1,1 @@
-
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/main.css") %>">
