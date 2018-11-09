@@ -1,26 +1,21 @@
-.placard-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 .placard {
   width: 300px;
   height: 400px;
   border: none;
 }
 
-.placard-icon {
-  padding-top: 1em;
-  width: 200px;
-  height: 200px;
-  border: 1px solid lightgrey;
-}
-
-.placard-image {
-  padding-left: 2em;
+.placard-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .placard-padded {
-  margin: 0.25em;
+  margin: 0.28em;
+}
+
+.widget {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #6c757d;
 }

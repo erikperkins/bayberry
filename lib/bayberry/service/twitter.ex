@@ -7,11 +7,11 @@ defmodule Bayberry.Service.Twitter do
   @rabbitmq get_env(:bayberry, Bayberry.Service)[:rabbitmq]
 
   def broadcast(%{"text" => text}) do
-    link = ~r/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/
-
     text
+    |> hyperlink()
+    |> hashtag()
+    |> atmention()
     |> (&Regex.replace(~r/\n|\r/, &1, "\n")).()
-    |> (&Regex.replace(link, &1, "<a href='\\1' target='_blank'>\\1</a>")).()
     |> (&Endpoint.broadcast("twitter:stream", "tweet", %{body: &1} || %{})).()
   end
 
@@ -44,5 +44,23 @@ defmodule Bayberry.Service.Twitter do
       {:ok, payload} -> @rabbitmq.publish(channel, "", "tweets", payload)
       _ -> Logger.error("Could not encode tweet")
     end
+  end
+
+  defp hyperlink(text) do
+    link_regex = ~r/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/
+    link = "<a href='\\1' target='_blank'>\\1</a>"
+    Regex.replace(link_regex, text, link)
+  end
+
+  defp hashtag(text) do
+    hashtag_regex = ~r/\#([\w]+)?/
+    hashtag = ~s[<a href="https://twitter.com/hashtag/\\1?src=hash" target="_blank">#\\1</a>]
+    Regex.replace(hashtag_regex, text, hashtag)
+  end
+
+  defp atmention(text) do
+    atmention_regex = ~r/\@([\w]+)?/
+    atmention = ~s[<a href="https://twitter.com/\\1" target="_blank">@\\1</a>]
+    Regex.replace(atmention_regex, text, atmention)
   end
 end

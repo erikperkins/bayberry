@@ -1,0 +1,31 @@
+.tweety .tooltip-inner {
+  background-color: white;
+  opacity: 0.9;
+  color: #007bff;
+  border: 1px solid #6c757d;
+  font: 16px sans serif;
+}
+
+.tweety.tooltip.bs-tooltip-right .arrow:before {
+  border-right-color: #6c757d;
+}
+
+.tweety.tooltip.bs-tooltip-left .arrow:before {
+  border-left-color: #6c757d;
+}
+
+.tweety.tooltip.bs-tooltip-bottom .arrow:before {
+  border-bottom-color: #6c757d;
+}
+
+.tweety.tooltip.bs-tooltip-top .arrow:before {
+  border-top-color: #6c757d;
+}
+
+.twitterbird {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}

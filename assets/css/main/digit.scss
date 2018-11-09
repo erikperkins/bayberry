@@ -1,20 +1,22 @@
-.digitcloud {
-  width: 200px;
-  height: 200px;
-  border: 1px solid lightgrey;
-}
-
-.digit {
-  border-radius: 7px;
-}
-
-.tooltip {
+.digit .tooltip-inner {
+  background-color: white;
+  border: 1px solid #6c757d;
+  color: #007bff;
   font: 24px sans serif;
 }
 
-.tooltip-inner {
-  background-color: white;
-  fill: none;
-  border: 1px solid #6c757d;
-  color: #007bff;
+.digit.tooltip.bs-tooltip-right .arrow:before {
+  border-right-color: #6c757d;
+}
+
+.digit.tooltip.bs-tooltip-left .arrow:before {
+  border-left-color: #6c757d;
+}
+
+.digit.tooltip.bs-tooltip-bottom .arrow:before {
+  border-bottom-color: #6c757d;
+}
+
+.digit.tooltip.bs-tooltip-top .arrow:before {
+  border-top-color: #6c757d;
 }
