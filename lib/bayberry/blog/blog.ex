@@ -25,6 +25,26 @@ defmodule Bayberry.Blog do
   end
 
   @doc """
+  Returns the list of articles containing a specific word.
+
+  ## Examples
+
+      iex> list_articles("hello")
+      [%Article{}, ...]
+
+  """
+  def list_articles(slug) do
+    expression = "%#{slug}%"
+    query = from a in Article,
+      where: ilike(a.body, ^expression),
+      order_by: [desc: a.inserted_at]
+
+    query
+    |> Repo.all()
+    |> Repo.preload(author: [user: :credential])
+  end
+
+  @doc """
   Gets a single article.
 
   Raises `Ecto.NoResultsError` if the Article does not exist.

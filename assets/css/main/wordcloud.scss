@@ -4,5 +4,10 @@
 }
 
 .word {
+  text-anchor: middle;
   animation: fade 1.0s ease-in normal;
+}
+
+.word:hover {
+  fill: #ffc107;
 }

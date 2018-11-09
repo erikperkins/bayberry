@@ -63,7 +63,9 @@ defmodule BayberryWeb.Router do
     pipe_through [:browser, :analytics]
 
     get "/posts", ArticleController, :posts
-    get "/posts/:id", ArticleController, :post
+    get "/posts/:slug", ArticleController, :posts
+    get "/contains/:slug", ArticleController, :contains
+    get "/post/:id", ArticleController, :post
   end
 
   scope "/blog", BayberryWeb.Blog, as: :blog do
