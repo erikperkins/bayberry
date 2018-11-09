@@ -25,9 +25,9 @@
       <div class='text-center'>
         <div class='card-block'>
           <img src="<%= static_path(@conn, "/images/architecture.png") %>"
-              class="card-image-top rounded-circle img-thumbnail">
+              class="card-image-top rounded-circle widget">
 
-          <h2 class='card-title'>
+          <h2 class='card-title placard-padded'>
             <%= link "Site Architecture", to: main_path(@conn, :architecture) %>
           </h2>
           <p class='card-text lead'>
@@ -41,7 +41,7 @@
       <div class='text-center'>
         <div class='card-block'>
           <svg id='digitcloud'
-            class='card-image-top digitcloud rounded-circle'></svg>
+            class='card-image-top rounded-circle widget'></svg>
             <h2 class='card-title'>
               <%= link "Digit Recognition", to: main_path(@conn, :mnist) %>
             </h2>
@@ -56,7 +56,7 @@
       <div class='text-center'>
         <div class='card-block'>
           <svg id='pack'
-            class='card-image-top wordcloud rounded-circle'></svg>
+            class='card-image-top rounded-circle widget'></svg>
           <h2 class='card-title'>
             <%= link "Word Association", to: main_path(@conn, :nlp) %>
           </h2>
@@ -70,13 +70,11 @@
     <div class='card placard'>
       <div class='text-center'>
         <div class='card-block'>
-          <div class='card-image-top placard-image'>
-            <div class='placard-icon rounded-circle'>
-              <h4 class='display-4'>
-                <i class='fa fa-twitter fa-3x text-primary'></i>
-              </h4>
+
+            <div class='card-image-top rounded-circle widget twitterbird'>
+              <i id="bird" class="fa fa-twitter fa-5x text-primary"></i>
             </div>
-          </div>
+
           <h2 class='card-title placard-padded'>
             <%= link "Twitter Stream", to: main_path(@conn, :twitter) %>
           </h2>
@@ -91,7 +89,7 @@
       <div class='text-center'>
         <div class='card-block'>
           <svg id='wordcloud'
-            class='card-image-top wordcloud rounded-circle'></svg>
+            class='card-image-top rounded-circle widget'></svg>
           <h2 class='card-title'>
             <%= link "Blog", to: blog_article_path(@conn, :posts) %>
           </h2>
@@ -106,7 +104,7 @@
       <div class='text-center'>
         <div class='card-block'>
           <svg id='visitor-map'
-            class='card-image-top wordcloud rounded-circle'></svg>
+            class='card-image-top rounded-circle widget'></svg>
           <h2 class='card-title'>
             <%= link "Visitors", to: "#visitor-map" %>
           </h2>

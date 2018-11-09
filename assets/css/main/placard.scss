@@ -10,17 +10,25 @@
   border: none;
 }
 
-.placard-icon {
-  padding-top: 1em;
-  width: 200px;
-  height: 200px;
-  border: 1px solid lightgrey;
+.twitterbird {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  text-shadow: 0 0 20px #17a2b8;
 }
 
-.placard-image {
-  padding-left: 2em;
+.widget {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #6c757d;
 }
 
 .placard-padded {
   margin: 0.25em;
+}
+
+.architecture {
+  word-break: break-all;
 }
