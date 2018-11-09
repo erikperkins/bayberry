@@ -124,29 +124,32 @@ predictedLabel.append("circle")
   .attr("class", "predicted-point")
   .attr("r", 3)
 
-let predictedText = predictedLabel.append("foreignObject")
-  .attr("width", "5em")
-  .attr("height", "2em")
-  .attr("x", 3)
-  .attr("y", -12)
+let predictedText =
+  predictedLabel.append("foreignObject")
+    .attr("width", "5em")
+    .attr("height", "2em")
+    .attr("x", 3)
+    .attr("y", -12)
 
 predictedText.append("xhtml:div")
   .append("div")
   .attr("class", "point-label")
   .text("predicted")
 
-let observedLabel = group.append("g")
-  .attr("transform", `translate(0,${height - 5})`)
+let observedLabel =
+  group.append("g")
+    .attr("transform", `translate(0,${height - 5})`)
 
 observedLabel.append("circle")
   .attr("class", "observed-point")
   .attr("r", 3)
 
-let observedText = observedLabel.append("foreignObject")
-  .attr("width", "5em")
-  .attr("height", "2em")
-  .attr("x", 3)
-  .attr("y", -12)
+let observedText =
+  observedLabel.append("foreignObject")
+    .attr("width", "5em")
+    .attr("height", "2em")
+    .attr("x", 3)
+    .attr("y", -12)
 
 observedText.append("xhtml:div")
   .append("div")
