@@ -101,7 +101,7 @@ export var Visitors = {
     }
 
     function rescale(transform) {
-      altitude = scale * transform.k
+      altitude = transform.k > 1 ? scale * transform.k : scale
       projection.scale(altitude)
 
       d3.selectAll("path").attr("d", path)
