@@ -7,6 +7,11 @@ defmodule BayberryWeb.Blog.ArticleController do
   plug :require_existing_author when action not in [:posts, :post]
   plug :authorize_article when action in [:edit, :update, :delete]
 
+  def posts(conn, %{"slug" => slug}) do
+    posts = Blog.list_articles(slug)
+    render(conn, "posts.html", posts: posts)
+  end
+
   def posts(conn, _params) do
     posts = Blog.list_articles()
     render(conn, "posts.html", posts: posts)
