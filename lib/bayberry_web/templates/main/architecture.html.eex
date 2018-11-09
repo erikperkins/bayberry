@@ -2,7 +2,7 @@
 
 <div class='container'>
   <div class='col-xs-12 col-lg-10 offset-lg-1'>
-    <h4 class='display-3'>Site Architecture</h4>
+    <h4 class='display-3 architecture'>Site Architecture</h4>
 
     <p>
       The structure of this website can be divided into four conceptual parts -
