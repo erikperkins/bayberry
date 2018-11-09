@@ -19,7 +19,7 @@ config :bayberry, BayberryWeb.Endpoint,
 
 # Configure Elixir's Logger
 config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
+  format: {Bayberry.LogFormatter, :format},
   metadata: [:request_id]
 
 # Configure Twitter API client
