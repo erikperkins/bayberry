@@ -17,7 +17,10 @@ defmodule Stub.Bayberry.Service.Twitter do
     payload = Poison.encode!(%{text: stub()})
     @rabbitmq.publish(channel, "", "tweets", payload)
 
-    Process.sleep(500)
+    (for a <- 20..500, do: a)
+    |> Enum.random()
+    |> Process.sleep()
+
     produce(state)
   end
 
@@ -40,7 +43,7 @@ defmodule Stub.Bayberry.Service.Twitter do
   end
 
   defp stub() do
-    case Enum.random([0, 1, 2, 3]) do
+    case Enum.random(for a <- 0..3, do: a) do
       0 ->
         """
         @Wikipedia My existence is amazing, and I want to study algebra.
