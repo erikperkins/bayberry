@@ -18,8 +18,7 @@ export var Digits = {
     let i = 0
 
     function replaceDigit(payload) {
-      let nodes = d3.selectAll(".digit").nodes()
-      let tooltip = d3.select(".digit-tooltip")
+      let nodes = d3.selectAll(".digit-image").nodes()
 
       let j = Math.floor(d3.randomUniform(0, nodes.length)())
       i = (i == j) ? (i + 1) % 10 : j
@@ -44,8 +43,6 @@ export var Digits = {
     }
 
     function cloud(digits) {
-      $(function() { $("[data-toggle='tooltip']").tooltip() })
-
       let
         width = 200,
         height = 200,
@@ -68,13 +65,22 @@ export var Digits = {
       let images = group.selectAll(".digit")
         .data(digits).enter()
         .append("image")
-        .attr("class", "digit")
+        .attr("class", "digit-image")
         .attr("width", imageWidth)
         .attr("height", imageHeight)
         .attr("xlink:href", d => `data:image/png;base64,${d.image}`)
         .attr("data-toggle", "tooltip")
         .attr("data-placement", "left")
         .attr("title", d => d.classification)
+
+        let template = [
+          '<div class="digit tooltip" role="tooltip">',
+          '<div class="tooltip-inner"></div>',
+          '<div class="arrow"></div>',
+          '</div>'
+        ].join('')
+
+      $(".digit-image").tooltip({template: template, animation: false})
 
       function move() {
         images.attr("x", d => d.x).attr("y", d => d.y)

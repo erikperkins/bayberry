@@ -1,10 +1,18 @@
 @import "main/digit";
 @import "main/map";
 @import "main/placard";
-@import "main/punnet";
 @import "main/topics";
+@import "main/twitter";
 @import "main/wordcloud";
+
+.architecture {
+  word-break: break-all;
+}
 
 img {
   max-width: 100%;
+}
+
+.punnet {
+  filter: sepia(80%) saturate(50%);
 }

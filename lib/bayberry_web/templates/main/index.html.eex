@@ -30,7 +30,7 @@
           <h2 class='card-title placard-padded'>
             <%= link "Site Architecture", to: main_path(@conn, :architecture) %>
           </h2>
-          <p class='card-text lead'>
+          <p class='card-text placard-padded lead'>
             Brief technical overview of this website
           </p>
         </div>
@@ -70,15 +70,14 @@
     <div class='card placard'>
       <div class='text-center'>
         <div class='card-block'>
-
-            <div class='card-image-top rounded-circle widget twitterbird'>
-              <i id="bird" class="fa fa-twitter fa-5x text-primary"></i>
-            </div>
+          <div class='card-image-top rounded-circle widget twitterbird'>
+            <i id="bird" class="fa fa-twitter fa-5x text-primary"></i>
+          </div>
 
           <h2 class='card-title placard-padded'>
             <%= link "Twitter Stream", to: main_path(@conn, :twitter) %>
           </h2>
-          <p class='card-text lead'>
+          <p class='card-text placard-padded lead'>
             Live time series forecast of streaming Twitter data
           </p>
         </div>
