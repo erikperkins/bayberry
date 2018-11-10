@@ -21,6 +21,15 @@ defmodule BayberryWeb.MainController do
     render(conn, "nlp.html")
   end
 
+  def sketch(conn, _params) do
+    svg_json =
+      Application.app_dir(:bayberry, "/priv/data/architecture.json")
+      |> File.read!()
+      |> Poison.decode!()
+
+    json(conn, svg_json)
+  end
+
   def topics(conn, _params) do
     json(conn, @classifier.topics())
   end
