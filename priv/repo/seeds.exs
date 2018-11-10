@@ -19,7 +19,7 @@ admin_params = %{
   "name" => "administrator",
   "credential" => %{
     "email" => "admin@datapun.net",
-    "password" => "datapunnet"
+    "password" => System.get_env("DATAPUNNET_ADMIN_PASSWORD")
   }
 }
 
@@ -32,7 +32,7 @@ author_params = %{
 lincoln_params = %{
   "title" => "Abraham Lincoln",
   "body" => """
-  Four score and seven years ago our fathers brought forth on this continent, 
+  Four score and seven years ago our fathers brought forth on this continent,
   a new nation, conceived in Liberty, and dedicated to the proposition that all
   men are created equal. Now we are engaged in a great civil war, testing
   whether that nation, or any nation so conceived and so dedicated, can long
