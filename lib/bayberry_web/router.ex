@@ -3,13 +3,14 @@ defmodule BayberryWeb.Router do
   import Application, only: [get_env: 2]
   @authentication get_env(:bayberry, BayberryWeb.Plugs)[:authorization]
   @geolocation get_env(:bayberry, BayberryWeb.Plugs)[:geolocation]
+  @csp ~s(script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:;)
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug :put_secure_browser_headers, %{"content-security-policy" => @csp}
   end
 
   pipeline :api do
