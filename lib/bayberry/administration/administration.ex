@@ -29,9 +29,9 @@ defmodule Bayberry.Administration do
           id: r.id,
           latitude: type(r.latitude, :float),
           longitude: type(r.longitude, :float),
-          bot: fragment("lower(?) ~ '(bot|spider|scan)'", t.user_agent)
+          bot: fragment("? !~ '(Chrome|Safari|Firefox)\/[0-9]+'", t.user_agent)
         },
-        limit: 75,
+        limit: 50,
         order_by: [desc: r.id]
 
     stream = Repo.stream(query)
