@@ -91,11 +91,12 @@ export var Visitors = {
 
       projection.rotate(coordinates)
 
-      d3.selectAll("path").attr("d", path)
-      d3.select(".ocean").selectAll("path")
+      svg.selectAll("path").attr("d", path)
+
+      svg.select(".ocean").selectAll("path")
         .attr("d", () => path(ocean()))
 
-      d3.select(".visitors").selectAll("circle")
+      svg.select(".visitors").selectAll("circle")
         .attr("cx", d => projection(d)[0])
         .attr("cy", d => projection(d)[1])
     }
@@ -104,11 +105,12 @@ export var Visitors = {
       altitude = transform.k > 1 ? scale * transform.k : scale
       projection.scale(altitude)
 
-      d3.selectAll("path").attr("d", path)
-      d3.select(".ocean").selectAll("path")
+      svg.selectAll("path").attr("d", path)
+
+      svg.select(".ocean").selectAll("path")
         .attr("d", () => path(ocean()))
 
-      d3.select(".visitors").selectAll("circle")
+      svg.select(".visitors").selectAll("circle")
         .attr("cx", d => projection(d)[0])
         .attr("cy", d => projection(d)[1])
         .attr("r", d => 4 * Math.sqrt(transform.k))

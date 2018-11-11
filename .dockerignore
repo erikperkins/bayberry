@@ -1,4 +1,4 @@
-./git
+.git/*
 ./_build
 ./deps
 .old/*

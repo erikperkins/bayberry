@@ -24,10 +24,10 @@
     <div class='card placard'>
       <div class='text-center'>
         <div class='card-block'>
-          <img src="<%= static_path(@conn, "/images/architecture.png") %>"
-              class="card-image-top rounded-circle widget">
+          <svg id="architecture"
+            class="card-image-top rounded-circle widget"></svg>
 
-          <h2 class='card-title placard-padded'>
+          <h2 class='card-title'>
             <%= link "Site Architecture", to: main_path(@conn, :architecture) %>
           </h2>
           <p class='card-text placard-padded lead'>
