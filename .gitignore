@@ -29,3 +29,5 @@ log/
 cover/*
 
 .elixir_ls/*
+
+.sobelow
