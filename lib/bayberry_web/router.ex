@@ -3,7 +3,7 @@ defmodule BayberryWeb.Router do
   import Application, only: [get_env: 2]
   @authentication get_env(:bayberry, BayberryWeb.Plugs)[:authorization]
   @geolocation get_env(:bayberry, BayberryWeb.Plugs)[:geolocation]
-  @csp ~s(script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:;)
+  @csp ~s(script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline';)
 
   pipeline :browser do
     plug :accepts, ["html"]
