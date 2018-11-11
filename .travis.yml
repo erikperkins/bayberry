@@ -1,0 +1,24 @@
+language: elixir
+elixir: 1.7
+env:
+  global:
+    - secure: LN4fk4ciVJsweTXpmwJBSWEqTj9SYbueceDk+J1JTsexaOD4FHLhYCnziczv4wRBUZdGIczGrx4gjbUc3psjv8zIgcC17PVXg+Cb7X3GaqqDu6pztZcnKKUiLi2JEdxmBUHNRCyTqAE6mZAaswRaOX7aP4FNcPYbYN4+XYETp7GpU8wLPzg36gpGNo0qcQuhHpay7IqY0bQNAXrA2fFLviTK4tKn1by/M0pqpgSy4dr32vKjTOsUA7IXilhugSBJKmUsjchiIknKvQi8tDXopyTeqUICjTdHLJ6i4ScrfZypvKlXFgM6IEsdR4hO10Z1OLL/ZrSC4qTyZASbFkdxhdrZh0fgRZqjGJR9jSqnwSSSkK4pJzcTw2s/2qR4iaZM4dGNRGxbYXnaHzoOyphcJys5X4fs7VvInzq0KJSgAHTCZfdk1WRqn99qsd4HMmb468SaKjPeLuCUhYtazDov1JE0CyfudBJRJMLjKhYfv2uwiDzch7mXu67tNLWhDKBqFLPo+UbNSQ8oZX4rByoBWf450GHy11Z1Qn4r4WNfLoJlO8s3oB/WCeQnZDSpZ9Yrfleq5NJ4j1ctfN2vdSM8w6zIlnxt/3BcEIfOQSO2Q3HPM8lnlLCo1/cMNrWLFIWhaRh+tqbpNTgAXu7Pcpo2ELYQvflswBxsX7WQXAb9xxs=
+    - secure: fI+fj2Whi5y3vLdK8zvUUs5cJzpr6Q5gUX9XRvn9Q+vfO+ghAnKLcmJN97DbCemGrQIOEm8qV7Boa11wZUbfA6dVyNy4D5Ye5W+zSfHYJUZ7TUOLcBTfgKNWEjP02EYqBCp2UiahNbeej5NGK+EKdB3kHH45sUPsMEyBtLWdlXmgRUCkRhFOJxNxprsU6NmrvI9AyyxHY3t+2iUHTySwz8DMAplsDLaRzhtzUPmNaMYg2nSQEF9mKn0g2AQ0T2DRXtSKBB66rq7WDluWpIefcumYvO+w6xksusWTCEeW3UykZlf0A1aaA1WaI0jpjxETBEahiPRX/7NdALpU+RKIQSJQ/hxDEDBm5c7XJbFCrD/xW40LYs1KI92dGw8cuVZlZD9oN/cXFxs3PNFmAl+ZeSNeQexN3k0iz16brQ7PYELCK/KuY/IkSop7J8yZTIi55LynwxJtvezv0mnhygYusxABCHg3xjrZVGAWxQP9Lih7duwX6Y/jfqDFb5upcLp0YFeK3VCnIS+yWm3dfIKDhMirjVZ2CMX6kpriWp2VNnOze/VT0NooJvTtbRkuEv0nrku2PI9OTkeSFQG9j5NpzuJ3xcJDLAE4zxU0TlVNDrkzjRK1dY5uChlWe59gSkExZ5MOgRP1u6wpjDz1pjvEY/rYFiemoLIeHqz4dYpVLr8=
+    - secure: LC31wbtGT9fX9v1UPR03C1bPXsW+//8B8+oArOD5RUVDcAr0uubuSEpeN3+mDPVD942o6lQX8c1MBRgS39IpTcK2e318O91gU0oRCfM9sIiwGhBLI/8kSjOWvLbwe6he/i3g4NvHTXAmNpz80iVG7LuC/XMsNNWnVPqZO+331fz20XW6UF1wTPN4VrlR7P/uLdYNXD2WeT35O6JEX+GBPqNGbXhQyTYOV6QN6pbIimDsM/h07XiMQuYrOVK97KxAWH0Rl5HUmlhhc5InQvjBWfmbhY0DMNzeyLZ+s91N9E/eNuaOaw9SpAxc6KSVBF90x37M2n+7/tVlH/NU3Wr6Io5GeL9s6JvZ6zhspvAFuy+VK14L31M/qIoWBuDhu/P+LZGX75j0kvRly1N3C900z4PUyG8DoY/ygEhtNrTRinSHHVt3k9cRyrcol7KL+3ygi3aho9RusSobQ6Ojz53Es7PODPJBTLR7d4hg0uTxhqnhm26U8f7iD57XZPCBOAUqOKLVXeoILwaUS2xCNk4hLaOTM82BoguK33EPc65AMkPWGdodztGn9q0ZxvYqVKlNSvXAkB0WBkY3WoDAz6G6+WjtLeG6Fu+YHHF4qMVFrc8/mRu+kIZf8JvSsc7gZ1+s0x2XOy5Ahoti6VoqCOQvbZThBTv2Oc43xir8PKG9LFI=
+    - secure: Jk5JEdQWwGuKQpzNfhMKZEN7m6qIil4m8eREQsGIzHuXsilF73rPgkUgRvcwO4uqKFYm5kiZg3RF/69ntM94tST4MYdK4LKAe+5jcOfMTPxBJHLGdBgkb/DhXt9VR+bVBFoS6Wh83pnynlo3kC1ZWr5KLjo4fvtkx84q8jtcTC7OITr9mtmdmkiF+jng9kUHuk33loNV8OAqtLy2VAFFA0G0gb1YbOp/jYbCbqFSxinpm/p7otmUQWZ2eW0SkrDcbK5bCd+RYLto44dchongo8zdo9dBZew54Sw+CGNDD6Rp7oxf/3NFj0CXnImn38fmT6lucp4NnAzbQZrBhWPy6fDuHWNs2hMYUoSGHBT1a2PYRCJQfguWAQD96qSNm36BRhd7g/nh31307RdX+qYl/dJjJNNe+gIVqI8msN+dDHE6YijUWFPiQ0eerlifaQYuVRS+pQIs77e+W+hos4/zoI+Axk1B3m4h/12KioTCwRH/KPBvZrsyf5fVlF+AU+5V5z0Pq0ed3FPbMLYtM3Q3ch/+nn69z5oWN8SiluqTm8waHVcmeOKiYLWX1UBDTG1T0Lu9kazETFBVKH3aN6qvXnvZZpSv5VIq0zGLc6ZLMqTFtcmC9EQwbX0PTchdx55QbZ2udMs8+Twszy94YozKijSzIARZKzxYvhv0Wd/BY+g=
+before_script:
+  - "psql -U postgres -c \"create user test with password 'test' createdb login;\""
+  - "psql -U test -d postgres -c 'create database bayberry_test;'"
+  - "psql -U test -d postgres -c 'create database geolocation_test;'"
+  - mix local.hex --force
+  - mix archive install --force https://github.com/phoenixframework/archives/raw/master/phx_new.ez
+  - mix local.rebar --force
+  - mix deps.get
+  - mix deps.compile
+  - cd assets && npm install && node node_modules/brunch/bin/brunch && cd ..
+script:
+  - mix test --include acceptance:true
+addons:
+  - npm
+services:
+  - postgresql

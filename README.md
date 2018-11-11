@@ -1,6 +1,8 @@
-# Phoenix
+# Bayberry
 This is the Elixir component of Data Punnet. It implements live streaming from
 Twitter.
+[![Build Status](https://travis-ci.com/erikperkins/bayberry.svg?branch=master)](https://travis-ci.com/erikperkins/bayberry)
+
 
 ## Build
 ### Development
@@ -54,12 +56,25 @@ $ mix test
 ```
 To run acceptance tests only, do
 ```
-$ mix test --only phantomjs:true
+$ mix test --only acceptance:true
 ```
 To run all tests, do
 ```
-$ mix test --include phantomjs:true
+$ mix test --include acceptance:true
 ```
+
+### Continuous Integration
+TravisCI is used for continuous integration. Pipelines are defined in
+`.travis.yml`. Sensitive environment variables included in `.travis.yml` must
+be encrypted with the `travis` Ruby gem. Install the gem with
+```
+$ gem install travis
+```
+and encrypt credentials, API tokens, etc. with
+```
+$ travis encrypt SENSITIVE_ENVIRONMENT_VARIABLE=value --add env.global
+```
+which will inject the encrypted value into `.travis.yml`.
 
 ### Container
 Docker builds the application in production mode. Migrations and
