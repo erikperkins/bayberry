@@ -1,6 +1,5 @@
 defmodule Bayberry.BlogTest do
   use Bayberry.DataCase
-
   alias Bayberry.Blog
 
   @article_attrs %{body: "some body", title: "some title"}

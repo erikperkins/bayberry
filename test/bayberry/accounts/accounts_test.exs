@@ -1,6 +1,5 @@
 defmodule Bayberry.AccountsTest do
   use Bayberry.DataCase
-
   alias Bayberry.Accounts
 
   describe "users" do

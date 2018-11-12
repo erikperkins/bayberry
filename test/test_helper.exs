@@ -1,19 +1,11 @@
-Mix.Tasks.Phx.Phantom.run([])
+phantomjs = "#{System.cwd()}/assets/node_modules/phantomjs-prebuilt/bin/phantomjs"
+port =
+  {:spawn_executable, phantomjs}
+  |> Port.open([{:args, ["--wd"]}, :stream, :binary])
+
+{:os_pid, _pid} = Port.info(port, :os_pid)
 
 Application.ensure_all_started(:hound)
-
 ExUnit.start(exclude: [:acceptance])
-
 Ecto.Adapters.SQL.Sandbox.mode(Bayberry.Repo, :manual)
-
-defmodule Ecto.Reaper do
-  def unload(struct, field, cardinality \\ :one) do
-    not_loaded = %Ecto.Association.NotLoaded{
-      __field__: field,
-      __owner__: struct.__struct__,
-      __cardinality__: cardinality
-    }
-
-    %{struct | field => not_loaded}
-  end
-end
+Ecto.Adapters.SQL.Sandbox.mode(Bayberry.Geolocation, :manual)
