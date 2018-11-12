@@ -2,7 +2,7 @@ defmodule BayberryWeb.ErrorView do
   use BayberryWeb, :view
 
   def render("404.html", _assigns) do
-    "Article not found"
+    "Page not found"
   end
 
   def render("500.html", _assigns) do

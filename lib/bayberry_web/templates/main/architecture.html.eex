@@ -25,48 +25,12 @@
     <section>
       <h4 class='display-4'>Data Science</h4>
       <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/tensorflow-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <img src="<%= static_path(@conn, "/images/d3-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
-          <h5 class='lead'><%= link 'TensorFlow', to: 'http://www.tensorflow.org' %></h5>
-          Google's TensorFlow library provides a convenient way of coordinating
-          numerical computations across many different GPUs and CPUs. It abstracts
-          away the specifics of each architecture, while providing an expressive
-          Python wrapper for underlying close-to-the-metal C code. This site uses
-          TensorFlow to construct, train, and run neural networks.
-        </div>
-      </div>
-      <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/python-library-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
-        <div class='media-body'>
-          <h5 class='lead'><%= link 'Python', to: 'http://www.python.org' %></h5>
-          Python is a practical, approachable language which has in recent years
-          gained massive popularity in academia and industry, spawning a wealth
-          of useful and powerful computational libraries. In this site,
-          <%= link 'NumPy', to: 'http://www.numpy.org' %> and
-          <%= link 'Pillow', to: 'http://python-pillow.org' %>
-          are used to process images into a form consumable by the neural network
-          constructed in TensorFlow.
-        </div>
-      </div>
-      <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/scala-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
-        <div class='media-body'>
-          <h5 class='lead'><%= link 'Scala', to: 'https://www.scala-lang.org/' %></h5>
-            Scala is an object-functional language. Compiled to Java bytecode,
-            its ability to exploit the vast Java libary ecosystem sets it apart
-            from many other functional programming languages. The semantic word
-            search on this site is implemented in Scala.
-        </div>
-      </div>
-      <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/haskell-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
-        <div class='media-body'>
-          <h5 class='lead'><%= link 'Haskell', to: 'https://www.haskell.org/' %></h5>
-            Haskell is a pure functional language. Its strong type system and
-            rigorous design patterns drawn from category theory result in terse
-            but expressive code. The real-time Twitter volume forecast on this site
-            is implemented in Haskell, via a JSON REST API built on the high-performance
-            <%= link 'Snap framework', to: 'http://www.snapframework.com' %>.
+          <h5 class='lead'><%= link 'D3', to: 'http://www.d3js.org' %></h5>
+          Of the recent Cambrian explosion of JavaScript libraries, D3 stands out
+          as the most versatile and expressive tool for data visualization. All
+          visualizations on this site are constructed with it.
         </div>
       </div>
       <div class='media mt-3'>
@@ -82,32 +46,57 @@
         </div>
       </div>
       <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/d3-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <img src="<%= static_path(@conn, "/images/haskell-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
-          <h5 class='lead'><%= link 'D3', to: 'http://www.d3js.org' %></h5>
-          Of the recent Cambrian explosion of JavaScript libraries, D3 stands out
-          as the most versatile and expressive tool for data visualization. All
-          visualizations on this site are constructed with it, notably the word
-          cloud on the home article, which uses the site's own content as a source
-          corpus of text.
+          <h5 class='lead'><%= link 'Haskell', to: 'https://www.haskell.org/' %></h5>
+            Haskell is a pure functional language. Its strong type system and
+            rigorous design patterns drawn from category theory result in terse
+            but expressive code. The real-time Twitter volume forecast on this site
+            is implemented in Haskell, via a JSON REST API built on the high-performance
+            <%= link 'Snap framework', to: 'http://www.snapframework.com' %>.
         </div>
       </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/python-library-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Python', to: 'http://www.python.org' %></h5>
+          Python is a practical, approachable language which has in recent years
+          gained massive popularity in academia and industry, spawning a wealth
+          of useful and powerful computational libraries. In this site,
+          <%= link 'NumPy', to: 'http://www.numpy.org' %> and
+          <%= link 'Pillow', to: 'http://python-pillow.org' %>
+          are used to process images into a form consumable by a neural network
+          constructed in TensorFlow.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/scala-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Scala', to: 'https://www.scala-lang.org/' %></h5>
+            Scala is an object-functional language. Compiled to Java bytecode,
+            its ability to exploit the vast Java libary ecosystem sets it apart
+            from many other functional programming languages. The semantic word
+            search on this site is implemented in Scala.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/tensorflow-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'TensorFlow', to: 'http://www.tensorflow.org' %></h5>
+          Google's TensorFlow library provides a convenient way of coordinating
+          numerical computations across many different GPUs and CPUs. It abstracts
+          away the specifics of each architecture, while providing an expressive
+          Python wrapper for underlying close-to-the-metal C code. This site uses
+          TensorFlow to construct, train, and run neural networks.
+        </div>
+      </div>
+
     </section>
 
     <hr/>
 
     <section>
       <h4 class='display-4'>Data Engineering</h4>
-      <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/postgresql-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
-        <div class='media-body'>
-          <h5 class='lead'><%= link 'PostgreSQL', to: 'http://www.postgresql.org' %></h5>
-          PostgreSQL is a powerful open-source relational database management system.
-          Adhering closest to the SQL standard of any of the database systems, it
-          offers a wealth of data types and strong security measures. It is the
-          backend database for the main component of this site.
-        </div>
-      </div>
       <div class='media mt-3'>
         <img src="<%= static_path(@conn, "/images/mongodb-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
@@ -120,12 +109,13 @@
         </div>
       </div>
       <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/redis-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <img src="<%= static_path(@conn, "/images/postgresql-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
-          <h5 class='lead'><%= link 'Redis', to: 'http://redis.io' %></h5>
-          Redis is an in-memory key-value storage system, useful for rapidly
-          serving frequently accessed ephemeral data. It is used in this site
-          to store time-series data.
+          <h5 class='lead'><%= link 'PostgreSQL', to: 'http://www.postgresql.org' %></h5>
+          PostgreSQL is a powerful open-source relational database management system.
+          Adhering closest to the SQL standard of any of the database systems, it
+          offers a wealth of data types and strong security measures. It is the
+          backend database for the main component of this site.
         </div>
       </div>
       <div class='media mt-3'>
@@ -139,6 +129,16 @@
           component applications.
         </div>
       </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/redis-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Redis', to: 'http://redis.io' %></h5>
+          Redis is an in-memory key-value storage system, useful for rapidly
+          serving frequently accessed ephemeral data. It is used in this site
+          to store time-series data.
+        </div>
+      </div>
+
     </section>
 
     <hr/>
@@ -146,28 +146,15 @@
     <section>
       <h4 class='display-4'>Web Applications</h4>
       <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/phoenix-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <img src="<%= static_path(@conn, "/images/bootstrap-logo.jpg") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
-          <h5 class=lead><%= link 'Phoenix', to: 'http://phoenixframework.org' %></h5>
-          Built for the modern web, Phoenix is a Rails-like framework intented
-          for real-time streaming data and massive concurrency. It is written in
-          <%= link 'Elixir', to: 'http://www.elixir-lang.org' %>.
-          Some see Elixir and Phoenix as the natural successor to Ruby on Rails
-          in the era of Web 3.0 and the Internet of Things. Phoenix uses
-          <%= link 'Cowboy', to: 'https://github.com/ninenines/cowboy' %> as an
-          application server
-        </div>
-      </div>
-      <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/flask-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
-        <div class='media-body'>
-          <h5 class=lead><%= link 'Flask', to: 'http://flask.pocoo.org' %></h5>
-          Originally an April Fool's joke, Flask is a fast, lightweight
-          <%= link 'Python', to: 'http://www.python.org' %>
-          web framework. It is ideally suited for constructing RESTful APIs.
-          Here it acts as a host for data science algorithms written in Python,
-          including the TensorFlow neural network. The application server is
-          <%= link 'uWSGI', to: 'https://github.com/unbit/uwsgi' %>.
+          <h5 class=lead><%= link 'Bootstrap', to: 'http://v4-alpha.getbootstrap.com' %></h5>
+          The front-end content is styled in Bootstrap, a CSS and JavaScript
+          library. Its component-based approach relieves some of the burden of
+          creating aesthetically pleasing web pages, while providing a firm
+          foundation for advanced stylistic touches. It coordinates well with
+          the <%= link 'Font Awesome', to: 'http://fontawesome.io' %> icon library,
+          also used here.
         </div>
       </div>
       <div class='media mt-3'>
@@ -186,13 +173,14 @@
         </div>
       </div>
       <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/snap-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <img src="<%= static_path(@conn, "/images/flask-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
-          <h5 class='lead'><%= link 'Snap', to: 'https://www.snapframework.com/' %></h5>
-            Snap is a high-performance web framework written in Haskell,
-            well-suited for writing REST APIs. It is organized around 'snaplets',
-            small composable components of functionality. On this site, Snap
-            manages time series forecasting.
+          <h5 class=lead><%= link 'Flask', to: 'http://flask.pocoo.org' %></h5>
+          Originally an April Fool's joke, Flask is a fast, lightweight
+          <%= link 'Python', to: 'http://www.python.org' %>
+          web framework. It is ideally suited for constructing RESTful APIs.
+          Here it acts as a host for machine learning algorithms written in
+          Python, including the TensorFlow neural network.
         </div>
       </div>
       <div class='media mt-3'>
@@ -205,15 +193,24 @@
         </div>
       </div>
       <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/bootstrap-logo.jpg") %>" width=64 class="d-flex mr-3 align-self-center">
+        <img src="<%= static_path(@conn, "/images/phoenix-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
-          <h5 class=lead><%= link 'Bootstrap', to: 'http://v4-alpha.getbootstrap.com' %></h5>
-          The front-end content is styled in Bootstrap, a CSS and JavaScript
-          library. Its component-based approach relieves some of the burden of
-          creating aesthetically pleasing web articles, while providing a firm
-          foundation for advanced stylistic touches. It coordinates well with
-          the <%= link 'Font Awesome', to: 'http://fontawesome.io' %> icon library,
-          also used here.
+          <h5 class=lead><%= link 'Phoenix', to: 'http://phoenixframework.org' %></h5>
+          Built for the modern web, Phoenix is a Rails-like framework intented
+          for real-time streaming data and massive concurrency. It is written in
+          <%= link 'Elixir', to: 'http://www.elixir-lang.org' %>.
+          Some see Elixir and Phoenix as the natural successor to Ruby on Rails
+          in the era of Web 3.0 and the Internet of Things.
+        </div>
+      </div>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/snap-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Snap', to: 'https://www.snapframework.com/' %></h5>
+            Snap is a high-performance web framework written in Haskell,
+            well-suited for writing REST APIs. It is organized around 'snaplets',
+            small composable components of functionality. On this site, Snap
+            manages time series forecasting.
         </div>
       </div>
     </section>
@@ -222,6 +219,19 @@
 
     <section>
       <h4 class='display-4'>Development Operations</h4>
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/cloudwatch-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'Amazon CloudWatch', to: 'https://aws.amazon.com/cloudwatch/' %></h5>
+          The ability to monitor the state of a production system is essential.
+          In addition to knowing the load on each system component, a system
+          administrator must also have access to the logs generated by each
+          application in the system. Amazon CloudWatch addresses both needs
+          simply and efficiently, providing realtime metrics for EC2 instances
+          and persistent, unified storage for application logs.
+        </div>
+      </div>
+
       <div class='media mt-3'>
         <img src="<%= static_path(@conn, "/images/ec2-logo.jpg") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
@@ -236,6 +246,7 @@
           and <%= link 'Route 53', to: 'http://aws.amazon.com/route53' %>.
         </div>
       </div>
+
       <div class='media mt-3'>
         <img src="<%= static_path(@conn, "/images/ansible-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
@@ -244,7 +255,9 @@
           Managing the system across several servers requires SSHing into
           <%= link 'all the things', to: 'http://hyperboleandahalf.blogspot.com/2010/06/this-is-why-ill-never-be-adult.html' %>
           in order to set configurations, update Docker containers, etc. Ansible
-          is a Python-based tool which makes it easy to automate such tasks.
+          is a Python-based tool which makes it easy to automate such tasks. It
+          has plugins for many common devops tools, and includes its own secure
+          credential management system.
         </div>
       </div>
       <div class='media mt-3'>
@@ -253,15 +266,16 @@
           <h5 class='lead'><%= link 'Docker', to: 'http://www.docker.com' %></h5>
           Docker is a container system for encapsulating code dependencies. It is
           like a minimal Linux without the kernel, stored in a unique, layered
-          filesystem. Each component of the site is held in its own Docker
+          filesystem. Each component of this site is held in its own Docker
           container.
         </div>
       </div>
+
       <div class='media mt-3'>
         <img src="<%= static_path(@conn, "/images/github-logo.jpg") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
           <h5 class='lead'><%= link 'GitHub', to: 'http://github.com' %></h5>
-          The website codebase is version-controlled with
+          This website's codebase is version-controlled with
           <%= link 'git', to: 'http://git-scm.com' %>, Linus Torvalds' second
           <%= link 'gift', to: 'http://github.com/torvalds/linux' %> to the world.
           The component applications are included as git submodules. GitHub is
@@ -269,6 +283,16 @@
           <%= link 'repositories', to: 'http://github.com/erikperkins/datapunnet' %>
           and lightweight Kanban-style
           <%= link 'project management', to: 'http://github.com/erikperkins/datapunnet/projects/1' %>.
+        </div>
+      </div>
+
+      <div class='media mt-3'>
+        <img src="<%= static_path(@conn, "/images/travisci-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
+        <div class='media-body'>
+          <h5 class='lead'><%= link 'TravisCI', to: 'https://travis-ci.com' %></h5>
+          Travis CI is a continuous integration service, providing automated
+          testing pipelines. It integrates seamlessly with GitHub, and is very
+          popular for open-source projects.
         </div>
       </div>
     </section>

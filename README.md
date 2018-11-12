@@ -1,8 +1,6 @@
-# Bayberry
+# Bayberry [![Build Status](https://travis-ci.com/erikperkins/bayberry.svg?branch=master)](https://travis-ci.com/erikperkins/bayberry)
 This is the Elixir component of Data Punnet. It implements live streaming from
 Twitter.
-[![Build Status](https://travis-ci.com/erikperkins/bayberry.svg?branch=master)](https://travis-ci.com/erikperkins/bayberry)
-
 
 ## Build
 ### Development
