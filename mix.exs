@@ -10,7 +10,14 @@ defmodule Test.Mixfile do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        "coveralls": :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -53,7 +60,8 @@ defmodule Test.Mixfile do
       {:poison, "~> 3.0"},
       {:timex, "~> 3.4"},
       {:cors_plug, "~> 1.5"},
-      {:hound, "~> 1.0"}
+      {:hound, "~> 1.0"},
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 
