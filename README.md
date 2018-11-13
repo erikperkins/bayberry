@@ -1,6 +1,6 @@
 # Bayberry [![Build Status](https://travis-ci.com/erikperkins/bayberry.svg?branch=master)](https://travis-ci.com/erikperkins/bayberry) [![Coverage Status](https://coveralls.io/repos/github/erikperkins/bayberry/badge.svg)](https://coveralls.io/github/erikperkins/bayberry)
-This is the Elixir component of Data Punnet. It implements live streaming from
-Twitter.
+This is the Elixir component of Data Punnet. It is the main website, and
+handles live streaming from Twitter.
 
 ## Build
 ### Development
@@ -60,6 +60,12 @@ To run all tests, do
 ```
 $ mix test --include acceptance:true
 ```
+To see test coverage, do
+```
+$ mix coveralls
+```
+This step is performed on the continuous integration platform, and the results
+are forwarded to [coveralls.io](https://coveralls.io).
 
 ### Continuous Integration
 TravisCI is used for continuous integration. Pipelines are defined in
