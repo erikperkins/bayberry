@@ -3,7 +3,6 @@ defmodule Bayberry.Service.Twitter do
   import Application, only: [get_env: 2]
   alias BayberryWeb.Endpoint
 
-  @follow get_env(:extwitter, :oauth)[:feed]
   @rabbitmq get_env(:bayberry, Bayberry.Service)[:rabbitmq]
 
   def broadcast(%{"text" => text}) do
@@ -16,8 +15,8 @@ defmodule Bayberry.Service.Twitter do
   end
 
   def produce(state) do
-    Logger.warn("Receiving tweets...")
-    filters = [follow: @follow, language: "en"]
+    Logger.warn("Receiving tweets ...")
+    filters = [follow: get_env(:bayberry, :twitter)[:feed], language: "en"]
 
     for tweet <- ExTwitter.stream_filter(filters, 10000) do
       tweet
