@@ -1,19 +1,17 @@
 defmodule Stub.Bayberry.Service.Redis do
   alias Supervisor.Spec
 
+  def command(_conn, _command) do
+    {:ok, nil}
+  end
+
+  def json(file) do
+    Application.app_dir(:bayberry, "/priv/data/#{file}.json")
+    |> File.read!()
+    |> Poison.decode!()
+  end
+
   def worker() do
-    Spec.worker(Stub.Bayberry.Service.Redix, [], restart: :permanent)
-  end
-end
-
-defmodule Stub.Bayberry.Service.Redix do
-  use GenServer
-
-  def start_link do
-    GenServer.start_link(__MODULE__, %{}, name: :redix)
-  end
-
-  def init(%{}) do
-    {:ok, %{}}
+    Spec.worker(Stub.Bayberry.Service.GenServer, [], restart: :permanent)
   end
 end

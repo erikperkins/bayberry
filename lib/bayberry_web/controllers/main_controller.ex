@@ -4,6 +4,7 @@ defmodule BayberryWeb.MainController do
   alias Bayberry.WordCloud
 
   @classifier get_env(:bayberry, Bayberry.Service)[:nlp]
+  @redis get_env(:bayberry, Bayberry.Service)[:redis]
 
   def index(conn, _params) do
     render(conn, "index.html")
