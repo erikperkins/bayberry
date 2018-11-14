@@ -39,14 +39,18 @@ defmodule BayberryWeb.Router do
   scope "/", BayberryWeb do
     pipe_through :browser
 
-    get "/sketch", MainController, :sketch
-    get "/topics", MainController, :topics
-    get "/word_cloud", MainController, :word_cloud
-    get "/world_map", MainController, :world_map
-
     resources "/session", SessionController,
       only: [:new, :create, :update, :delete],
       singleton: true
+  end
+
+  scope "/api", BayberryWeb do
+    pipe_through :api
+
+    get "/architecture", ResourceController, :architecture
+    get "/topics", ResourceController, :topics
+    get "/word_cloud", ResourceController, :word_cloud
+    get "/world_map", ResourceController, :world_map
   end
 
   scope "/administration", BayberryWeb.Administration, as: :administration do

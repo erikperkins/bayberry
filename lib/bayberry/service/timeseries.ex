@@ -1,6 +1,9 @@
 defmodule Bayberry.Service.Timeseries do
   require Logger
+  import Application, only: [get_env: 2]
   alias BayberryWeb.Endpoint
+
+  @redis get_env(:bayberry, Bayberry.Service)[:redis]
 
   def count(%{"created_at" => created_at}) do
     timestamp = "%a %b %d %H:%M:%S %z %Y"
@@ -12,7 +15,7 @@ defmodule Bayberry.Service.Timeseries do
     hash = "en:#{Timex.to_unix(day)}"
     key = Timex.to_unix(minute)
 
-    case Redix.command(:redix, ~w(hincrby #{hash} #{key} 1)) do
+    case @redis.command(:redix, ~w(hincrby #{hash} #{key} 1)) do
       {:ok, 1} -> expire(hash, day)
       _ -> nil
     end
@@ -40,6 +43,6 @@ defmodule Bayberry.Service.Timeseries do
 
   defp expire(hash, day) do
     expiry = Timex.to_unix(day) + 30 * 24 * 60 * 60
-    Redix.command(:redix, ~w(expireat #{hash} #{expiry}))
+    @redis.command(:redix, ~w(expireat #{hash} #{expiry}))
   end
 end

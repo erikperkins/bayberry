@@ -1,10 +1,8 @@
 export var Topics = {
   run: function() {
-    var
-      bubbles = renderBubbles(),
-      url = '/topics'
+    var bubbles = renderBubbles()
 
-    d3.json(url, function(errors, json) {
+    d3.json('/api/topics', function(errors, json) {
       if (!errors) {
         setTimeout(() => {
           clearInterval(bubbles)

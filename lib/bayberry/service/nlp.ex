@@ -1,5 +1,8 @@
 defmodule Bayberry.Service.NLP do
+  import Application, only: [get_env: 2]
   alias HTTPoison.Response
+
+  @redis get_env(:bayberry, Bayberry.Service)[:redis]
 
   def search(term) do
     case HTTPoison.get("http://main.datapun.net:1025/lda/#{term}") do
@@ -10,13 +13,8 @@ defmodule Bayberry.Service.NLP do
 
   def topics() do
     case HTTPoison.get("http://main.datapun.net:1025/lda/") do
-      {:ok, %Response{body: body}} ->
-        Poison.decode!(body)
-
-      _ ->
-        "priv/data/topics.json"
-        |> File.read!
-        |> Poison.decode!
+      {:ok, %Response{body: body}} -> Poison.decode!(body)
+      _ -> @redis.json("topics")
     end
   end
 end

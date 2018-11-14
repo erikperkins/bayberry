@@ -1,5 +1,8 @@
 defmodule Bayberry.WordCloud do
+  import Application, only: [get_env: 2]
   alias Bayberry.Blog
+
+  @redis get_env(:bayberry, Bayberry.Service)[:redis]
 
   def word_count do
     Blog.list_articles()
@@ -17,17 +20,7 @@ defmodule Bayberry.WordCloud do
   end
 
   defp remove_stopwords(words) do
-    stopwords =
-      ~w(a about above after again against all am an and any are as at be
-      because been before being below between both but by can could did do
-      does doing down during each few for from further had has have having he
-      her here hers herself him himself his how I if in into is it its itself
-      let me more most my myself nor not of on once only or other ought our ours
-      ourselves out over own same shall she should so some such than that the
-      their them themselves then there these they this those through to too
-      under until up us very was we were what when where which while who whom
-      why will with would you your yours yourself yourselves)
-
+    stopwords = @redis.json("stopwords")
     for word <- words, word not in stopwords, do: word
   end
 

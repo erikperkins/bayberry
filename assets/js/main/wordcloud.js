@@ -1,10 +1,10 @@
 export var WordCloud = {
   run: function() {
-    d3.json('/word_cloud', (error, json) => { if (!error) renderCloud(json) })
+    d3.json('/api/word_cloud', (error, json) => { if (!error) cloud(json) })
   }
 }
 
-function renderCloud(json) {
+function cloud(json) {
   d3.select("#wordcloud").selectAll("text").data([]).exit().remove();
 
   let colorDomain = [5, 10, 15, 20, 100];
