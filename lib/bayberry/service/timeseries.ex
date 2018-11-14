@@ -22,7 +22,7 @@ defmodule Bayberry.Service.Timeseries do
   end
 
   def forecast() do
-    case HTTPoison.get("http://timeseries.datapun.net/api/forecast") do
+    case HTTPoison.get(get_env(:bayberry, :data_punnet)[:timeseries]) do
       {:ok, %HTTPoison.Response{body: body}} ->
         spawn(fn -> broadcast(body) end)
 

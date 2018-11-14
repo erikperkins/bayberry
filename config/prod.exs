@@ -69,12 +69,10 @@ config :bayberry, BayberryWeb.Endpoint,
   secret_key_base: System.get_env("BAYBERRY_SECRET_KEY_BASE")
 
 # Configure external API endpoints
-config :bayberry, BayberryWeb.Endpoint,
-  mnist: "http://mnist.datapun.net/mnist",
-  nlp: "http://main.datapun.net:1025/lda",
-  timeseries: "http://timeseries.datapun.net/api/forecast",
-  rabbitmq: "storage.datapun.net",
-  redis: "storage.datapun.net"
+config :bayberry, :data_punnet,
+  mnist: System.get_env("MNIST_ENDPOINT"),
+  lda: System.get_env("LDA_ENDPOINT"),
+  timeseries: System.get_env("TIMESERIES_ENDPOINT")
 
 # Configure your database
 config :bayberry, Bayberry.Repo,
@@ -82,16 +80,24 @@ config :bayberry, Bayberry.Repo,
   username: System.get_env("BAYBERRY_USERNAME"),
   password: System.get_env("BAYBERRY_PASSWORD"),
   database: System.get_env("BAYBERRY_DATABASE"),
-  hostname: "storage.datapun.net",
+  hostname: System.get_env("POSTGRES_HOST"),
   pool_size: 15
 
 config :bayberry, Bayberry.Geolocation,
   adapter: Ecto.Adapters.Postgres,
   username: System.get_env("BAYBERRY_USERNAME"),
   password: System.get_env("BAYBERRY_PASSWORD"),
-  database: "geolocation",
-  hostname: "storage.datapun.net",
+  database: System.get_env("GEOLOCATION_DATABASE"),
+  hostname: System.get_env("POSTGRES_HOST"),
   pool_size: 10
+
+config :bayberry, :rabbitmq,
+  username: System.get_env("RABBITMQ_USERNAME"),
+  password: System.get_env("RABBITMQ_PASSWORD"),
+  host: System.get_env("RABBITMQ_HOST")
+
+config :bayberry, :redis,
+  host: System.get_env("REDIS_HOST")
 
 config :bayberry, BayberryWeb.Plugs,
   authorization: BayberryWeb.Plugs.Authorization,

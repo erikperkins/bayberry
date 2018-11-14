@@ -3,7 +3,7 @@ defmodule Bayberry.Service.Twitter do
   import Application, only: [get_env: 2]
   alias BayberryWeb.Endpoint
 
-  @follow "25073877"
+  @follow get_env(:extwitter, :oauth)[:feed]
   @rabbitmq get_env(:bayberry, Bayberry.Service)[:rabbitmq]
 
   def broadcast(%{"text" => text}) do

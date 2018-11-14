@@ -1,4 +1,5 @@
 defmodule Bayberry.Service.Redis do
+  import Application, only: [get_env: 2]
   alias Supervisor.Spec
 
   def command(conn, command) do
@@ -22,7 +23,7 @@ defmodule Bayberry.Service.Redis do
   end
 
   def worker() do
-    host = "storage.datapun.net"
+    host = get_env(:bayberry, :redis)[:host]
     Spec.worker(Redix, [[host: host, port: 6379, database: 3], [name: :redix]])
   end
 end
