@@ -23,12 +23,8 @@ defmodule BayberryWeb.MainController do
   end
 
   def sketch(conn, _params) do
-    svg_json =
-      Application.app_dir(:bayberry, "/priv/data/architecture.json")
-      |> File.read!()
-      |> Poison.decode!()
-
-    json(conn, svg_json)
+    @redis.json("architecture")
+    |> (&json(conn, &1)).()
   end
 
   def topics(conn, _params) do
@@ -44,12 +40,8 @@ defmodule BayberryWeb.MainController do
   end
 
   def world_map(conn, _params) do
-    geojson =
-      Application.app_dir(:bayberry, "/priv/data/countries.geo.json")
-      |> File.read!()
-      |> Poison.decode!()
-
-    json(conn, geojson)
+    @redis.json("countries.geo")
+    |> (&json(conn, &1)).()
   end
 
   def blank(conn, _params) do

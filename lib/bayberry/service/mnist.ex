@@ -1,5 +1,8 @@
 defmodule Bayberry.Service.MNIST do
+  import Application, only: [get_env: 2]
   alias HTTPoison.{Error, Response}
+
+  @redis get_env(:bayberry, Bayberry.Service)[:redis]
 
   def digit(id) do
     case HTTPoison.get("http://mnist.datapun.net/mnist/#{id}.json") do
@@ -9,9 +12,7 @@ defmodule Bayberry.Service.MNIST do
   end
 
   def digits() do
-    "priv/data/digits.json"
-    |> File.read!()
-    |> Poison.decode!()
+    @redis.json("digits")
   end
 
   def classify(image) do
