@@ -81,11 +81,13 @@ $ travis encrypt SENSITIVE_ENVIRONMENT_VARIABLE=value --add env.global
 which will inject the encrypted value into `.travis.yml`.
 
 ### Container
-Docker builds the application in production mode. Migrations and
-asset compilation are performed when the container starts. The container can
-conveniently be run with `docker-compose`
+Docker builds the application in production mode
 ```
-$ docker-compose up phoenix
+$ docker build -t erikperkins/bayberry .
+```
+Migrations and asset compilation are performed when the container starts. The container can be run with
+```
+$ docker-compose up
 ```
 
 ### Production

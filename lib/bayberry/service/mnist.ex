@@ -5,7 +5,7 @@ defmodule Bayberry.Service.MNIST do
   @redis get_env(:bayberry, Bayberry.Service)[:redis]
 
   def digit(id) do
-    case HTTPoison.get("http://mnist.datapun.net/mnist/#{id}.json") do
+    case HTTPoison.get("#{get_env(:bayberry, :data_punnet)[:mnist]}/#{id}.json") do
       {:ok, %Response{body: body}} -> Poison.decode!(body)
       {:error, %Error{reason: _}} -> nil
     end
@@ -16,7 +16,7 @@ defmodule Bayberry.Service.MNIST do
   end
 
   def classify(image) do
-    url = "http://mnist.datapun.net/mnist/new/classification.json"
+    url = "#{get_env(:bayberry, :data_punnet)[:mnist]}/new/classification.json"
     json = Poison.encode!(image)
     header = [{"Content-Type", "application/json"}]
 

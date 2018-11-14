@@ -21,12 +21,10 @@ config :bayberry, BayberryWeb.Endpoint,
   ]
 
 # Configure external API endpoints
-config :bayberry, BayberryWeb.Endpoint,
-  mnist: "http://mnist.datapun.net/mnist",
-  nlp: "http://main.datapun.net:1025/lda",
-  timeseries: "http://timeseries.datapun.net/api/forecast",
-  rabbitmq: "storage.datapun.net",
-  redis: "storage.datapun.net"
+config :bayberry, :data_punnet,
+  mnist: System.get_env("MNIST_ENDPOINT"),
+  lda: System.get_env("LDA_ENDPOINT"),
+  timeseries: System.get_env("TIMESERIES_ENDPOINT")
 
 # ## SSL Support
 #
@@ -75,6 +73,14 @@ config :bayberry, Bayberry.Geolocation,
   database: "geolocation",
   hostname: "localhost",
   pool_size: 5
+
+config :bayberry, :rabbitmq,
+  username: System.get_env("RABBITMQ_USERNAME"),
+  password: System.get_env("RABBITMQ_PASSWORD"),
+  host: System.get_env("RABBITMQ_HOST")
+
+config :bayberry, :redis,
+  host: System.get_env("REDIS_HOST")
 
 config :bayberry, BayberryWeb.Plugs,
   authorization: BayberryWeb.Plugs.Authorization,
