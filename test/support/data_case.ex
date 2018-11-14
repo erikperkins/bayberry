@@ -27,9 +27,11 @@ defmodule Bayberry.DataCase do
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bayberry.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bayberry.Geolocation)
 
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Bayberry.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Bayberry.Geolocation, {:shared, self()})
     end
 
     :ok
