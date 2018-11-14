@@ -45,7 +45,7 @@ export var Visitors = {
 
     var globe = svg.append("g")
 
-    d3.json("/world_map", (error, world) => {
+    d3.json("/api/world_map", (error, world) => {
       if (error) return console.error(error)
       drawMap(world)
     })

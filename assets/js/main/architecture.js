@@ -2,7 +2,7 @@ import {Socket} from "phoenix"
 
 export var Architecture = {
   run: function() {
-    d3.json("/sketch", (error, json) => { if (!error) draw(json) })
+    d3.json("/api/architecture", (error, json) => { if (!error) draw(json) })
 
     function draw(json) {
       let
