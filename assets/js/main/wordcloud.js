@@ -7,7 +7,7 @@ export var WordCloud = {
 function cloud(json) {
   d3.select("#wordcloud").selectAll("text").data([]).exit().remove();
 
-  let colorDomain = [5, 10, 15, 20, 100];
+  let colorDomain = [1, 2, 4, 8, 16];
   let colorRange = ["#777", "#666", "#555", "#444", "#333", "#222"];
   let color = d3.scaleLinear().domain(colorDomain).range(colorRange);
 
@@ -41,6 +41,5 @@ function cloud(json) {
         .append("text")
         .text(d => d.text)
         .style("font-size", d => `${d.size}px`)
-        .style("fill", (d, i) => color(i))
   }
 }
