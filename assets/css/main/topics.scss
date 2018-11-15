@@ -1,38 +1,43 @@
+.node,
+.root,
+.leaf {
+  fill: white;
+  stroke: #6c757d;
+}
+
 .node {
   cursor: pointer;
 }
 
 .node:hover {
-  stroke: #BBB;
+  stroke: #ffc107;
   stroke-width: 2px;
 }
 
-.node--leaf {
+.leaf {
   fill: white;
-}
-
-.node,
-.node--root,
-.node--leaf {
-  fill: white;
-  stroke: #BBB;
-}
-
-.node--leaf {
   pointer-events: none;
 }
 
-.d3-label {
+
+.topic {
   font: 12px Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
   text-anchor: middle;
   dominant-baseline: middle;
   display: inline;
-  fill: #3a3a3a;
-  //cursor: pointer;
+  fill: #343a40;
 }
 
-.hidden {
-  display: none;
+.term {
+  font: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  display: inline;
+  fill: #343a40;
 }
 
 @keyframes fade {
@@ -44,21 +49,13 @@
   animation: fade 0.75s ease-in normal;
 }
 
-.fadein {
-  animation: fade ease-in 0.75s normal;
-}
-
-.fadeout {
-  animation: fade ease-in 0.75s reverse;
-}
-
 .bubble {
   fill: none;
-  stroke: #BBB;
+  stroke: #6c757d;
 }
 
 .bubble-fade {
   fill: none;
-  stroke: #BBB;
-  animation: fade ease-out 1.0s reverse;
+  stroke: #6c757d;
+  animation: fade ease-out 0.2s reverse;
 }

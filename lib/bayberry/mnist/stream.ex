@@ -24,7 +24,7 @@ defmodule Bayberry.MNIST.Stream do
       Enum.random(0..10000)
       |> @classifier.digit() || %{}
 
-    Endpoint.broadcast("mnist:digit", "digit-stream", message)
+    Endpoint.broadcast("mnist:digit", "stream", message)
 
     send(self(), :digit)
   end

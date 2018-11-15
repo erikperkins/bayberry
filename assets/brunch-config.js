@@ -106,6 +106,8 @@ exports.config = {
       "d3",
       "d3-force",
       "d3-geo-projection",
+      "d3-hierarchy",
+      "d3-interpolate",
       "d3-random",
       "d3-transition",
       "topojson"
