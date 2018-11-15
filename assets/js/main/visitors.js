@@ -102,7 +102,8 @@ export var Visitors = {
     }
 
     function rescale(transform) {
-      altitude = transform.k > 1 ? scale * transform.k : scale
+      transform.k = transform.k < 1 ? 1 : transform.k
+      altitude = scale * transform.k
       projection.scale(altitude)
 
       svg.selectAll("path").attr("d", path)

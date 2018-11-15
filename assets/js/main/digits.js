@@ -10,7 +10,7 @@ export var Digits = {
       .receive("ok", () => console.log("Joined mnist:digit"))
       .receive("error", () => console.log("Unable to join mnist:digit"))
 
-    channel.on("digit-stream", payload => replaceDigit(payload))
+    channel.on("stream", payload => replaceDigit(payload))
 
     channel.push("digits", {})
       .receive("digits", payload => cloud(payload.digits))
@@ -18,21 +18,18 @@ export var Digits = {
     let i = 0
 
     function replaceDigit(payload) {
-      let nodes = d3.selectAll(".digit-image").nodes()
+      let digitImages = d3.selectAll(".digit-image").nodes()
 
-      let j = Math.floor(d3.randomUniform(0, nodes.length)())
+      let j = Math.floor(d3.randomUniform(0, digitImages.length)())
       i = (i == j) ? (i + 1) % 10 : j
-      var node = d3.select(nodes[i])
+      let digitImage = d3.select(digitImages[i])
 
-      let fadeout = d3.transition().duration(250)
-      let fadein = d3.transition().duration(250)
-
-      node.transition(fadeout).style("opacity", 0)
+      digitImage.transition(40).style("opacity", 0)
         .on("end", function() {
           let url = `data:image/png;base64,${payload.image}`
-          node.attr("xlink:href", () => url)
+          digitImage.attr("xlink:href", () => url)
 
-          node.transition(fadein).style("opacity", 1)
+          digitImage.transition(40).style("opacity", 1)
 
           $(this).tooltip("hide")
             .attr("data-original-title", payload.classification)

@@ -1,6 +1,6 @@
 export var Topics = {
   run: function() {
-    var bubbles = renderBubbles()
+    let bubbles = renderBubbles()
 
     d3.json('/api/topics', function(errors, json) {
       if (!errors) {
@@ -14,27 +14,27 @@ export var Topics = {
 }
 
 function renderBubbles() {
-  var svg = d3.select("#pack"),
-    margin = 0,
+  let svg = d3.select("#pack"),
     diameter = 200,
     bubbles = svg.append("g")
       .attr("class", "bubbles")
       .attr("id", "wait")
-      .attr("transform", `translate(${diameter / 2},${diameter / 2})`)
+      .attr("transform", `translate(${diameter/2},${diameter/2})`)
 
   return setInterval(() => { bubble(bubbles) }, 20)
 }
 
 function bubble(bubbles) {
-  var
-    grow = d3.transition().duration(1000).ease(d3.easeLinear),
-    fade = d3.transition().duration(25),
-    rho = d3.randomUniform(0, 100),
-    theta = d3.randomUniform(0, 2 * Math.PI),
-    cx = rho() * Math.cos(theta()),
-    cy = rho() * Math.sin(theta())
+  let
+    diameter = 200,
+    grow = d3.transition().duration(750).ease(d3.easeLinear),
+    fade = d3.transition().duration(40),
+    rho = (diameter/2) * Math.floor(d3.randomUniform(1, 8)()) / 8,
+    theta = (2*Math.PI) * Math.floor(d3.randomUniform(0, 16)()) / 16,
+    cx = rho * Math.cos(theta),
+    cy = rho * Math.sin(theta)
 
-  var circle = bubbles.append("circle")
+  let circle = bubbles.append("circle")
     .attr("class", "bubble")
     .attr("cx", cx)
     .attr("cy", cy)
@@ -46,73 +46,83 @@ function bubble(bubbles) {
     .remove()
 }
 
-function renderLdaPack(root) {
-  var svg = d3.select("#pack"),
-      margin = 0,
-      diameter = 200,
-      g = svg.append("g")
+function renderLdaPack(json) {
+  let
+    svg = d3.select("#pack"),
+    diameter = 200,
+    group =
+      svg.append("g")
         .attr("class", "g-fade-in")
-        .attr("transform", `translate(${diameter / 2},${diameter / 2})`)
+        .attr("transform", `translate(${diameter/2},${diameter/2})`)
 
-  var pack = d3.pack()
-    .size([diameter - margin, diameter - margin])
-    .padding(2);
+  let pack =
+    d3.pack()
+      .size([diameter, diameter])
+      .padding(2)
 
-  root = d3.hierarchy(root)
-    .sum(function(d) { return d.size; })
-    .sort(function(a, b) { return b.value - a.value; });
+  let root =
+    d3.hierarchy(json)
+      .sum(d => d.size)
+      .sort((a, b) => b.value - a.value)
 
-  var
-    nodes = pack(root).descendants(),
+  let
+    view,
     focus = root,
-    view
+    descendants = pack(root).descendants()
 
-  var circle = g.selectAll("circle")
-    .data(nodes)
-    .enter().append("circle")
-    .attr("class", function(d) {
-      return d.parent ? (d.children ? "node" : "node--leaf") : "node--root"
-    })
+  let circle =
+    group.selectAll("circle")
+      .data(descendants)
+      .enter().append("circle")
+      .attr("class", d => d.parent ? (d.children ? "node" : "leaf") : "root")
+      .on("click", d => { if (focus !== d) zoom(d), d3.event.stopPropagation() })
 
-  var text = g.selectAll("text")
-    .data(nodes)
-    .enter().append("text")
-    .attr("class", (d) => {
-      return d.parent === root ? "d3-label" : "hidden"
-    }).text(function(d) { return d.data.name })
+  let text =
+    group.selectAll("text")
+      .data(descendants)
+      .enter().append("text")
+      .attr("class", d => d.parent === root ? "topic" : "term")
+      .style("display", d => d.parent === root ? "inline" : "none")
+      .text(d => d.data.name)
 
-  var node = g.selectAll("circle,text").on("click", function(d) {
-    if (focus !== d) zoom(d);
-  })
+  var nodes = group.selectAll("circle,text")
 
   svg.style("background", "white")
-    .on("click", function() { zoom(root); });
+   .on("click", () => zoom(root))
 
-  zoomTo([root.x, root.y, root.r * 2 + margin]);
+  zoomTo([root.x, root.y, 2*root.r]);
 
   function zoom(d) {
-    var
-      _focus = focus
-      focus = d
+    let _focus = focus
+    focus = d
 
-    var transition = d3.transition()
-      .duration(d3.event.altKey ? 7500 : 750)
-      .tween("zoom", function(d) {
-        var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2 + margin]);
-        return function(t) { zoomTo(i(t)); };
-      });
+    let transition =
+      d3.transition()
+        .duration(500)
+        .tween("zoom", function(d) {
+          let interpolate =
+            d3.interpolateZoom(view, [focus.x, focus.y, 2 * focus.r]);
 
-    svg.selectAll("text").transition(transition)
-      .attr("class", function(d) {
-        return d.parent === focus ? "d3-label fadein" : "d3-label hidden"
+          return function(t) { zoomTo(interpolate(t)); };
+        })
+
+    transition.selectAll("text")
+      .filter(function(d) {
+        return d.parent === focus || this.style.display === "inline"
+      }).style("fill-opacity", d => d.parent === focus ? 1 : 0)
+      .on("end", function(d) {
+        if (d.parent === focus) {
+          this.style.display = "inline"
+        } else this.style.display = "none"
       })
   }
 
   function zoomTo(v) {
-    var k = diameter / v[2]; view = v;
-    node.attr("transform", function(d) {
-      return `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`
-    })
-    circle.attr("r", function(d) { return d.r * k });
+    let k = diameter / v[2]
+    view = v
+
+    nodes.attr("transform", d => `translate(${(d.x-v[0])*k},${(d.y-v[1])*k})`)
+
+    circle.attr("r", d =>  d.r * k)
   }
 }
