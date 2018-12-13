@@ -3,5 +3,12 @@
 @import "font-awesome";
 
 .alert:empty { display: none; }
+
+.btn-resource {
+  width: 100%;
+  max-width: 64px;
+}
+
 .padded { margin: 1rem 0 1rem 0; }
+
 iframe { display: none; }
