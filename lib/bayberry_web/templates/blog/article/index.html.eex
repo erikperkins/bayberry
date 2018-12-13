@@ -29,13 +29,17 @@
       <td class="text-right">
         <span>
           <%= link to: blog_article_path(@conn, :edit, article) do %>
-            <i class="fa fa-edit btn text-default"></i>
+            <button class="btn btn-resource bg-light">
+              <i class="fa fa-edit text-primary"></i>
+            </button>
           <% end %>
         </span>
         <span>
-          <%= link to: blog_article_path(@conn, :delete, article), method: :delete,
-            data: [confirm: "Are you sure?"] do %>
-            <i class="fa fa-trash btn text-danger"></i>
+          <%= form_tag blog_article_path(@conn, :delete, article),
+            method: :delete do %>
+            <%= submit(class: "btn btn-resource bg-light") do %>
+              <i class='fa fa-trash text-danger'></i>
+            <% end %>
           <% end %>
         </span>
       </td>
