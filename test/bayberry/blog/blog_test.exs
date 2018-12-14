@@ -2,7 +2,7 @@ defmodule Bayberry.BlogTest do
   use Bayberry.DataCase
   alias Bayberry.Blog
 
-  @article_attrs %{body: "some body", title: "some title"}
+  @article_attrs %{body: "some body", title: "some title", draft: false}
   @author_attrs %{bio: "bio", role: "role", genre: "genre"}
   @user_attrs %{name: "name", username: "username"}
   @admin_attrs %{name: "admin", username: "admin"}

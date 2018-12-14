@@ -27,7 +27,7 @@ defmodule BayberryWeb.Blog.ArticleController do
   end
 
   def index(conn, _params) do
-    articles = Blog.list_articles()
+    articles = Blog.list_drafts()
     render(conn, "index.html", articles: articles)
   end
 
