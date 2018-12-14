@@ -10,9 +10,9 @@
   </p>
 
   <div class='row'>
-    <p class='lead col-md-10'>
-      <%= @post.body %>
-    </p>
+    <div class='lead col-md-10'>
+      <%= Phoenix.HTML.raw(@post.body) %>
+    </div>
   </div>
 
   <hr/>

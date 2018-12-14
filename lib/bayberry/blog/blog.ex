@@ -9,7 +9,7 @@ defmodule Bayberry.Blog do
   alias Bayberry.Accounts
 
   @doc """
-  Returns the list of articles.
+  Returns the list of non-draft articles.
 
   ## Examples
 
@@ -20,12 +20,13 @@ defmodule Bayberry.Blog do
   def list_articles do
     Article
     |> order_by(desc: :inserted_at)
+    |> where(draft: false)
     |> Repo.all()
     |> Repo.preload(author: [user: :credential])
   end
 
   @doc """
-  Returns the list of articles containing a specific word.
+  Returns the list of non-draft articles containing a specific word.
 
   ## Examples
 
@@ -36,12 +37,28 @@ defmodule Bayberry.Blog do
   def list_articles(slug) do
     expression = "%#{slug}%"
     query = from a in Article,
-      where: ilike(a.body, ^expression),
+      where: ilike(a.body, ^expression) and not a.draft,
       order_by: [desc: a.inserted_at]
 
     query
     |> Repo.all()
     |> Repo.preload(author: [user: :credential])
+  end
+
+  @doc """
+  Returns all articles.
+
+  ## Examples
+
+    iex> list_drafts()
+    [%Article{}, ...]
+
+  """
+  def list_drafts do
+    Article
+    |> order_by(desc: :inserted_at)
+    |> Repo.all()
+    |> Repo.preload(author: [[user: :credential]])
   end
 
   @doc """

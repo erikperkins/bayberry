@@ -7,6 +7,7 @@ defmodule Bayberry.Blog.Article do
     field :body, :string
     field :title, :string
     field :views, :integer
+    field :draft, :boolean, default: true
     belongs_to :author, Author
 
     timestamps()
@@ -15,7 +16,7 @@ defmodule Bayberry.Blog.Article do
   @doc false
   def changeset(article, attrs) do
     article
-    |> cast(attrs, [:title, :body])
+    |> cast(attrs, [:title, :body, :draft])
     |> validate_required([:title, :body])
   end
 end
