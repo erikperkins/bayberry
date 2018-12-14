@@ -17,9 +17,9 @@
             <%= Timex.format!(post.inserted_at, "%A, %e %B %Y", :strftime) %>
           </div>
         </p>
-        <p class='lead'>
-          <%= post.body %>
-        </p>
+        <div class='lead'>
+          <%= Phoenix.HTML.raw(post.body) %>
+        </div>
       </div>
     </div>
     <hr/>
