@@ -5,6 +5,7 @@ defmodule Bayberry.Blog.Article do
 
   schema "articles" do
     field :body, :string
+    field :summary, :string
     field :title, :string
     field :views, :integer
     field :draft, :boolean, default: true
@@ -16,7 +17,7 @@ defmodule Bayberry.Blog.Article do
   @doc false
   def changeset(article, attrs) do
     article
-    |> cast(attrs, [:title, :body, :draft])
-    |> validate_required([:title, :body])
+    |> cast(attrs, [:title, :summary, :body, :draft])
+    |> validate_required([:title, :summary, :body])
   end
 end

@@ -3,8 +3,8 @@ defmodule BayberryWeb.Blog.ArticleControllerTest do
 
   alias Bayberry.{Accounts, Blog}
 
-  @create_attrs %{body: "some body", title: "some title", views: 42}
-  @update_attrs %{body: "some updated body", title: "some updated title", views: 43}
+  @create_attrs %{body: "some body", summary: "some summary", title: "some title", views: 42}
+  @update_attrs %{body: "some updated body", summary: "some updated summary", title: "some updated title", views: 43}
   @invalid_attrs %{body: nil, title: nil, views: nil}
   @user_attrs %{name: "user", username: "username"}
   @author_attrs %{bio: "bio", role: "role", genre: "genre"}
