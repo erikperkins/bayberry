@@ -2,7 +2,7 @@ defmodule Bayberry.BlogTest do
   use Bayberry.DataCase
   alias Bayberry.Blog
 
-  @article_attrs %{body: "some body", title: "some title", draft: false}
+  @article_attrs %{body: "some body", summary: "some summary", title: "some title", draft: false}
   @author_attrs %{bio: "bio", role: "role", genre: "genre"}
   @user_attrs %{name: "name", username: "username"}
   @admin_attrs %{name: "admin", username: "admin"}
@@ -20,8 +20,8 @@ defmodule Bayberry.BlogTest do
   describe "articles" do
     alias Bayberry.Blog.Article
 
-    @valid_attrs %{body: "some body", title: "some title"}
-    @update_attrs %{body: "some updated body", title: "some updated title"}
+    @valid_attrs %{body: "some body", summary: "some summary", title: "some title"}
+    @update_attrs %{body: "some updated body", summary: "some updated summary", title: "some updated title"}
     @invalid_attrs %{body: nil, title: nil}
 
     test "list_articles/0 returns all articles", %{article: article} do
@@ -39,6 +39,7 @@ defmodule Bayberry.BlogTest do
     test "create_article/1 with valid data creates a article", %{author: author} do
       assert {:ok, %Article{} = article} = Blog.create_article(author, @valid_attrs)
       assert article.body == "some body"
+      assert article.summary == "some summary"
       assert article.title == "some title"
     end
 
@@ -50,6 +51,7 @@ defmodule Bayberry.BlogTest do
       assert {:ok, article} = Blog.update_article(article, @update_attrs)
       assert %Article{} = article
       assert article.body == "some updated body"
+      assert article.summary == "some updated summary"
       assert article.title == "some updated title"
     end
 

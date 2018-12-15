@@ -11,7 +11,7 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Body</th>
+      <th>Summary</th>
       <th>Author</th>
       <th>Views</th>
 
@@ -22,7 +22,7 @@
 <%= for article <- @articles do %>
     <tr>
       <td><%= link article.title, to: blog_article_path(@conn, :show, article) %></td>
-      <td><%= article.body %></td>
+      <td><%= article.summary %></td>
       <td><%= link author_name(article), to: blog_author_path(@conn, :show, article.author) %></td>
       <td><%= article.views %></td>
 

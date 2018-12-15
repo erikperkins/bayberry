@@ -1,7 +1,7 @@
 <div class="container">
-  <h3 class="display-3">
+  <h4 class="display-3">
     Blog
-  </h3>
+  </h4>
 
   <hr/>
 
@@ -18,7 +18,10 @@
           </div>
         </p>
         <div class='lead'>
-          <%= Phoenix.HTML.raw(post.body) %>
+          <%= Phoenix.HTML.raw(post.summary) %>
+        </div>
+        <div>
+          <%= link "Read more...", to: blog_article_path(@conn, :post, post) %>
         </div>
       </div>
     </div>

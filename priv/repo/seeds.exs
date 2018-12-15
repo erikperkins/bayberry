@@ -31,6 +31,7 @@ author_params = %{
 
 lincoln_params = %{
   "title" => "Abraham Lincoln",
+  "summary" => "The Gettysburg Address"
   "body" => """
   Four score and seven years ago our fathers brought forth on this continent,
   a new nation, conceived in Liberty, and dedicated to the proposition that all
@@ -57,6 +58,7 @@ lincoln_params = %{
 
 roosevelt_params = %{
   "title" => "Theodore Roosevelt",
+  "summary" => "A quote from Theodore Rooselvelt"
   "body" => """
   It is not the critic who counts; not the man who points out how the strong
   man stumbles, or where the doer of deeds could have done them better. The
