@@ -13,6 +13,7 @@ defmodule Bayberry.WordCloud do
     |> String.downcase()
     |> String.split(" ")
     |> remove_stopwords()
+    |> remove_html()
     |> Enum.reduce(%{}, &tally(&1, &2))
     |> Enum.map(fn {k, v} -> %{"text" => k, "size" => v} end)
     |> Enum.sort_by(fn count -> count["size"] end, &>=/2)
@@ -22,6 +23,11 @@ defmodule Bayberry.WordCloud do
   defp remove_stopwords(words) do
     stopwords = @redis.json("stopwords")
     for word <- words, word not in stopwords, do: word
+  end
+
+  defp remove_html(words) do
+    html_tags = @redis.json("html_tags")
+    for word <- words, word not in html_tags, do: word
   end
 
   defp tally(x, %{} = count) do
