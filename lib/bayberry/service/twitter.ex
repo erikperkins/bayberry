@@ -16,9 +16,11 @@ defmodule Bayberry.Service.Twitter do
 
   def produce(state) do
     Logger.warn("Receiving tweets ...")
-    filters = [follow: get_env(:bayberry, :twitter)[:feed], language: "en"]
 
-    for tweet <- ExTwitter.stream_filter(filters, 10000) do
+    filters = [follow: get_env(:bayberry, :twitter)[:feed], language: "en"]
+    timeout = get_env(:bayberry, :twitter)[:timeout]
+
+    for tweet <- ExTwitter.stream_filter(filters, timeout) do
       tweet
       |> extend_tweet
       |> publish(state)

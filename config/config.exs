@@ -30,7 +30,8 @@ config :extwitter, :oauth,
   access_token_secret: System.get_env("TWITTER_ACCESS_SECRET")
 
 config :bayberry, :twitter,
-  feed: System.get_env("TWITTER_FEED")
+  feed: System.get_env("TWITTER_FEED"),
+  timeout: System.get_env("TWITTER_TIMEOUT")
 
 # Configure Cross-Origin Resource Sharing
 config :cors_plug,
