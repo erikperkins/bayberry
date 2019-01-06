@@ -11,10 +11,20 @@ defmodule Bayberry.Twitter.Receiver do
   end
 
   def init(%{}) do
-    {:ok, state} = @rabbitmq.declare("tweets")
+    send(self(), :connect)
+    {:ok, %{}}
+  end
 
-    send(self(), :stream)
-    {:ok, state}
+  def handle_info(:connect, state) do
+    case @rabbitmq.declare("tweets") do
+      {:ok, new} ->
+        send(self(), :stream)
+        {:noreply, new}
+
+      {:error, :econnrefused} ->
+        Process.send_after(self(), :connect, 1000)
+        {:noreply, state}
+    end
   end
 
   def handle_info(:stream, state) do

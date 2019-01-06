@@ -29,9 +29,15 @@ config :extwitter, :oauth,
   access_token: System.get_env("TWITTER_ACCESS_TOKEN"),
   access_token_secret: System.get_env("TWITTER_ACCESS_SECRET")
 
+timeout =
+  case Integer.parse(System.get_env("TWITTER_TIMEOUT") || "") do
+    {n, _} -> n
+    :error -> 0
+  end
+
 config :bayberry, :twitter,
   feed: System.get_env("TWITTER_FEED"),
-  timeout: System.get_env("TWITTER_TIMEOUT")
+  timeout: timeout
 
 # Configure Cross-Origin Resource Sharing
 config :cors_plug,
