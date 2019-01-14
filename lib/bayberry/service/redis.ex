@@ -24,6 +24,9 @@ defmodule Bayberry.Service.Redis do
 
   def worker() do
     host = get_env(:bayberry, :redis)[:host]
-    Spec.worker(Redix, [[host: host, port: 6379, database: 3], [name: :redix]])
+    password = get_env(:bayberry, :redis)[:password]
+    connection = [host: host, port: 6379, database: 3, password: password]
+
+    Spec.worker(Redix, [connection, [name: :redix]])
   end
 end

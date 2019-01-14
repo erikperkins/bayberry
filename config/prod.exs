@@ -97,7 +97,8 @@ config :bayberry, :rabbitmq,
   host: System.get_env("RABBITMQ_HOST")
 
 config :bayberry, :redis,
-  host: System.get_env("REDIS_HOST")
+  host: System.get_env("REDIS_HOST"),
+  password: System.get_env("REDIS_PASSWORD")
 
 config :bayberry, BayberryWeb.Plugs,
   authorization: BayberryWeb.Plugs.Authorization,
