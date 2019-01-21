@@ -24,7 +24,7 @@ defmodule Bayberry.Service.RabbitMQ do
   end
 
   def publish(channel, exchange, queue, payload) do
-    Basic.publish(channel, exchange, queue, payload, expiration: 5000)
+    Basic.publish(channel, exchange, queue, payload)
   end
 
   defp url() do
