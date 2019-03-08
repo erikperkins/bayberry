@@ -15,9 +15,7 @@
     </div>
     <div class='row justify-content-center'>
       <p class='lead text-center'>
-        This is a live stream of tweets related to
-        <strong>@realDonaldTrump</strong>, <br/>
-        which generates a lot of Twitter activity.
+        This is a live stream of tweets, and a live forecast of their volume.
       </p>
     </div>
 
