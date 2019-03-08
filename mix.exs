@@ -50,7 +50,6 @@ defmodule Test.Mixfile do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.16"},
       {:plug_cowboy, "~> 2.0"},
-      {:extwitter, "~> 0.9"},
       {:plug, "~> 1.7"},
       {:amqp, "~> 1.1"},
       {:redix, "~> 0.9"},

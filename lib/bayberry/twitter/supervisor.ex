@@ -7,7 +7,7 @@ defmodule Bayberry.Twitter.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(Bayberry.Twitter.Receiver, [], restart: :permanent),
+      # worker(Bayberry.Twitter.Receiver, [], restart: :permanent),
       worker(Bayberry.Twitter.Stream, [], restart: :permanent)
     ]
 
