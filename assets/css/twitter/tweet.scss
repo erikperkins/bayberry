@@ -13,6 +13,20 @@
 
 .caution {
   background-color: #2D3237;
-  color: white;
   border-radius: 4px;
+  color: white;
+  font-size: 12px;
+}
+
+.track {
+  background-color: lighten(#FFC107, 25%);
+  a {
+    color: black;
+    font-weight: normal;
+  }
+}
+
+.emoji {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
 }

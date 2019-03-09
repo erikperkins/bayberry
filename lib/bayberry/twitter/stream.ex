@@ -5,6 +5,7 @@ defmodule Bayberry.Twitter.Stream do
   alias BayberryWeb.Endpoint
 
   @rabbitmq get_env(:bayberry, Bayberry.Service)[:rabbitmq]
+  @redis get_env(:bayberry, Bayberry.Service)[:redis]
 
   def start_link do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -36,6 +37,7 @@ defmodule Bayberry.Twitter.Stream do
 
   defp broadcast(%{"text" => text}) do
     text
+    |> track()
     |> hyperlink()
     |> hashtag()
     |> atmention()
@@ -45,7 +47,7 @@ defmodule Bayberry.Twitter.Stream do
 
   defp hyperlink(text) do
     link_regex = ~r/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/
-    link = "<a href='\\1' target='_blank'>\\1</a>"
+    link = ~s[<a href='\\1' target='_blank'>\\1</a>]
     Regex.replace(link_regex, text, link)
   end
 
@@ -59,5 +61,17 @@ defmodule Bayberry.Twitter.Stream do
     atmention_regex = ~r/\@([\w]+)?/
     atmention = ~s[<a href="https://twitter.com/\\1" target="_blank">@\\1</a>]
     Regex.replace(atmention_regex, text, atmention)
+  end
+
+  defp track(text) do
+    {:ok, keywords} = @redis.command(:redix, ["get", "twitter:track"])
+    patterns =
+      keywords
+      |> String.split(",")
+      |> Enum.join("|")
+
+    track_regex = ~r/(#{patterns})/iu
+    track = ~s[<strong class="track">\\1</strong>]
+    Regex.replace(track_regex, text, track)
   end
 end

@@ -3,7 +3,10 @@ defmodule Stub.Bayberry.Service.Redis do
 
   def command(_conn, command) do
     case command do
-      ["get", "twitter:track"] -> {:ok, "#hashtag"}
+      ["get", "twitter:track"] ->
+        hashtags = "#randomtweet,#wikipedia,#goodrant,#powerrant,#midnightbling"
+        {:ok, hashtags}
+
       _ -> {:ok, nil}
     end
   end
