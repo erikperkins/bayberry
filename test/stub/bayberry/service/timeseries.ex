@@ -19,8 +19,4 @@ defmodule Stub.Bayberry.Service.Timeseries do
 
     Endpoint.broadcast("twitter:stream", "timeseries", timeseries)
   end
-
-  def count(tweet) do
-    {:ok, tweet}
-  end
 end

@@ -80,7 +80,9 @@ config :bayberry, :rabbitmq,
   host: System.get_env("RABBITMQ_HOST")
 
 config :bayberry, :redis,
-  host: System.get_env("REDIS_HOST")
+  host: System.get_env("REDIS_HOST"),
+  database: System.get_env("REDIS_DATABASE"),
+  password: System.get_env("REDIS_PASSWORD")
 
 config :bayberry, BayberryWeb.Plugs,
   authorization: BayberryWeb.Plugs.Authorization,
@@ -91,5 +93,4 @@ config :bayberry, Bayberry.Service,
   nlp: Stub.Bayberry.Service.NLP,
   rabbitmq: Stub.Bayberry.Service.RabbitMQ,
   redis: Stub.Bayberry.Service.Redis,
-  timeseries: Stub.Bayberry.Service.Timeseries,
-  twitter: Stub.Bayberry.Service.Twitter
+  timeseries: Stub.Bayberry.Service.Timeseries

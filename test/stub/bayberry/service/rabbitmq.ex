@@ -7,6 +7,7 @@ defmodule Stub.Bayberry.Service.RabbitMQ do
   end
 
   def consume(_queue) do
+    spawn(fn -> produce() end)
     {:ok, %Channel{}}
   end
 

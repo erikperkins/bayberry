@@ -15,7 +15,7 @@
     </div>
     <div class='row justify-content-center'>
       <p class='lead text-center'>
-        This is a live stream of tweets, and a live forecast of their volume.
+        This is a live stream of tweets, with a live forecast of their volume.
       </p>
     </div>
 
@@ -75,8 +75,8 @@
       This is a live stream from <a href='http://www.twitter.com'>Twitter</a>.
       It is a small sample of the total number of tweets. About 5,000
       tweets are posted every second, which adds up to nearly 200 billion each
-      year. The stream here is further filtered by user, containing all tweets
-      from, in reply to, or retweeting a particular collection of users.
+      year. The stream here is further filtered by keyword, containing all tweets
+      from, in reply to, or retweeting a particular keyword, such as a hashstag.
       This particular filter was chosen solely to ensure a steady tweet stream.
       A live forecast of the minutewise stream volume is shown above the tweets;
       the dotted portions of the observed and forecast values indicate the
@@ -106,30 +106,32 @@
 
     <h4 class='display-4'>What is it made with?</h4>
     <p>
-      This component of the site uses the main Phoenix compontent application to
-      consume a stream of tweets from Twitter, and shunt them into a RabbitMQ
-      message queue for distribution to Redis for tallying. A small application
-      written in Haskell queries Redis and runs a forecast of the tweet volume
-      for the next upcoming minute.
+      This component of the site uses a Haskell microservice to consume a stream
+      of tweets from Twitter. A Redis key-value store keeps the recent observed
+      tweet volume, while a RabbitMQ message queue delivers the tweet stream to
+      the main application.
     </p>
 
     <h4 class='display-4'>How does it work?</h4>
     <p>
       The data displayed here is consumed from the Twitter streaming
       <a href='https://dev.twitter.com/streaming/overview'>API</a>
-      by an Elixir worker process. The stream is partitioned into individual
-      tweets, which are encoded as JSON and passed into RabbitMQ. Another
-      Elixir process retrieves the tweets from the message queue and broadcasts
-      them over a websocket channel. On the client side, a bit of JavaScript
-      connects to the websocket, subscribes to the channel, and updates the
-      article as the tweets are streamed to the browser. Similar to the handwritten
-      digit recognition article, the Twitter bird icon turns red if the websocket
-      is not connected. The Elixir worker also notifies a Redis transient data
-      store of each incoming tweet; Redis keeps a minute-by-minute tally of
-      recent tweets. As tweets are received over the websocket, an Elixir worker
-      calls the Haskell application, which runs a time series forecast based
-      on exponential smoothing, and returns the forecast in JSON form, to be
-      plotted on the forecast chart by D3.js.
+      by a Haskell worker process. The stream is partitioned into individual
+      tweets, which are encoded as JSON and passed into RabbitMQ. As each tweet
+      is passed to RabbitMQ, a tally of recent tweets is updated in Redis. The
+      main application subscribes to the RabbitMQ message queue, and forwards
+      the tweets from there to a visitor's browser over a websocket. The Twitter
+      bird icon on the main page responds to the volume of streaming tweets with
+      a halo proportional in size to the rate of tweets per second; a popup
+      displays this rate when the mouse cursor is hovered over it.
+
+      The Haskell service exposes a JSON API endpoint, which the main website
+      periodically queries. On each query, the Haskell service retrieves the
+      tally of observed tweets from Redis, and runs a time series forecast,
+      which is returned to the main application via the endpoint. This forecast
+      is sent to the browser via websocket, and displayed on the graph using
+      D3.js. The graph updates the number of observed tweets for the current
+      minute.
     </p>
 
   </div>

@@ -11,7 +11,6 @@ defmodule Bayberry.Timeseries.Supervisor do
   def init(:ok) do
     children = [
       @redis.worker(),
-      worker(Bayberry.Timeseries.Incrementer, [], restart: :permanent),
       worker(Bayberry.Timeseries.Stream, [], restart: :permanent)
     ]
 
