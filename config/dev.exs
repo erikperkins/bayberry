@@ -7,7 +7,7 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
 config :bayberry, BayberryWeb.Endpoint,
-  http: [port: 8000, acceptors: 50],
+  http: [port: 8080, acceptors: 50],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
@@ -75,9 +75,10 @@ config :bayberry, Bayberry.Geolocation,
   pool_size: 5
 
 config :bayberry, :rabbitmq,
+  host: System.get_env("RABBITMQ_HOST"),
   username: System.get_env("RABBITMQ_USERNAME"),
   password: System.get_env("RABBITMQ_PASSWORD"),
-  host: System.get_env("RABBITMQ_HOST")
+  message_ttl: System.get_env("RABBITMQ_MESSAGE_TTL")
 
 config :bayberry, :redis,
   host: System.get_env("REDIS_HOST"),

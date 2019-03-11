@@ -12,7 +12,7 @@ defmodule Bayberry.Twitter.Stream do
   end
 
   def init(%{}) do
-    @rabbitmq.consume("tweets")
+    @rabbitmq.consume("tweets", arguments())
   end
 
   def handle_info({:basic_consume_ok, _meta}, channel) do
@@ -28,10 +28,20 @@ defmodule Bayberry.Twitter.Stream do
     {:noreply, channel}
   end
 
+  defp arguments() do
+    {message_ttl, _} =
+      case get_env(:bayberry, :rabbitmq)[:message_ttl] do
+        ttl when not is_nil(ttl) -> Integer.parse(ttl)
+        _ -> {5000, ""}
+      end
+
+    [{"x-message-ttl", message_ttl}]
+  end
+
   defp consume(payload, _channel) do
     case Jason.decode(payload) do
       {:ok, tweet} -> spawn(fn -> broadcast(tweet) end)
-      _ -> Logger.error("Could not decode tweet")
+      {:error, error} -> Logger.error("#{error} :#{payload}")
     end
   end
 

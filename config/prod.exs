@@ -93,9 +93,10 @@ config :bayberry, Bayberry.Geolocation,
   pool_size: 10
 
 config :bayberry, :rabbitmq,
+  host: System.get_env("RABBITMQ_HOST"),
   username: System.get_env("RABBITMQ_USERNAME"),
   password: System.get_env("RABBITMQ_PASSWORD"),
-  host: System.get_env("RABBITMQ_HOST")
+  message_ttl: System.get_env("RABBITMQ_MESSAGE_TTL")
 
 config :bayberry, :redis,
   host: System.get_env("REDIS_HOST"),
