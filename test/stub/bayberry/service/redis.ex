@@ -8,7 +8,7 @@ defmodule Stub.Bayberry.Service.Redis do
   def json(file) do
     Application.app_dir(:bayberry, "/priv/data/#{file}.json")
     |> File.read!()
-    |> Poison.decode!()
+    |> Jason.decode!()
   end
 
   def worker() do

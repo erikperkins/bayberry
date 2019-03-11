@@ -6,7 +6,7 @@ defmodule Bayberry.Service.MNIST do
 
   def digit(id) do
     case HTTPoison.get("#{get_env(:bayberry, :data_punnet)[:mnist]}/#{id}") do
-      {:ok, %Response{body: body}} -> Poison.decode!(body)
+      {:ok, %Response{body: body}} -> Jason.decode!(body)
       {:error, %Error{reason: _}} -> nil
     end
   end
@@ -17,11 +17,11 @@ defmodule Bayberry.Service.MNIST do
 
   def classify(image) do
     url = get_env(:bayberry, :data_punnet)[:mnist]
-    json = Poison.encode!(image)
+    json = Jason.encode!(image)
     header = [{"Content-Type", "application/json"}]
 
     case HTTPoison.post(url, json, header) do
-      {:ok, %Response{body: body}} -> Poison.decode!(body)
+      {:ok, %Response{body: body}} -> Jason.decode!(body)
       {:error, %Error{reason: _}} -> nil
     end
   end

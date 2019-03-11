@@ -10,7 +10,7 @@ defmodule Bayberry.Service.Redis do
     case command(:redix, ["get", file]) do
       {:ok, value} when not is_nil(value) ->
         IO.puts("got #{file} from redis")
-        Poison.decode!(value)
+        Jason.decode!(value)
 
       _ ->
         value =
@@ -18,15 +18,22 @@ defmodule Bayberry.Service.Redis do
           |> File.read!()
 
         command(:redix, ["set", file, value])
-        Poison.decode!(value)
+        Jason.decode!(value)
     end
   end
 
   def worker() do
     host = get_env(:bayberry, :redis)[:host]
+    database = get_env(:bayberry, :redis)[:database]
     password = get_env(:bayberry, :redis)[:password]
-    connection = [host: host, port: 6379, database: 3, password: password]
+    connection = [
+      host: host,
+      port: 6379,
+      database: database,
+      password: password,
+      name: :redix
+    ]
 
-    Spec.worker(Redix, [connection, [name: :redix]])
+    Spec.worker(Redix, [connection])
   end
 end

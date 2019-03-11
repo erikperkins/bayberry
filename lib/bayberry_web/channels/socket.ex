@@ -6,8 +6,6 @@ defmodule BayberryWeb.Socket do
   channel "nlp:*", BayberryWeb.NLP.Channel
   channel "twitter:*", BayberryWeb.Twitter.Channel
 
-  transport :websocket, Phoenix.Transports.WebSocket, check_origin: false
-
   def connect(_params, socket) do
     {:ok, socket}
   end
