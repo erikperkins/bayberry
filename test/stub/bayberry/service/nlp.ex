@@ -6,6 +6,6 @@ defmodule Stub.Bayberry.Service.NLP do
   def topics() do
     "priv/data/topics.json"
     |> File.read!()
-    |> Poison.decode!()
+    |> Jason.decode!()
   end
 end

@@ -32,12 +32,12 @@ defmodule Bayberry.Service.Timeseries do
   end
 
   defp broadcast(body) do
-    case Poison.decode(body) do
+    case Jason.decode(body) do
       {:ok, response} ->
         Endpoint.broadcast("twitter:stream", "timeseries", response || %{})
 
       _ ->
-        Logger.error("Poison decode error")
+        Logger.error("Jason decode error")
     end
   end
 

@@ -28,7 +28,7 @@ defmodule Bayberry.Twitter.Stream do
   end
 
   defp consume(payload, _channel) do
-    case Poison.decode(payload) do
+    case Jason.decode(payload) do
       {:ok, tweet} -> spawn(fn -> @twitter.broadcast(tweet) end)
       _ -> Logger.error("Could not decode tweet")
     end

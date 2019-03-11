@@ -9,7 +9,7 @@ defmodule Stub.Bayberry.Service.MNIST do
   def digits() do
     "priv/data/digits.json"
     |> File.read!()
-    |> Poison.decode!()
+    |> Jason.decode!()
   end
 
   def classify(_image) do
