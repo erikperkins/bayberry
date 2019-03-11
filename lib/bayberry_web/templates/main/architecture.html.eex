@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<%= static_path(@conn, "/css/main.css") %>">
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/architecture.css") %>">
 
 <div class='container'>
   <div class='col-xs-12 col-lg-10 offset-lg-1'>
@@ -16,8 +16,8 @@
 
     <hr/>
 
-    <div id="architecture-diagram" class='text-center'>
-      <img src="<%= static_path(@conn, "/images/datapunnet.png") %>">
+    <div class="text-center">
+      <div id="system-diagram" class="chart"></div>
     </div>
 
     <hr/>
@@ -287,3 +287,5 @@
     </section>
   </div>
 </div>
+
+<script src="<%= static_path(@conn, "/js/architecture.js") %>"></script>

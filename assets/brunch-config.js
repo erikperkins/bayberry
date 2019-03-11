@@ -3,6 +3,7 @@ exports.config = {
   files: {
     javascripts: {
       joinTo: {
+        "js/architecture.js": /^(js\/architecture|vendor|node_modules)/,
         "js/main.js": /^(js\/main|vendor|node_modules)/,
         "js/mnist.js": /^(js\/mnist|node_modules)/,
         "js/nlp.js": /^(js\/nlp|node_modules)/,
@@ -32,6 +33,7 @@ exports.config = {
     stylesheets: {
       joinTo: {
         "css/app.css": /^(css\/app|vendor|node_modules)/,
+        "css/architecture.css": /^(css\/architecture)/,
         "css/main.css": /^(css\/main)/,
         "css/mnist.css": /^(css\/mnist)/,
         "css/nlp.css": /^(css\/nlp)/,
@@ -84,11 +86,13 @@ exports.config = {
 
   modules: {
     autoRequire: {
+      "js/architecture.js": ["js/architecture"],
       "js/main.js": ["js/main"],
       "js/mnist.js": ["js/mnist"],
       "js/nlp.js": ["js/nlp"],
       "js/twitter.js": ["js/twitter"],
       "css/app.css": ["css/app"],
+      "css/architecture.css": ["css/architecture"],
       "css/main.css": ["css/main"],
       "css/mnist.css": ["css/mnist"],
       "css/nlp.css": ["css/nlp"],
