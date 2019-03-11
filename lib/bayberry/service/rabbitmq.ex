@@ -12,10 +12,10 @@ defmodule Bayberry.Service.RabbitMQ do
     end
   end
 
-  def consume(queue) do
+  def consume(queue, arguments \\ []) do
     with {:ok, connection} <- Connection.open(url()),
          {:ok, channel} <- Channel.open(connection),
-         _ <- Queue.declare(channel, queue),
+         _ <- Queue.declare(channel, queue, arguments: arguments),
          {:ok, _} <- Basic.consume(channel, queue, nil, no_ack: true) do
       {:ok, channel}
     else
