@@ -9,17 +9,17 @@ defmodule Bayberry.Service.Timeseries do
         spawn(fn -> broadcast(body) end)
 
       {:error, %HTTPoison.Error{reason: reason}} ->
-        Logger.error(reason)
+        Logger.error("Cannot retrieve timeseries forecast: #{reason}")
     end
   end
 
   defp broadcast(body) do
     case Jason.decode(body) do
-      {:ok, response} ->
-        Endpoint.broadcast("twitter:stream", "timeseries", response || %{})
+      {:ok, json} ->
+        Endpoint.broadcast("twitter:stream", "timeseries", json || %{})
 
-      _ ->
-        Logger.error("Jason decode error")
+      {:error, error}->
+        Logger.error("#{error}: #{body}")
     end
   end
 end
