@@ -16,7 +16,7 @@
 
     <hr/>
 
-    <div class='text-center'>
+    <div id="architecture-diagram" class='text-center'>
       <img src="<%= static_path(@conn, "/images/datapunnet.png") %>">
     </div>
 
@@ -39,7 +39,7 @@
           <h5 class='lead'><%= link 'Elixir', to: 'https://www.elixir-lang.org/' %></h5>
             Elixir is a functional concurrent language built on the reliable
             <%= link 'Erlang', to: 'http://www.erlang.ong' %> virtual machine,
-            with clean and  aesthetic syntax inspired by Ruby. Its lightweight
+            with clean and aesthetic syntax inspired by Ruby. Its lightweight
             approach to concurrency is useful for robustly handling unstructured
             streaming data. Here, it consumes and distributes streaming Twitter
             data, and is the foundation for the main website.
@@ -97,17 +97,6 @@
 
     <section>
       <h4 class='display-4'>Data Engineering</h4>
-      <div class='media mt-3'>
-        <img src="<%= static_path(@conn, "/images/mongodb-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
-        <div class='media-body'>
-          <h5 class='lead'><%= link 'MongoDB', to: 'https://www.mongodb.com/' %></h5>
-            MongoDB is a document database, storing data as JSON-like
-            collections. Its NoSQL approach to data persistence is useful for
-            storing data where the schema is either unimportant or rapidly
-            changing. It is the backend data store for the semantic word search
-            component of this site.
-        </div>
-      </div>
       <div class='media mt-3'>
         <img src="<%= static_path(@conn, "/images/postgresql-logo.png") %>" width=64 class="d-flex mr-3 align-self-center">
         <div class='media-body'>
@@ -210,7 +199,7 @@
             Snap is a high-performance web framework written in Haskell,
             well-suited for writing REST APIs. It is organized around 'snaplets',
             small composable components of functionality. On this site, Snap
-            manages time series forecasting.
+            manages time series forecasting and consuming streaming Twitter data.
         </div>
       </div>
     </section>
@@ -240,7 +229,7 @@
           important of which is the Elastic Compute Cloud. This service provides
           an affordable and painless way to deploy web-connected servers. This
           website is distributed across several servers, but uses minimal
-          resources, requiring only t2.nano and t2.micro instances. It connects
+          resources, requiring only t3.nano and t3.micro instances. It connects
           to the outside world through
           <%= link 'Elastic IP', to: 'http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html' %>
           and <%= link 'Route 53', to: 'http://aws.amazon.com/route53' %>.

@@ -3,24 +3,6 @@ defmodule Bayberry.Service.Timeseries do
   import Application, only: [get_env: 2]
   alias BayberryWeb.Endpoint
 
-  @redis get_env(:bayberry, Bayberry.Service)[:redis]
-
-  def count(%{"created_at" => created_at}) do
-    timestamp = "%a %b %d %H:%M:%S %z %Y"
-    {:ok, time} = Timex.parse(created_at, timestamp, :strftime)
-
-    day = %{time | hour: 0, minute: 0, second: 0}
-    minute = %{time | second: 0}
-
-    hash = "en:#{Timex.to_unix(day)}"
-    key = Timex.to_unix(minute)
-
-    case @redis.command(:redix, ~w(hincrby #{hash} #{key} 1)) do
-      {:ok, 1} -> expire(hash, day)
-      _ -> nil
-    end
-  end
-
   def forecast() do
     case HTTPoison.get(get_env(:bayberry, :data_punnet)[:timeseries]) do
       {:ok, %HTTPoison.Response{body: body}} ->
@@ -39,10 +21,5 @@ defmodule Bayberry.Service.Timeseries do
       _ ->
         Logger.error("Jason decode error")
     end
-  end
-
-  defp expire(hash, day) do
-    expiry = Timex.to_unix(day) + 30 * 24 * 60 * 60
-    @redis.command(:redix, ~w(expireat #{hash} #{expiry}))
   end
 end

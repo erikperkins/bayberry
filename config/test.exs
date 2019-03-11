@@ -35,5 +35,4 @@ config :bayberry, Bayberry.Service,
   nlp: Stub.Bayberry.Service.NLP,
   rabbitmq: Stub.Bayberry.Service.RabbitMQ,
   redis: Stub.Bayberry.Service.Redis,
-  timeseries: Stub.Bayberry.Service.Timeseries,
-  twitter: Stub.Bayberry.Service.Twitter
+  timeseries: Stub.Bayberry.Service.Timeseries

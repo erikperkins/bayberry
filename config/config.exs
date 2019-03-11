@@ -25,23 +25,6 @@ config :logger, :console,
   format: {Bayberry.LogFormatter, :format},
   metadata: [:request_id]
 
-# Configure Twitter API client
-config :extwitter, :oauth,
-  consumer_key: System.get_env("TWITTER_CONSUMER_KEY"),
-  consumer_secret: System.get_env("TWITTER_CONSUMER_SECRET"),
-  access_token: System.get_env("TWITTER_ACCESS_TOKEN"),
-  access_token_secret: System.get_env("TWITTER_ACCESS_SECRET")
-
-timeout =
-  case Integer.parse(System.get_env("TWITTER_TIMEOUT") || "") do
-    {n, _} -> n
-    :error -> 0
-  end
-
-config :bayberry, :twitter,
-  feed: System.get_env("TWITTER_FEED"),
-  timeout: timeout
-
 # Configure Cross-Origin Resource Sharing
 config :cors_plug,
   origin: "*",

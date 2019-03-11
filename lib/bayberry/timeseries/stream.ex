@@ -20,6 +20,6 @@ defmodule Bayberry.Timeseries.Stream do
 
   def timeseries() do
     spawn(fn -> @timeseries.forecast() end)
-    Process.send_after(self(), :timeseries, 500)
+    Process.send_after(self(), :timeseries, 1000)
   end
 end

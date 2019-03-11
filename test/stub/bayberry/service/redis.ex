@@ -1,8 +1,14 @@
 defmodule Stub.Bayberry.Service.Redis do
   alias Supervisor.Spec
 
-  def command(_conn, _command) do
-    {:ok, nil}
+  def command(_conn, command) do
+    case command do
+      ["get", "twitter:track"] ->
+        hashtags = "#randomtweet,#wikipedia,#goodrant,#powerrant,#midnightbling"
+        {:ok, hashtags}
+
+      _ -> {:ok, nil}
+    end
   end
 
   def json(file) do

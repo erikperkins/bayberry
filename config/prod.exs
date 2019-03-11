@@ -99,6 +99,7 @@ config :bayberry, :rabbitmq,
 
 config :bayberry, :redis,
   host: System.get_env("REDIS_HOST"),
+  database: System.get_env("REDIS_DATABASE"),
   password: System.get_env("REDIS_PASSWORD")
 
 config :bayberry, BayberryWeb.Plugs,

@@ -40,13 +40,18 @@ defmodule Bayberry.Administration.Analytics do
     "#{a}.#{b}.#{c}.#{d}"
   end
 
+  defp ip_string?(ip) do
+    String.match?(ip, ~r/[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}/)
+  end
+
   defp forwarded_for(conn) do
     conn
     |> Plug.Conn.get_req_header("x-forwarded-for")
     |> Enum.at(0)
+    |> (fn ips -> "#{ips}" end).()
     |> String.split(",")
     |> Enum.at(0)
-    |> (fn ip -> ip || "0.0.0.0" end).()
+    |> (fn ip -> if ip_string?(ip), do: ip, else: "0.0.0.0" end).()
     |> String.split(".")
     |> Enum.map(fn a -> Integer.parse(a) end)
     |> Enum.map(fn {a, _} -> a end)
