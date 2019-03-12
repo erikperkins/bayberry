@@ -3,14 +3,16 @@ export var Timeseries = {
     let offset = 60
 
     let
-      [p1, p0, ...p] = json["predicted"].sort((a, b) => a.time - b.time)
-        .reverse().slice(0, offset),
+      [p1, p0, ...p] =
+        json["predicted"].sort((a, b) => a.time - b.time)
+          .reverse().slice(0, offset),
       predicted = [...p.reverse(), p0],
       predictedNow = [p0, p1]
 
     let
-      [o1, o0, ...o] = json["observed"].sort((a, b) => a.time - b.time)
-        .reverse().slice(0, offset),
+      [o1, o0, ...o] =
+        json["observed"].sort((a, b) => a.time - b.time)
+          .reverse().slice(0, offset),
       observed = [...o.reverse(), o0],
       observedNow = [o0, o1]
 
@@ -23,9 +25,10 @@ export var Timeseries = {
     time.domain(domain)
     tweets.domain(codomain)
 
-    let line = d3.line()
-      .x(d => time(parse(d.time)))
-      .y(d => tweets(d.datum))
+    let line =
+      d3.line()
+        .x(d => time(parse(d.time)))
+        .y(d => tweets(d.datum))
 
     predictedPath.attr("d", line(predicted))
     observedPath.attr("d", line(observed))
@@ -52,12 +55,13 @@ export var Timeseries = {
   }
 }
 
-let svg = d3.select("#tweets")
-      .append("div")
-      .classed("svg-container", true)
-      .append("svg")
-      .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 640 320")
+let svg =
+  d3.select("#tweets")
+    .append("div")
+    .classed("svg-container", true)
+    .append("svg")
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "0 0 640 320")
 
 let
   margin = { top: 20, right: 85, bottom: 50, left: 85 },
@@ -83,42 +87,53 @@ tweets.domain([0, 50])
 
 let parse = function(d) { return new Date(parseInt(d) * 1000) }
 
-let predictedPath = group.append("path")
-  .attr("class", "timeseries predicted")
+let predictedPath =
+  group.append("path")
+    .attr("class", "timeseries predicted")
 
-let observedPath = group.append("path")
-  .attr("class", "timeseries observed")
+let observedPath =
+  group.append("path")
+    .attr("class", "timeseries observed")
 
-let predictedNowPath = group.append("path")
-  .attr("class", "timeseries predicted")
-  .attr("stroke-dasharray", "2, 2")
+let predictedNowPath =
+  group.append("path")
+    .attr("class", "timeseries predicted")
+    .attr("stroke-dasharray", "2, 2")
 
-let observedNowPath = group.append("path")
-  .attr("class", "timeseries observed")
-  .attr("stroke-dasharray", "2, 2")
+let observedNowPath =
+  group.append("path")
+    .attr("class", "timeseries observed")
+    .attr("stroke-dasharray", "2, 2")
 
-let tAxisLine = group.append("g").attr("class", "axis")
-  .attr("transform", `translate(0,${height})`)
+let tAxisLine =
+  group.append("g").attr("class", "axis")
+    .attr("transform", `translate(0,${height})`)
+
 tAxisLine.call(d3.axisBottom(time).ticks(5));
 
 let yAxisLine = group.append("g").attr("class", "axis")
 yAxisLine.call(d3.axisLeft(tweets).ticks(5))
 
-let tAxisLabel = svg.append("text")
-  .attr("class", "axis axis-label")
-  .attr(
-    "transform",
-    `translate(${margin.left + width / 2},
-      ${height + margin.bottom + margin.top / 2})`
-  ).text("Time")
+let tAxisLabel =
+  svg.append("text")
+    .attr("class", "axis axis-label")
+    .attr(
+      "transform",
+      `translate(${margin.left + width / 2},
+        ${height + margin.bottom + margin.top / 2})`
+    ).text("Time")
 
-let yAxisLabel = group.append("text")
-  .attr("class", "axis axis-label")
-  .attr("transform", `translate(${-2*margin.left/3},${height/2}) rotate(270)`
-  ).text("Tweets per Minute")
+let yAxisLabel =
+  group.append("text")
+    .attr("class", "axis axis-label")
+    .attr(
+      "transform",
+      `translate(${-2*margin.left/3},${height/2}) rotate(270)`
+    ).text("Tweets per Minute")
 
-let predictedLabel = group.append("g")
-.attr("transform", `translate(0,${height - 15})`)
+let predictedLabel =
+  group.append("g")
+    .attr("transform", `translate(0,${height - 15})`)
 
 predictedLabel.append("circle")
   .attr("class", "predicted-point")
