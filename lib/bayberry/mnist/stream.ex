@@ -10,22 +10,26 @@ defmodule Bayberry.MNIST.Stream do
   end
 
   def init(%{}) do
-    send(self(), :digit)
+    for _ <- 1..@mnist.threads do
+      send(self(), :digit)
+    end
+
     {:ok, %{}}
   end
 
   def handle_info(:digit, state) do
-    digit()
+    spawn(fn -> digit() end)
     {:noreply, state}
   end
 
   defp digit() do
-    message =
-      Enum.random(0..10000)
-      |> @mnist.digit() || %{}
+    Enum.random(0..10000)
+    |> @mnist.digit()
+    |> (&Endpoint.broadcast("mnist:digit", "stream", &1)).()
 
-    Endpoint.broadcast("mnist:digit", "stream", message)
-
-    send(self(), :digit)
+    case GenServer.whereis(__MODULE__) do
+      nil -> nil
+      pid -> send(pid, :digit)
+    end
   end
 end

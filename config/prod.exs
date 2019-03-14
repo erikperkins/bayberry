@@ -75,6 +75,10 @@ config :bayberry, :data_punnet,
   lda: System.get_env("LDA_ENDPOINT"),
   timeseries: System.get_env("TIMESERIES_ENDPOINT")
 
+# Configure MNIST API parameters
+config :bayberry, :mnist,
+  threads: System.get_env("MNIST_THREADS")
+
 # Configure your database
 config :bayberry, Bayberry.Repo,
   adapter: Ecto.Adapters.Postgres,

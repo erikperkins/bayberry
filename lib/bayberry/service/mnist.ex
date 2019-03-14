@@ -7,7 +7,7 @@ defmodule Bayberry.Service.MNIST do
   def digit(id) do
     case HTTPoison.get("#{get_env(:bayberry, :data_punnet)[:mnist]}/#{id}") do
       {:ok, %Response{body: body}} -> Jason.decode!(body)
-      {:error, %Error{reason: _}} -> nil
+      {:error, %Error{reason: _}} -> %{}
     end
   end
 
@@ -22,7 +22,12 @@ defmodule Bayberry.Service.MNIST do
 
     case HTTPoison.post(url, json, header) do
       {:ok, %Response{body: body}} -> Jason.decode!(body)
-      {:error, %Error{reason: _}} -> nil
+      {:error, %Error{reason: _}} -> %{}
     end
+  end
+
+  def threads() do
+    get_env(:bayberry, :mnist)[:threads]
+    |> String.to_integer
   end
 end
