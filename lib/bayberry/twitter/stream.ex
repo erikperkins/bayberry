@@ -29,10 +29,10 @@ defmodule Bayberry.Twitter.Stream do
   end
 
   defp arguments() do
-    {message_ttl, _} =
+    message_ttl =
       case get_env(:bayberry, :rabbitmq)[:message_ttl] do
-        ttl when not is_nil(ttl) -> Integer.parse(ttl)
-        _ -> {5000, ""}
+        ttl when not is_nil(ttl) -> String.to_integer(ttl)
+        _ -> 5000
       end
 
     [{"x-message-ttl", message_ttl}]
