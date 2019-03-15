@@ -69,12 +69,6 @@ config :logger, level: :info
 config :bayberry, BayberryWeb.Endpoint,
   secret_key_base: System.get_env("BAYBERRY_SECRET_KEY_BASE")
 
-# Configure external API endpoints
-config :bayberry, :data_punnet,
-  mnist: System.get_env("MNIST_ENDPOINT"),
-  lda: System.get_env("LDA_ENDPOINT"),
-  timeseries: System.get_env("TIMESERIES_ENDPOINT")
-
 # Configure your database
 config :bayberry, Bayberry.Repo,
   adapter: Ecto.Adapters.Postgres,
@@ -91,21 +85,6 @@ config :bayberry, Bayberry.Geolocation,
   database: System.get_env("GEOLOCATION_DATABASE"),
   hostname: System.get_env("POSTGRES_HOST"),
   pool_size: 10
-
-config :bayberry, :rabbitmq,
-  host: System.get_env("RABBITMQ_HOST"),
-  username: System.get_env("RABBITMQ_USERNAME"),
-  password: System.get_env("RABBITMQ_PASSWORD"),
-  message_ttl: System.get_env("RABBITMQ_MESSAGE_TTL")
-
-config :bayberry, :redis,
-  host: System.get_env("REDIS_HOST"),
-  database: System.get_env("REDIS_DATABASE"),
-  password: System.get_env("REDIS_PASSWORD")
-
-config :bayberry, BayberryWeb.Plugs,
-  authorization: BayberryWeb.Plugs.Authorization,
-  geolocation: BayberryWeb.Plugs.Geolocation
 
 config :bayberry, Bayberry.Service,
   mnist: Bayberry.Service.MNIST,

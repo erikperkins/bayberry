@@ -3,7 +3,7 @@ defmodule BayberryWeb.MNIST.Channel do
   import Application, only: [get_env: 2]
   alias Bayberry.Presence
 
-  @classifier get_env(:bayberry, Bayberry.Service)[:mnist]
+  @mnist get_env(:bayberry, Bayberry.Service)[:mnist]
 
   def join("mnist:digit", _message, socket) do
     send(self(), :after_join)
@@ -27,11 +27,11 @@ defmodule BayberryWeb.MNIST.Channel do
   intercept ["digit-classify", "digits"]
 
   def handle_in("digit-classify", image, socket) do
-    {:reply, {:ok, @classifier.classify(image)}, socket}
+    {:reply, {:ok, @mnist.classify(image)}, socket}
   end
 
   def handle_in("digits", _payload, socket) do
-    {:reply, {:digits, %{digits: @classifier.digits()}}, socket}
+    {:reply, {:digits, %{digits: @mnist.digits()}}, socket}
   end
 
   def terminate({:shutdown, :closed}, socket) do

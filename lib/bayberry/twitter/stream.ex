@@ -29,10 +29,10 @@ defmodule Bayberry.Twitter.Stream do
   end
 
   defp arguments() do
-    {message_ttl, _} =
+    message_ttl =
       case get_env(:bayberry, :rabbitmq)[:message_ttl] do
-        ttl when not is_nil(ttl) -> Integer.parse(ttl)
-        _ -> {5000, ""}
+        ttl when not is_nil(ttl) -> String.to_integer(ttl)
+        _ -> 5000
       end
 
     [{"x-message-ttl", message_ttl}]
@@ -53,6 +53,8 @@ defmodule Bayberry.Twitter.Stream do
     |> atmention()
     |> (&Regex.replace(~r/\n|\r/, &1, "\n")).()
     |> (&Endpoint.broadcast("twitter:stream", "tweet", %{body: &1} || %{})).()
+  rescue
+    Jason.EncodeError -> Logger.warn("Could not encode tweet JSON")
   end
 
   defp hyperlink(text) do

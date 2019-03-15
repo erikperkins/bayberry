@@ -15,4 +15,8 @@ defmodule Stub.Bayberry.Service.MNIST do
   def classify(_image) do
     %{new: true, classification: 0}
   end
+
+  def threads() do
+    2
+  end
 end
