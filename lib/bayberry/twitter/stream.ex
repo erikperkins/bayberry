@@ -53,6 +53,8 @@ defmodule Bayberry.Twitter.Stream do
     |> atmention()
     |> (&Regex.replace(~r/\n|\r/, &1, "\n")).()
     |> (&Endpoint.broadcast("twitter:stream", "tweet", %{body: &1} || %{})).()
+  rescue
+    Jason.EncodeError -> Logger.warn("Could not encode tweet JSON")
   end
 
   defp hyperlink(text) do
