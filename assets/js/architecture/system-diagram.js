@@ -31,8 +31,8 @@ export var SystemDiagram = {
       group: group,
       origin: {x: 0, y: 0},
       name: "main.datapun.net",
-      ec2: micro.type,
-      color: micro.color,
+      ec2: nano.type,
+      color: nano.color,
       dimensions: tetra,
       services: [
         {
