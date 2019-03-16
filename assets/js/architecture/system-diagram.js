@@ -19,19 +19,21 @@ export var SystemDiagram = {
         .attr("transform", `translate(${margin.left},${margin.top})`)
 
     let
-      micro = {width: shift * width - 2 * margin.left, height: height / 2 - 2 * margin.top},
-      nano = {width: (1.0 - shift) * width - pad, height: 0.25 * height},
-      data = {width: micro.width / 3 - pad , height: micro.height - 3 * pad},
-      container = {width: nano.width - 2 * pad, height: nano.height - 3 * pad}
+      tetra = {width: shift * width - 2 * margin.left, height: height / 2 - 2 * margin.top},
+      mono = {width: (1.0 - shift) * width - pad, height: 0.25 * height},
+      data = {width: tetra.width / 3 - pad , height: tetra.height - 3 * pad},
+      container = {width: mono.width - 2 * pad, height: mono.height - 3 * pad},
+      micro = {type: "t3.micro", color: "orange"},
+      nano = {type: "t3.nano", color: "cornflowerblue"}
 
     let main = {
       defs: defs,
       group: group,
       origin: {x: 0, y: 0},
       name: "main.datapun.net",
-      ec2: "t3.micro",
-      color: "orange",
-      dimensions: micro,
+      ec2: nano.type,
+      color: nano.color,
+      dimensions: tetra,
       services: [
         {
           name: "nginx",
@@ -40,7 +42,7 @@ export var SystemDiagram = {
           background: "snow",
           origin: {
             x: pad,
-            y: 0.2 * micro.height
+            y: 0.2 * tetra.height
           },
           dimensions: container
         },
@@ -51,7 +53,7 @@ export var SystemDiagram = {
           background: "papayawhip",
           origin: {
             x: pad,
-            y: 0.6 * micro.height
+            y: 0.6 * tetra.height
           },
           dimensions: container
         },
@@ -62,8 +64,8 @@ export var SystemDiagram = {
           color: "orchid",
           background: "snow",
           origin: {
-            x: 0.5 * micro.width,
-            y: 0.2 * micro.height
+            x: 0.5 * tetra.width,
+            y: 0.2 * tetra.height
           },
           dimensions: container
         }
@@ -74,11 +76,11 @@ export var SystemDiagram = {
     let storage = {
       defs: defs,
       group: group,
-      origin: {x: 0, y: micro.height + pad},
+      origin: {x: 0, y: tetra.height + pad},
       name: "storage.datapun.net",
-      ec2: "t3.micro",
-      color: "orange",
-      dimensions: micro,
+      ec2: micro.type,
+      color: micro.color,
+      dimensions: tetra,
       services: [
         {
           name: "postgres",
@@ -87,7 +89,7 @@ export var SystemDiagram = {
           background: "snow",
           origin: {
             x: pad,
-            y: 0.2 * micro.height
+            y: 0.2 * tetra.height
           },
           dimensions: container
         },
@@ -98,7 +100,7 @@ export var SystemDiagram = {
           background: "papayawhip",
           origin: {
             x: pad,
-            y: 0.6 * micro.height
+            y: 0.6 * tetra.height
           },
           dimensions: container
         },
@@ -108,8 +110,8 @@ export var SystemDiagram = {
           color: "coral",
           background: "snow",
           origin: {
-            x: 0.5 * micro.width,
-            y: 0.2 * micro.height
+            x: 0.5 * tetra.width,
+            y: 0.2 * tetra.height
           },
           dimensions: container
         },
@@ -119,8 +121,8 @@ export var SystemDiagram = {
           color: "indianred",
           background: "snow",
           origin: {
-            x: 0.5 * micro.width,
-            y: 0.6 * micro.height
+            x: 0.5 * tetra.width,
+            y: 0.6 * tetra.height
           },
           dimensions: container
         }
@@ -131,11 +133,11 @@ export var SystemDiagram = {
     let mnist = {
       defs: defs,
       group: group,
-      origin: {x: micro.width + pad, y: 0},
+      origin: {x: tetra.width + pad, y: 0},
       name: "mnist.datapun.net",
-      ec2: "t3.micro",
-      color: "orange",
-      dimensions: nano,
+      ec2: micro.type,
+      color: micro.color,
+      dimensions: mono,
       services: [
         {
           name: "blueberry",
@@ -144,8 +146,8 @@ export var SystemDiagram = {
           color: "skyblue",
           background: "snow",
           origin: {
-            x: 0.5 * (nano.width - container.width),
-            y: 0.8 * (nano.height - container.height)
+            x: 0.5 * (mono.width - container.width),
+            y: 0.8 * (mono.height - container.height)
           },
           dimensions: container
         }
@@ -156,11 +158,11 @@ export var SystemDiagram = {
     let nlp = {
       defs: defs,
       group: group,
-      origin: {x: micro.width + pad, y: height / 3},
+      origin: {x: tetra.width + pad, y: height / 3},
       name: "nlp.datapun.net",
-      ec2: "t3.nano",
-      color: "cornflowerblue",
-      dimensions: nano,
+      ec2: nano.type,
+      color: nano.color,
+      dimensions: mono,
       services: [
         {
           name: "cloudberry",
@@ -169,8 +171,8 @@ export var SystemDiagram = {
           color: "salmon",
           background: "snow",
           origin: {
-            x: 0.5 * (nano.width - container.width),
-            y: 0.8 * (nano.height - container.height)
+            x: 0.5 * (mono.width - container.width),
+            y: 0.8 * (mono.height - container.height)
           },
           dimensions: container
         }
@@ -181,11 +183,11 @@ export var SystemDiagram = {
     let timeseries = {
       defs: defs,
       group: group,
-      origin: {x: micro.width + pad, y: 2 * height / 3},
+      origin: {x: tetra.width + pad, y: 2 * height / 3},
       name: "timeseries.datapun.net",
-      ec2: "t3.nano",
-      color: "cornflowerblue",
-      dimensions: nano,
+      ec2: nano.type,
+      color: nano.color,
+      dimensions: mono,
       services: [
         {
           name: "cranberry",
@@ -194,8 +196,8 @@ export var SystemDiagram = {
           background: "snow",
           color: "plum",
           origin: {
-            x: 0.5 * (nano.width - container.width),
-            y: 0.8 * (nano.height - container.height)
+            x: 0.5 * (mono.width - container.width),
+            y: 0.8 * (mono.height - container.height)
           },
           dimensions: container
         }
