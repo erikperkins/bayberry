@@ -6,13 +6,15 @@ defmodule Bayberry.Twitter.Stream do
 
   @rabbitmq get_env(:bayberry, Bayberry.Service)[:rabbitmq]
   @redis get_env(:bayberry, Bayberry.Service)[:redis]
+  @queue "tweets"
+  @ttl 5000
 
   def start_link do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
   def init(%{}) do
-    @rabbitmq.consume("tweets", arguments())
+    @rabbitmq.consume(@queue, arguments())
   end
 
   def handle_info({:basic_consume_ok, _meta}, channel) do
@@ -23,8 +25,17 @@ defmodule Bayberry.Twitter.Stream do
     {:stop, :normal, channel}
   end
 
+  def handle_info({:basic_cancel_ok, _meta}, channel) do
+    {:stop, :normal, channel}
+  end
+
   def handle_info({:basic_deliver, payload, _meta}, channel) do
     spawn(fn -> consume(payload, channel) end)
+    {:noreply, channel}
+  end
+
+  def handle_info({:DOWN, _ref , :process, _pid, _reason}, _) do
+    {:ok, channel} = @rabbitmq.consume(@queue)
     {:noreply, channel}
   end
 
@@ -32,7 +43,7 @@ defmodule Bayberry.Twitter.Stream do
     message_ttl =
       case get_env(:bayberry, :rabbitmq)[:message_ttl] do
         ttl when not is_nil(ttl) -> String.to_integer(ttl)
-        _ -> 5000
+        _ -> @ttl
       end
 
     [{"x-message-ttl", message_ttl}]
@@ -54,7 +65,7 @@ defmodule Bayberry.Twitter.Stream do
     |> (&Regex.replace(~r/\n|\r/, &1, "\n")).()
     |> (&Endpoint.broadcast("twitter:stream", "tweet", %{body: &1} || %{})).()
   rescue
-    Jason.EncodeError -> Logger.warn("Could not encode tweet JSON")
+    Jason.EncodeError -> Logger.warn("Could not broadcast tweet:\n#{text}\n")
   end
 
   defp hyperlink(text) do
