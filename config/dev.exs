@@ -7,7 +7,7 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
 config :bayberry, BayberryWeb.Endpoint,
-  http: [port: 8080, acceptors: 50],
+  http: [port: 8080, acceptors: 5],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
