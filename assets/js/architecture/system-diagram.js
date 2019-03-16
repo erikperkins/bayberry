@@ -69,7 +69,7 @@ export var SystemDiagram = {
         }
       ]
     }
-    draw(main)
+    instance(main)
 
     let storage = {
       defs: defs,
@@ -126,7 +126,7 @@ export var SystemDiagram = {
         }
       ]
     }
-    draw(storage)
+    instance(storage)
 
     let mnist = {
       defs: defs,
@@ -151,7 +151,7 @@ export var SystemDiagram = {
         }
       ]
     }
-    draw(mnist)
+    instance(mnist)
 
     let nlp = {
       defs: defs,
@@ -176,7 +176,7 @@ export var SystemDiagram = {
         }
       ]
     }
-    draw(nlp)
+    instance(nlp)
 
     let timeseries = {
       defs: defs,
@@ -201,7 +201,7 @@ export var SystemDiagram = {
         }
       ]
     }
-    draw(timeseries)
+    instance(timeseries)
 
     let reverseProxy = {
       protocol: "tcp",
@@ -335,7 +335,7 @@ export var SystemDiagram = {
   }
 }
 
-function draw(host) {
+function instance(host) {
   let group =
     host.group.append("g")
       .attr("x", host.origin.x)
@@ -459,18 +459,34 @@ function protocol(group, path) {
       .attr("fill", "none")
       .attr("stroke", "white")
       .attr("stroke-width", "8px")
-      .style("opacity", 0.5)
+      .style("opacity", 0.4)
 
-  let length = connection.node().getTotalLength()
+  let
+    ping = 10,
+    length = connection.node().getTotalLength(),
+    tcp = document.createElement("style"),
+    name = `${path.start.id}-${path.end.id}`.replace(/#/g, '')
+
+  let
+    keyFrames =
+      `@keyframes ${name} {
+        0% { stroke-dashoffset: ${2 * ping}; }
+        25% { stroke-dashoffset: ${2 * ping}; }
+        100% { stroke-dashoffset: -LENGTH; }
+      }`
+
+  tcp.type = "text/css"
+  tcp.innerHTML = keyFrames.replace(/LENGTH/g, length + ping)
+  document.getElementsByTagName("head")[0].appendChild(tcp)
 
   let stroke = {
     amqp: {
-      animation: "amqp linear 4s infinite reverse",
-      dashes: `10 ${length / 4}`
+      animation: "amqp linear 3s infinite",
+      dashes: `${ping} ${length / 3}`
     },
     tcp: {
-      animation: "tcp linear 1s infinite alternate-reverse",
-      dashes: `10 ${2 * length}`
+      animation: `${name} linear 1s ${2 * Math.random()}s infinite alternate`,
+      dashes: `${ping} ${length + 4 * ping}`
     }
   }
 
@@ -481,6 +497,7 @@ function protocol(group, path) {
       .attr("fill", "none")
       .attr("stroke", "darkorange")
       .attr("stroke-width", "2px")
+      .attr("stroke-dashoffset", ping)
       .attr("stroke-dasharray", stroke[path.protocol].dashes)
       .style("animation", stroke[path.protocol].animation)
 

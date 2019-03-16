@@ -29,6 +29,7 @@ export var Timeseries = {
       d3.line()
         .x(d => time(parse(d.time)))
         .y(d => tweets(d.datum))
+        .curve(d3.curveNatural)
 
     predictedPath.attr("d", line(predicted))
     observedPath.attr("d", line(observed))
