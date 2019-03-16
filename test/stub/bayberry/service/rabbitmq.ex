@@ -1,11 +1,6 @@
 defmodule Stub.Bayberry.Service.RabbitMQ do
   alias AMQP.Channel
 
-  def declare(_queue) do
-    state = %{channel: %Channel{}}
-    {:ok, state}
-  end
-
   def consume(_queue, _arguments \\ []) do
     spawn(fn -> produce() end)
     {:ok, %Channel{}}
