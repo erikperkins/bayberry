@@ -24,6 +24,7 @@ defmodule Bayberry.Administration do
       from r in Visitor,
         join: t in Visit,
         on: r.id == t.visitor_id,
+        where: not is_nil(r.latitude) and not is_nil(r.longitude),
         distinct: true,
         select: %{
           id: r.id,
