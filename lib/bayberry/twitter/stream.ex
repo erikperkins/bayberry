@@ -69,19 +69,19 @@ defmodule Bayberry.Twitter.Stream do
   end
 
   defp hyperlink(text) do
-    link_regex = ~r/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/
+    link_regex = ~r/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/iu
     link = ~s[<a href='\\1' target='_blank'>\\1</a>]
     Regex.replace(link_regex, text, link)
   end
 
   defp hashtag(text) do
-    hashtag_regex = ~r/\#([\w]+)?/
+    hashtag_regex = ~r/\#([\w]+)?/iu
     hashtag = ~s[<a href="https://twitter.com/hashtag/\\1?src=hash" target="_blank">#\\1</a>]
     Regex.replace(hashtag_regex, text, hashtag)
   end
 
   defp atmention(text) do
-    atmention_regex = ~r/\@([\w]+)?/
+    atmention_regex = ~r/\@([\w]+)?/iu
     atmention = ~s[<a href="https://twitter.com/\\1" target="_blank">@\\1</a>]
     Regex.replace(atmention_regex, text, atmention)
   end
