@@ -26,7 +26,6 @@ export var Classify = {
 
     channel.join()
       .receive("ok", resp => {
-        //document.getElementById("mnist-equals").style['fill'] = "black"
         console.log("Joined mnist:digit successfully", resp)
       }).receive("error", resp => {
         console.log("Unable to join mnist:digit", resp)

@@ -100,11 +100,8 @@
       data. The user draws the digit on an HTML5 canvas, which is base-64
       encoded and sent to Phoenix through a websocket. Phoenix then forwards this
       data to Flask, where the image is cropped, resized, and fed to the neural
-      network, which returns the result in JSON form to Phoenix. Since this series
-      of operations, including the actual digit classification, takes less than
-      one second, it is performed synchronously rather than by a background
-      job. Indeed, most of the wait time is from network latency - a trained
-      neural network is actually quite fast and lightweight.
+      network, which returns the result in JSON form to Phoenix. The actual
+      classification step by the neural network takes about 80 milliseconds.
     </p>
     <p>
       On the <%= link "main page", to: main_path(@conn, :index) %> is a live
