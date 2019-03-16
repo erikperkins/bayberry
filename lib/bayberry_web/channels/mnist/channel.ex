@@ -6,6 +6,10 @@ defmodule BayberryWeb.MNIST.Channel do
   @mnist get_env(:bayberry, Bayberry.Service)[:mnist]
 
   def join("mnist:digit", _message, socket) do
+    {:ok, socket}
+  end
+
+  def join("mnist:stream", _message, socket) do
     send(self(), :after_join)
     {:ok, socket}
   end

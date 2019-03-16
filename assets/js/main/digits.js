@@ -4,13 +4,13 @@ export var Digits = {
   run: () => {
     let socket = new Socket("/socket", {params: {token: window.userToken}})
     socket.connect()
-    let channel = socket.channel("mnist:digit", {})
+    let channel = socket.channel("mnist:stream", {})
 
     channel.join()
-      .receive("ok", () => console.log("Joined mnist:digit"))
-      .receive("error", () => console.log("Unable to join mnist:digit"))
+      .receive("ok", () => console.log("Joined mnist:stream"))
+      .receive("error", () => console.log("Unable to join mnist:stream"))
 
-    channel.on("stream", payload => replaceDigit(payload))
+    channel.on("digit", payload => replaceDigit(payload))
 
     channel.push("digits", {})
       .receive("digits", payload => cloud(payload.digits))
