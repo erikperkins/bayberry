@@ -17,12 +17,14 @@ use Mix.Config
 with {cgroup, _} <- System.cmd("cat", ["/proc/1/cgroup"]),
      true <- String.match?(cgroup, ~r/docker/) do
  config :bayberry, BayberryWeb.Endpoint,
-   http: [port: 80, acceptors: 50],
+   http: [port: 80],
+   transport_options: [acceptors: 50],
    url: [host: "localhost", port: 80]
 else
   false ->
     config :bayberry, BayberryWeb.Endpoint,
-      http: [port: 8080, acceptors: 50],
+      http: [port: 8080],
+      transport_options: [acceptors: 50],
       url: [host: "localhost", port: 8080]
 end
 
