@@ -10,6 +10,10 @@ defmodule Bayberry.Service.MNIST do
       {:ok, %Response{body: body}} ->
         Jason.decode!(body)
 
+      {:error, %Error{reason: :closed}} ->
+        Logger.warn("Retrying image #{id}")
+        digit(id)
+
       {:error, %Error{reason: reason}} ->
         Logger.warn("Failed to get image #{id}: #{reason}")
         :error
