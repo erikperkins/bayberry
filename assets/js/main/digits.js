@@ -15,21 +15,48 @@ export var Digits = {
     channel.push("digits", {})
       .receive("digits", payload => cloud(payload.digits))
 
-    let i = 0
+    let queue = []
+
+    function newIndex(length) {
+      if (queue.length > 5) { queue = queue.slice(-5) }
+
+      let j = 0
+      while (queue.includes(j)) {
+        j = Math.floor(d3.randomUniform(0, length)())
+      }
+      queue.push(j)
+
+      return j
+    }
 
     function replaceDigit(payload) {
       let digitImages = d3.selectAll(".digit-image").nodes()
 
-      let j = Math.floor(d3.randomUniform(0, digitImages.length)())
-      i = (i == j) ? (i + 1) % 10 : j
+      let i = newIndex(digitImages.length)
       let digitImage = d3.select(digitImages[i])
 
-      digitImage.transition(40).style("opacity", 0)
+      let url = `data:image/png;base64,${payload.image}`
+      digitImage.attr("xlink:href", () => url)
+
+      $(digitImage.node()).tooltip("hide")
+        .attr("data-original-title", payload.classification)
+        .tooltip("setContent")
+
+      $(digitImage.node()).filter(":hover").tooltip("show")
+    }
+
+    function fadeDigit(payload) {
+      let digitImages = d3.selectAll(".digit-image").nodes()
+
+      let i = newIndex(digitImages.length)
+      let digitImage = d3.select(digitImages[i])
+
+      digitImage.transition(1).style("opacity", 0)
         .on("end", function() {
           let url = `data:image/png;base64,${payload.image}`
           digitImage.attr("xlink:href", () => url)
 
-          digitImage.transition(40).style("opacity", 1)
+          digitImage.transition(1).style("opacity", 1)
 
           $(this).tooltip("hide")
             .attr("data-original-title", payload.classification)
