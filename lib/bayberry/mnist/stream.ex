@@ -23,9 +23,10 @@ defmodule Bayberry.MNIST.Stream do
   end
 
   defp digit() do
-    Enum.random(0..10000)
-    |> @mnist.digit()
-    |> (&Endpoint.broadcast("mnist:stream", "digit", &1)).()
+    case Enum.random(1..9999) |> @mnist.digit() do
+      :error -> nil
+      response -> Endpoint.broadcast("mnist:stream", "digit", response)
+    end
 
     case GenServer.whereis(__MODULE__) do
       nil -> nil
