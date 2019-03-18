@@ -5,9 +5,9 @@ import {TweetyBird} from "./main/tweetybird"
 import {Visitors} from "./main/visitors"
 import {WordCloud} from "./main/wordcloud"
 
-Architecture.run()
-Digits.run()
-Topics.run()
-Visitors.run()
-TweetyBird.run()
-WordCloud.run()
+setTimeout(Architecture.run, 100)
+setTimeout(Digits.run, 200)
+setTimeout(Topics.run, 300)
+setTimeout(Visitors.run, 400)
+setTimeout(TweetyBird.run, 500)
+setTimeout(WordCloud.run, 600)

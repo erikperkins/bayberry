@@ -1,6 +1,6 @@
 defmodule Stub.Bayberry.Service.MNIST do
   def digit(_id) do
-    Process.sleep(50)
+    Process.sleep(120)
 
     digits()
     |> Enum.random()
