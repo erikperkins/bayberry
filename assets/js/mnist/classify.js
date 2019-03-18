@@ -18,7 +18,7 @@ export var Classify = {
       channel.push("digit-classify", {image: image})
         .receive("ok", payload => {
           $("#mnist-submit-icon").removeClass('fa-spin')
-          $("#mnist-classification").fadeOut(250, function() {
+          $("#mnist-classification").fadeOut(20, function() {
             $(this).text(payload.classification).fadeIn()
           })
         })

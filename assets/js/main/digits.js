@@ -10,7 +10,7 @@ export var Digits = {
       .receive("ok", () => console.log("Joined mnist:stream"))
       .receive("error", () => console.log("Unable to join mnist:stream"))
 
-    channel.on("digit", payload => replaceDigit(payload))
+    channel.on("digit", payload => fadeDigit(payload))
 
     channel.push("digits", {})
       .receive("digits", payload => cloud(payload.digits))
@@ -20,7 +20,7 @@ export var Digits = {
     function newIndex(length) {
       if (queue.length > 5) { queue = queue.slice(-5) }
 
-      let j = 0
+      let j = Math.floor(d3.randomUniform(0, length)())
       while (queue.includes(j)) {
         j = Math.floor(d3.randomUniform(0, length)())
       }
@@ -51,18 +51,19 @@ export var Digits = {
       let i = newIndex(digitImages.length)
       let digitImage = d3.select(digitImages[i])
 
-      digitImage.transition(1).style("opacity", 0)
-        .on("end", function() {
+      let fade = 120
+
+      $(digitImage.node()).fadeOut(fade, () => {
           let url = `data:image/png;base64,${payload.image}`
           digitImage.attr("xlink:href", () => url)
 
-          digitImage.transition(1).style("opacity", 1)
+          $(digitImage.node()).fadeIn(fade, () => {
+            $(digitImage.node()).tooltip("hide")
+              .attr("data-original-title", payload.classification)
+              .tooltip("setContent")
 
-          $(this).tooltip("hide")
-            .attr("data-original-title", payload.classification)
-            .tooltip("setContent")
-
-          $(this).filter(":hover").tooltip("show")
+            $(digitImage.node()).filter(":hover").tooltip("show")
+          })
         })
     }
 
