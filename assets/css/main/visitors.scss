@@ -6,12 +6,19 @@
   fill: wheat;
   stroke: black;
   stroke-width: 1px;
+  animation: fade 1s;
 }
 
 .ocean {
   fill: lighten(#007BFF, 15%);
+  animation: fade 1s;
 }
 
 .visitor {
   fill: #28a745;
+}
+
+@keyframes fade {
+  from: { opacity: 0%; }
+  to: { opacity: 100%; }
 }

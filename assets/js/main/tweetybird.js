@@ -19,7 +19,11 @@ export var TweetyBird = {
       '</div>'
     ].join('')
 
-    $('#bird').tooltip({template: template, animation: false})
+    let grow = d3.transition().duration(500)
+
+    d3.select(".twitterbird").transition(grow).style("font-size", "18px")
+
+    $("#bird").tooltip({template: template, animation: false})
 
     let socket = new Socket("/socket", {params: {token: window.userToken}})
     socket.connect()

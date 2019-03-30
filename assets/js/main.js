@@ -5,9 +5,16 @@ import {TweetyBird} from "./main/tweetybird"
 import {Visitors} from "./main/visitors"
 import {WordCloud} from "./main/wordcloud"
 
-setTimeout(Architecture.run, 100)
-setTimeout(Digits.run, 200)
-setTimeout(Topics.run, 300)
-setTimeout(Visitors.run, 400)
-setTimeout(TweetyBird.run, 500)
-setTimeout(WordCloud.run, 600)
+let placards = [
+  Architecture,
+  Digits,
+  Topics,
+  TweetyBird,
+  WordCloud,
+  Visitors
+]
+
+for (const [i, placard] of placards.entries()) {
+  let timeout = 1000 * Math.asinh(i)
+  setTimeout(placard.run, timeout)
+}

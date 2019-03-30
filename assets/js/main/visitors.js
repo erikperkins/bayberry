@@ -27,11 +27,12 @@ export var Visitors = {
       zoom = d3.zoom(),
       visitors
 
-    var projection = d3.geoOrthographic()
-      .scale(scale)
-      .clipAngle(90)
-      .translate([width/2, height/2])
-      .rotate(coordinates)
+    var projection =
+      d3.geoOrthographic()
+        .scale(scale)
+        .clipAngle(90)
+        .translate([width/2, height/2])
+        .rotate(coordinates)
 
     let svg = d3.select("#visitor-map")
       .attr("width", width)
